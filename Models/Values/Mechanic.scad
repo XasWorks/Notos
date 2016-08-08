@@ -1,6 +1,7 @@
 idlerScrewDiameter = 5;
 idlerScrewHeadDiameter = 10;
 idlerScrewHeadHeight = 4;
+idlerScrewLength = 20;
 
 idlerNutHeight = 4;
 idlerNutWidth = 8 / 0.866;
