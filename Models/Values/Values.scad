@@ -1,17 +1,9 @@
 
+// Mechanik-Werte
+include <Mechanic.scad>
 
 // Idler-Räder-Werte
   smallWheelSize = 11; // Größe der kleinen Räder
-
-// Mechanik-Werte
-  idlerScrewDiameter = 5;
-  idlerScrewHeadDiameter = 10;
-  idlerScrewHeadHeight = 4;
-
-  ballBearingInnerDiameter = idlerScrewDiameter;
-  ballBearingOuterDiameter = 16;
-  ballBearingHeight = 5;
-
 
 // Ketten-Bestimmende Werte
   motorWheelSize = 15; // Größe des Motor-Antriebsrades

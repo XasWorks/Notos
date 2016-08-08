@@ -1,7 +1,7 @@
 include <MCAD/stepper.scad>
 
 use <TagSystem/Tagging.scad>
-include <../Values.scad>
+include <../Values/Values.scad>
 
 
 
@@ -19,11 +19,11 @@ module motor_display() {
 
 module wheels() {
 	if(len(wheelPositions) >= 2) {
-		
+
 		motor_display();
-		
+
 		translate(wheelPositions[0]) motorWheel();
-		
+
 		for( i = [1: len(wheelPositions) - 1]) {
 			translate(wheelPositions[i]) wheel();
 		}
