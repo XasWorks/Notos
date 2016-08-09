@@ -3,8 +3,6 @@ include <MCAD/stepper.scad>
 use <TagSystem/Tagging.scad>
 include <../Values/Values.scad>
 
-
-
 module wheel() {
 	circle(r = smallWheelSize);
 }
@@ -14,7 +12,7 @@ module motor_wheel() {
 }
 
 module motor_display() {
-	translate(wheelPositions[0]) %motor(model=Nema14, size=NemaLengthLong, orientation=[180, 0, 0]);
+	%translate(wheelPositions[0]) motor(model=Nema14, size=NemaLengthLong, orientation=[180, 0, 0]);
 }
 
 module wheels() {
