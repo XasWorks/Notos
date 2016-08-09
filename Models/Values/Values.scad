@@ -10,3 +10,6 @@ include <Track.scad>
 
 // Schrittmotor-Werte
 include <Motor.scad>
+
+// Backplate-Werte
+include <Backplate.scad>
