@@ -1,5 +1,5 @@
 
-$fs = 1;
+$fs = 0.8;
 $fa = 7;
 
 // Mechanik-Werte

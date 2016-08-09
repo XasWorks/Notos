@@ -1,11 +1,15 @@
-idlerScrewDiameter = 5;
-idlerScrewHeadDiameter = 10;
-idlerScrewHeadHeight = 4;
+
+// Größen für die M4-Schraube (Idler)
+idlerScrewDiameter = 4;
+idlerScrewHeadDiameter = 8;
+idlerScrewHeadHeight = 3.25;
 idlerScrewLength = 20;
 
-idlerNutHeight = 4;
-idlerNutWidth = 8 / 0.866;
+// Größen für die Mutter
+idlerNutHeight = 3.2;
+idlerNutWidth = 7 / 0.866;
 
-ballBearingInnerDiameter = 5;
-ballBearingOuterDiameter = 16;
-ballBearingHeight = 5;
+// Größen für die Kugellager
+ballBearingInnerDiameter = 4;
+ballBearingOuterDiameter = 8;
+ballBearingHeight = 3;

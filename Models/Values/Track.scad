@@ -11,7 +11,5 @@ motorWheelSize = 15; // Größe des Motor-Antriebsrades
 	floorWheelEndX 		=	45; 	// Ende der Boden-Räder
 	function floorWheels() = [ for(x = [floorWheelStartX:(floorWheelEndX - floorWheelStartX)/(floorWheelNum-1):floorWheelEndX]) [x, smallWheelSize]];
 
-	echo(len(floorWheels()));
-
 	// Array mit den einzelnen Positionen der Räder (erster Eintrag bestimmt den Motor)
 	wheelPositions = concat([[0, 35], [-57, 32]], floorWheels());
