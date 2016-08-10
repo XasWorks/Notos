@@ -7,7 +7,7 @@ module idlerwheel_bearing_cutouts() render() {
 
 	mounthole_diameter = idlerNutDiameter + (frontplateIdlernutMountWallThickness + playTightFit * 2) + playLooseFit * 3;
 
-	translate([0, 0, ballBearingHeight - 0.001]) cylinder(d = mounthole_diameter, h = 100);
+	translate([0, 0, ballBearingHeight + playTightFit]) cylinder(d = mounthole_diameter, h = 100);
 }
 
 module idlerwheel_track_teeth_cutouts() render() {
