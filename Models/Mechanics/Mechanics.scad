@@ -9,7 +9,7 @@ module idler_screw(backplate_aligned = true) {
 
 module idler_screw_nut() {
 	difference() {
-		cylinder(d = idlerNutWidth, h = idlerNutHeight);
+		cylinder(d = idlerNutDiameter, h = idlerNutHeight);
 		translate([0, 0, -0.1]) cylinder(d = idlerScrewDiameter, h = idlerNutHeight + 0.2);
 	}
 }
