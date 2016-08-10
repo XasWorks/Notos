@@ -3,7 +3,7 @@ include <../Values/Values.scad>
 idlerwheel_piece_height = trackWidth / 2;
 
 module idlerwheel_bearing_cutouts() render() {
-	cylinder(d = ballBearingOuterDiameter + playTightFit*2, h = ballBearingHeight);
+	cylinder(d = ballBearingOuterDiameter + playTightFit*2, h = 100);
 
 	mounthole_diameter = idlerNutDiameter + (frontplateIdlernutMountWallThickness + playTightFit * 2) + playLooseFit * 3;
 
