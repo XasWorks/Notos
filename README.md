@@ -7,7 +7,7 @@ Public repository of the Notos robot project of the [Kolleg St. Thomas][kst] rob
 
 # Prerequisites 
 - Using the OpenSCAD models here requires adding the file Tagging.scad, found in [here](http://www.github.com/Xasin/TRRIAN), to be placed in the OpenSCAD search path under "TagSystem/Tagging.scad"
-- To properly work with the AVR Code, it is recommended to install the [AVR-Plugin found here][avrplug] for eclipse for C and C++
+- To properly work with the AVR Code, it is recommended to install the [AVR-Plugin for eclipse][avrplug] (for C and C++ eclipse versions)
   Currently, there is no workspace, so wait for updates!
 
 
