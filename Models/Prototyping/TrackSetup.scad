@@ -3,16 +3,27 @@ include <MCAD/stepper.scad>
 use <TagSystem/Tagging.scad>
 include <../Values/Values.scad>
 
+use <../Track/Idler.scad>
+use <../Track/Motorwheel.scad>
+
+use <../Mechanics/Mechanics.scad>
+
 module wheel() {
-	circle(r = smallWheelSize);
+	translate([0, 0, backplateTrackPlay])
+		translate([0, 0, trackWidth/2]) {
+			mirror([0, 0, 1]) idlerwheel();
+			idlerwheel();
+		}
+
+	color("grey") idler_screw(true);
 }
 
 module motor_wheel() {
-	circle(r = motorWheelSize);
+	translate([0, 0, backplateTrackPlay]) motorwheel();
 }
 
 module motor_display() {
-	%translate(wheelPositions[0]) motor(model=Nema14, size=NemaLengthLong, orientation=[180, 0, 0]);
+	translate(wheelPositions[0]) translate([0, 0, 1 - backplateThickness]) %motor(model=Nema14, size=NemaLengthLong, orientation=[180, 0, 0]);
 }
 
 module wheels() {

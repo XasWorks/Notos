@@ -17,7 +17,7 @@ module motor_bphole() {
 
 module motor_axis() {
 	difference() {
-		cylinder(d = motorAxisFullDiam + playTightFit * 2, h = motorAxisFullLength);
+		cylinder(d = motorAxisFullDiam + playTightFit * 2, h = motorAxisFullLength + playLooseFit);
 
 		translate([motorAxisFullDiam/2 - (motorAxisFullDiam - motorAxisIndentDiam) - playTightFit, -motorAxisFullDiam/2, motorAxisFullLength - motorAxisIndentLength])
 			cube([motorAxisFullDiam, motorAxisFullDiam, motorAxisIndentLength + 0.1]);

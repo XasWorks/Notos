@@ -1,16 +1,22 @@
 
 // Werte für Idler-Räder
 smallWheelSize = 10;	// Radius des Idler-Rads
-
 // Werte für das Motor-Rad
 motorWheelSize = 15; // Größe des Motor-Antriebsrades
 
-// Breite der Kette
-trackWidth = 20;
+// Größen der Kette
+	trackWidth = 20;
+	trackThickness = 1.5;
 
 // Werte für die Verzahnung der Kette
-	trackTeethHeight = 2;		// Höhe der Verzahnung
-	trackTeethNoslip = 5; 		// Wie weit in der Mitte der Kette die Verzahnung entfernt werden soll, um sie auf den Rädern zu halten.
+	trackTeethHeight = 1.5;		// Höhe der Verzahnung
+	trackTeethBaseWidth = 1.5;	// Breite eines Zahnes
+	trackTeethTopWidth = 0.6;
+
+	trackTeethSpacing = 5;		// Mit welchem Abstand sollen die Zähne vorkommen?
+
+	trackTeethNoslipBase = 3; 	// Wie weit in der Mitte der Kette die Verzahnung entfernt werden soll, um sie auf den Rädern zu halten.
+	trackTeethNoslipTop = 5;
 
 
 // Werte für die Kette selbst
