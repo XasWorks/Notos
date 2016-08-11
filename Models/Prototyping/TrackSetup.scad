@@ -23,7 +23,7 @@ module motor_wheel() {
 }
 
 module motor_display() {
-	translate(wheelPositions[0]) translate([0, 0, 1 - backplateTrackPlay]) %motor(model=Nema14, size=NemaLengthLong, orientation=[180, 0, 0]);
+	translate(wheelPositions[0]) translate([0, 0, 1 - backplateThickness]) %motor(model=Nema14, size=NemaLengthLong, orientation=[180, 0, 0]);
 }
 
 module wheels() {
