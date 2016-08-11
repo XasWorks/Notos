@@ -9,6 +9,12 @@ module track_basicring(r = 10) render(convexity = 3) {
 }
 
 module track_tooth() {
+	teethOffset = $teeth_use_offset ? playLooseFit : 0;
+
+	trackTeethBaseWidth = trackTeethBaseWidth + teethOffset * 2;
+	trackTeethTopWidth = trackTeethTopWidth + teethOffset * 2;
+	trackTeethHeight = trackTeethHeight + teethOffset;
+
 	linear_extrude(height = trackWidth) {
 		polygon([	[trackTeethBaseWidth/2, 0],
 						[trackTeethTopWidth/2, -trackTeethHeight],
@@ -18,6 +24,10 @@ module track_tooth() {
 }
 
 module track_teeth_noslip(r = 10) {
+	teethOffset = $teeth_use_offset ? playLooseFit : 0;
+
+	trackTeethHeight = trackTeethHeight + teethOffset;
+
 	rotate_extrude() {
 		polygon([	[r - trackTeethHeight - 0.01, trackTeethNoslipTop/2],
 						[r - trackTeethHeight - 0.01, -trackTeethNoslipTop/2],
@@ -40,7 +50,9 @@ module track_teeth(r = 10) {
 	}
 }
 
-module track(r = 10) {
+module track(r = 10, clearance_offset = false) {
+	$teeth_use_offset = clearance_offset;
+
 	track_teeth(r);
 	track_basicring(r);
 }

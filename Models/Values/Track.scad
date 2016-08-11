@@ -10,10 +10,10 @@ motorWheelSize = 15; // Größe des Motor-Antriebsrades
 
 // Werte für die Verzahnung der Kette
 	trackTeethHeight = 1.5;		// Höhe der Verzahnung
-	trackTeethBaseWidth = 1.3;	// Breite eines Zahnes
-	trackTeethTopWidth = 0.8;
+	trackTeethBaseWidth = 1.5;	// Breite eines Zahnes
+	trackTeethTopWidth = 1;
 
-	trackTeethSpacing = 3;		// Mit welchem Abstand sollen die Zähne vorkommen?
+	trackTeethSpacing = 5;		// Mit welchem Abstand sollen die Zähne vorkommen?
 
 	trackTeethNoslipBase = 3; 	// Wie weit in der Mitte der Kette die Verzahnung entfernt werden soll, um sie auf den Rädern zu halten.
 	trackTeethNoslipTop = 5;

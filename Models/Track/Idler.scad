@@ -1,4 +1,5 @@
 include <../Values/Values.scad>
+use <Track.scad>
 
 idlerwheel_piece_height = trackWidth / 2;
 
@@ -11,10 +12,7 @@ module idlerwheel_bearing_cutouts() render() {
 }
 
 module idlerwheel_track_teeth_cutouts() render() {
-	translate([0, 0, trackTeethNoslip / 2]) difference() {
-		cylinder(r = smallWheelSize + 0.1, h = 100);
-		cylinder(r = smallWheelSize - trackTeethHeight, h = 100);
-	}
+	translate([0, 0, -trackWidth/2]) track(smallWheelSize, true);
 }
 
 module idlerwheel_screw() {
