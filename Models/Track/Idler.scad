@@ -28,13 +28,10 @@ module idlerwheel_cutouts() render() {
 }
 
 // Simple repräsentation eines Idler-Rads
-module idlerwheel_simple() render() {
+module idlerwheel() render() {
 	difference() {
 		cylinder(r = smallWheelSize, h = idlerwheel_piece_height - 0.002);
 
 		translate([0, 0, -0.001]) idlerwheel_cutouts();
 	}
 }
-
-
-idlerwheel_simple();
