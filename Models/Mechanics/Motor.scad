@@ -20,7 +20,7 @@ module motor_axis() {
 		cylinder(d = motorAxisFullDiam + playTightFit * 2, h = motorAxisFullLength + playLooseFit);
 
 		translate([motorAxisFullDiam/2 - (motorAxisFullDiam - motorAxisIndentDiam) - playTightFit, -motorAxisFullDiam/2, motorAxisFullLength - motorAxisIndentLength])
-			cube([motorAxisFullDiam, motorAxisFullDiam, motorAxisIndentLength + 0.1]);
+			cube([motorAxisFullDiam, motorAxisFullDiam, motorAxisIndentLength + playLooseFit + 0.1]);
 	}
 }
 

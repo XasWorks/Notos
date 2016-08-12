@@ -8,6 +8,8 @@ use <../Track/Motorwheel.scad>
 
 use <../Mechanics/Mechanics.scad>
 
+use <../Plating/Backplate.scad>
+
 module wheel() {
 	translate([0, 0, backplateTrackPlay])
 		translate([0, 0, trackWidth/2]) {
@@ -39,4 +41,6 @@ module wheels() {
 	}
 }
 
+
+%backplate();
 wheels();
