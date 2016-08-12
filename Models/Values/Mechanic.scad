@@ -3,7 +3,7 @@
 idlerScrewDiameter = 4;
 idlerScrewHeadDiameter = 8;
 idlerScrewHeadHeight = 3.25;
-idlerScrewLength = 20;
+idlerScrewLength = 26;
 
 // Größen für die Mutter
 idlerNutHeight = 3.2;

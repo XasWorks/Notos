@@ -7,4 +7,7 @@ backplateThickness = 2;
 backplateTrackPlay = 2;
 
 // Wie groß soll die Wand sein, welche die Mutter an der Frontplate umschließt
-frontplateIdlernutMountWallThickness = 1;
+IdlerNutMountThickness = 1;
+
+// Wie viel der BP soll unten "geschnitten" werden?
+plateGroundClearance = 5;
