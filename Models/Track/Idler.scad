@@ -35,3 +35,5 @@ module idlerwheel() render() {
 		translate([0, 0, -0.001]) idlerwheel_cutouts();
 	}
 }
+
+idlerwheel();
