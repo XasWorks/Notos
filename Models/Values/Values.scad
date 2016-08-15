@@ -17,3 +17,6 @@ include <Motor.scad>
 
 // Backplate-Werte
 include <Backplate.scad>
+
+// Modul-Werte
+include <Modules.scad>

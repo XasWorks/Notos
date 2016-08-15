@@ -13,6 +13,13 @@ module place_at_idlerwheels() {
 module plating_outline() {
 	hull() {
 		translate(wheelPositions[0]) circle(r = motorWheelSize);
-		place_at_idlerwheels() circle(r = smallWheelSize);
+		place_at_idlerwheels() circle(r = smallWheelSize - playLooseFit*2);
+	}
+}
+
+module plating_cut_lower(r = 3) {
+	offset(r = r) difference() {
+		offset(r = -r) children();
+		translate([-200, plateGroundClearance + r - 50]) square([400, 50]);
 	}
 }
