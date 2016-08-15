@@ -9,6 +9,7 @@ use <../Track/Motorwheel.scad>
 use <../Mechanics/Mechanics.scad>
 
 use <../Plating/Backplate.scad>
+use <../Plating/BasicPlating.scad>
 
 use <../Modules/ModuleMount.scad>
 
@@ -37,9 +38,7 @@ module wheels() {
 
 		translate(wheelPositions[0]) motor_wheel();
 
-		for( i = [1: len(wheelPositions) - 1]) {
-			translate(wheelPositions[i]) wheel();
-		}
+		place_at_idlerwheels() wheel();
 	}
 }
 
