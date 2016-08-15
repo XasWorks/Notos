@@ -8,7 +8,7 @@ module motorwheel_basic() {
 }
 
 module motorwheel_axisCutout() {
-	translate([0, 0, -backplateThickness - backplateTrackPlay]) motor_axis();
+	translate([0, 0, -backplateThickness - plateTrackPlay]) motor_axis();
 }
 
 module motorwheel_trackCutout() {
