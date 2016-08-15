@@ -6,6 +6,7 @@ use <../Mechanics/Mechanics.scad>
 use <../Mechanics/Motor.scad>
 use <TagSystem/Tagging.scad>
 use <../Modules/ModuleMount.scad>
+use <PlateConnectors.scad>
 
 module backplate_idlermount() {
 	tag("positive", true) cylinder(d = idlerScrewHeadDiameter + IdlerNutMountThickness*2, h = idlerNutHeight);
@@ -41,6 +42,7 @@ module backplate_cuts() {
 module backplate_positives() {
 	translate([0, 0, -backplateThickness]) linear_extrude(height= backplateThickness) backplate_cut_outline();
 	place_at_idlerwheels() backplate_idlermount();
+	backplate_plate_connectors();
 }
 
 module backplate() {
