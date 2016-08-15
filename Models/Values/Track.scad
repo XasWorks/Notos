@@ -13,7 +13,7 @@ motorWheelSize = 15; // Größe des Motor-Antriebsrades
 	trackTeethBaseWidth = 1.5;	// Breite eines Zahnes
 	trackTeethTopWidth = 0.6;
 
-	trackTeethSpacing = 5;		// Mit welchem Abstand sollen die Zähne vorkommen?
+	trackTeethSpacing = (smallWheelSize * 6.2831) / 10;		// Mit welchem Abstand sollen die Zähne vorkommen?
 
 	trackTeethNoslipBase = 3; 	// Wie weit in der Mitte der Kette die Verzahnung entfernt werden soll, um sie auf den Rädern zu halten.
 	trackTeethNoslipTop = 5;
@@ -26,4 +26,7 @@ motorWheelSize = 15; // Größe des Motor-Antriebsrades
 	function floorWheels() = [ for(x = [floorWheelStartX:(floorWheelEndX - floorWheelStartX)/(floorWheelNum-1):floorWheelEndX]) [x, smallWheelSize]];
 
 	// Array mit den einzelnen Positionen der Räder (erster Eintrag bestimmt den Motor)
-	wheelPositions = concat([[0, 35], [-57, 32]], floorWheels());
+	wheelPositions = concat([[0, 40], [-57, 35]], floorWheels());
+
+	// Zusätzliche Punkte, mit welchen die Backplate an einigen Stellen vergrößert werden kann.
+	backplateExtraSpots = [wheelPositions[0] + [17.5, 17.5], wheelPositions[0] + [-17.5, 17.5]];

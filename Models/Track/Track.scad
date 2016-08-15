@@ -57,4 +57,4 @@ module track(r = 10, clearance_offset = false) {
 	track_basicring(r);
 }
 
-track(50);
+track(25);

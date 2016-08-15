@@ -8,8 +8,12 @@ use <../Track/Motorwheel.scad>
 
 use <../Mechanics/Mechanics.scad>
 
+use <../Plating/Backplate.scad>
+
+use <../Modules/ModuleMount.scad>
+
 module wheel() {
-	translate([0, 0, backplateTrackPlay])
+		translate([0, 0, plateTrackPlay])
 		translate([0, 0, trackWidth/2]) {
 			mirror([0, 0, 1]) idlerwheel();
 			idlerwheel();
@@ -19,7 +23,7 @@ module wheel() {
 }
 
 module motor_wheel() {
-	translate([0, 0, backplateTrackPlay]) motorwheel();
+	translate([0, 0, plateTrackPlay]) motorwheel();
 }
 
 module motor_display() {
@@ -39,4 +43,5 @@ module wheels() {
 	}
 }
 
+backplate();
 wheels();

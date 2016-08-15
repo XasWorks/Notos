@@ -15,5 +15,8 @@ include <Track.scad>
 // Schrittmotor-Werte
 include <Motor.scad>
 
-// Backplate-Werte
-include <Backplate.scad>
+// Werte für die Außenplatten
+include <Plating.scad>
+
+// Modul-Werte
+include <Modules.scad>
