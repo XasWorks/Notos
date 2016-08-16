@@ -6,7 +6,7 @@ idlerwheel_piece_height = trackWidth / 2;
 module idlerwheel_bearing_cutouts() render() {
 	cylinder(d = ballBearingOuterDiameter + playTightFit*2, h = 100);
 
-	mounthole_diameter = idlerNutDiameter + (IdlerNutMountThickness + playTightFit * 2) + playLooseFit * 3;
+	mounthole_diameter = idlerNutDiameter + (idlerNutMountThickness + playTightFit * 2) + playLooseFit * 3;
 
 	translate([0, 0, ballBearingHeight + playTightFit]) cylinder(d = mounthole_diameter, h = 100);
 }

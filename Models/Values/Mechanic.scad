@@ -8,6 +8,8 @@ idlerScrewLength = 25;
 // Größen für die Mutter
 idlerNutHeight = 3.2;
 idlerNutDiameter = 7 / 0.866;
+idlerNutMountThickness = 1;
+
 
 // Größen für die Kugellager
 ballBearingInnerDiameter = 4;
