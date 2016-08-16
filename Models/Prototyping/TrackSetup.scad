@@ -21,7 +21,7 @@ module wheel() {
 			idlerwheel();
 		}
 
-	%color("grey") idler_screw(true);
+	color("grey") idler_screw(true);
 }
 
 module motor_wheel() {
@@ -29,7 +29,7 @@ module motor_wheel() {
 }
 
 module motor_display() {
-	translate(wheelPositions[0]) translate([0, 0, 1 - backplateThickness]) %motor(model=Nema14, size=NemaLengthLong, orientation=[180, 0, 0]);
+	translate(wheelPositions[0]) translate([0, 0, 1 - backplateThickness]) motor(model=Nema14, size=NemaLengthLong, orientation=[180, 0, 0]);
 }
 
 module wheels() {
@@ -43,6 +43,15 @@ module wheels() {
 	}
 }
 
-translate([0, 0, trackWidth + plateTrackPlay*2]) frontplate();
-backplate();
-wheels();
+module track_assembly() translate([0, -backplateThickness - modulesLength/2, 0]) rotate([90, 0, 0]) {
+	translate([0, 0, trackWidth + plateTrackPlay*2]) frontplate();
+	backplate();
+	wheels();
+}
+
+module track_drive() {
+	track_assembly();
+	mirror([0, 1, 0]) track_assembly();
+}
+
+track_drive();
