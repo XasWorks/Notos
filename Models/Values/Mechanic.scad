@@ -15,3 +15,7 @@ idlerNutMountThickness = 1;
 ballBearingInnerDiameter = 4;
 ballBearingOuterDiameter = 8;
 ballBearingHeight = 3;
+
+// Größen der Platten-Verbindungsschraube
+plateConnectorScrewLength = 25;
+plateConnectorScrewDiameter = 3;

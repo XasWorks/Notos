@@ -12,4 +12,4 @@ motorAxisFullDiam			= 5;		// Diameter der gesamten Achse.
 motorSizeWidth 				= 35;	// Breite des Motors
 motorMountscrewsDistance 	= 26;	// Entfernung der Befestigungschrauben zueinander
 motorBackplateHoleDiameter = 22;	// Größe der runden Fläche vorn am Motor, für die ein Loch gemacht werden muss.
-motorBackplateHoleHeight 	= 2; 	// Höhe eben jener runden Fläche
+motorBackplateHoleHeight 	= 2.5; // Höhe eben jener runden Fläche
