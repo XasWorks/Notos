@@ -3,7 +3,7 @@ include <../Values/Values.scad>
 use <../Tools.scad>
 
 use <BasicPlating.scad>
-
+use <PlateConnectors.scad>
 
 module frontplate_basic() linear_extrude(height = frontplateThickness) plating_cut_lower() plating_outline();
 
@@ -17,13 +17,19 @@ module frontplate_nut_mounts() place_at_idlerwheels() {
 	}
 }
 
+module frontplate_plate_mounts() place_at_array(plateConnectors) {
+
+}
 
 module frontplate_positives() {
 	frontplate_basic();
+
 	frontplate_nut_mounts();
 }
 
 module frontplate_negatives() {
+	translate([0, 0, plateConnectorScrewLength - (trackWidth + 2*plateTrackPlay)]) frontplate_plate_connectors();
+
 	frontplate_screw_cuts();
 }
 

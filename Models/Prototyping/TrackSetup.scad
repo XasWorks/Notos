@@ -10,6 +10,7 @@ use <../Mechanics/Mechanics.scad>
 
 use <../Plating/Backplate.scad>
 use <../Plating/BasicPlating.scad>
+use <../Plating/Frontplate.scad>
 
 use <../Modules/ModuleMount.scad>
 
@@ -20,7 +21,7 @@ module wheel() {
 			idlerwheel();
 		}
 
-	color("grey") idler_screw(true);
+	%color("grey") idler_screw(true);
 }
 
 module motor_wheel() {
@@ -42,5 +43,6 @@ module wheels() {
 	}
 }
 
+translate([0, 0, trackWidth + plateTrackPlay*2]) frontplate();
 backplate();
 wheels();
