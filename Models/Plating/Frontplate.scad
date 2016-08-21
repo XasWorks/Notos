@@ -17,10 +17,6 @@ module frontplate_nut_mounts() place_at_idlerwheels() {
 	}
 }
 
-module frontplate_plate_mounts() place_at_array(plateConnectors) {
-
-}
-
 module frontplate_positives() {
 	frontplate_basic();
 
