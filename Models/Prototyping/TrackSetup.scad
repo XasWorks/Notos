@@ -9,6 +9,8 @@ use <../Track/Motorwheel.scad>
 use <../Mechanics/Mechanics.scad>
 
 use <../Plating/Backplate.scad>
+use <../Plating/BasicPlating.scad>
+use <../Plating/Frontplate.scad>
 
 use <../Modules/ModuleMount.scad>
 
@@ -27,7 +29,7 @@ module motor_wheel() {
 }
 
 module motor_display() {
-	translate(wheelPositions[0]) translate([0, 0, 1 - backplateThickness]) %motor(model=Nema14, size=NemaLengthLong, orientation=[180, 0, 0]);
+	translate(wheelPositions[0]) translate([0, 0, 1 - backplateThickness]) motor(model=Nema14, size=NemaLengthLong, orientation=[180, 0, 0]);
 }
 
 module wheels() {
@@ -37,11 +39,19 @@ module wheels() {
 
 		translate(wheelPositions[0]) motor_wheel();
 
-		for( i = [1: len(wheelPositions) - 1]) {
-			translate(wheelPositions[i]) wheel();
-		}
+		place_at_idlerwheels() wheel();
 	}
 }
 
-backplate();
-wheels();
+module track_assembly() translate([0, -backplateThickness - modulesLength/2, 0]) rotate([90, 0, 0]) {
+	translate([0, 0, trackWidth + plateTrackPlay*2]) frontplate();
+	backplate();
+	wheels();
+}
+
+module track_drive() {
+	track_assembly();
+	mirror([0, 1, 0]) track_assembly();
+}
+
+track_drive();

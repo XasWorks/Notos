@@ -1,5 +1,6 @@
 include <../Values/Values.scad>
 
+use <../Tools.scad>
 
 use <BasicPlating.scad>
 use <../Mechanics/Mechanics.scad>
@@ -9,12 +10,12 @@ use <../Modules/ModuleMount.scad>
 use <PlateConnectors.scad>
 
 module backplate_idlermount() {
-	tag("positive", true) cylinder(d = idlerScrewHeadDiameter + IdlerNutMountThickness*2, h = idlerNutHeight);
+	tag("positive", true) cylinder(d = idlerScrewHeadDiameter + idlerNutMountThickness*2, h = idlerNutHeight);
 	tag("negative", false)	idler_screw(true);
 }
 
 module backplate_extra_spots() {
-	for(i=[0:len(backplateExtraSpots) - 1]) translate(backplateExtraSpots[i]) circle(r = 0.1);
+	place_at_array(backplateExtraSpots) circle(r = 0.1);
 }
 
 module backplate_outline() {
