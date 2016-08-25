@@ -30,3 +30,6 @@ motorWheelSize = 15; // Größe des Motor-Antriebsrades
 
 	// Zusätzliche Punkte, mit welchen die Backplate an einigen Stellen vergrößert werden kann.
 	backplateExtraSpots = [wheelPositions[0] + [17.5, 17.5], wheelPositions[0] + [-17.5, 17.5]];
+
+
+echo(wheelPositions);
