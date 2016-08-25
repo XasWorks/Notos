@@ -9,19 +9,11 @@ function l = lengthAroundWheel(wheelNum, angle)
   l = wheelSizes(wheelNum) * angle;
 endfunction
 
-function d = lengthBetweenWheels(wheelA, wheelB)
-  global wheelPositions wheelSizes;
-  
-  l = norm(wheelPositions(wheelA,:) - wheelPositions(wheelB,:));
-  rDiff = wheelSizes(wheelB) - wheelSizes(wheelA);
-  d = sqrt(l^2 - rDiff^2);
- endfunction
-
-function a = angleOfLine(wheelA, wheelB)
+function [d, a] = lineDetails(wheelA, wheelB)
   global wheelPositions wheelSizes;
   
   conVect = wheelPositions(wheelB,:) - wheelPositions(wheelA,:);
-  initAngle = atan2(conVect(1), conVect(2))
+  initAngle = atan2(conVect(1), conVect(2));
   
   l = norm(conVect);
   rDiff = wheelSizes(wheelB) - wheelSizes(wheelA);
@@ -29,7 +21,8 @@ function a = angleOfLine(wheelA, wheelB)
   extrAngle = asin(rDiff / l);
   
   a = initAngle - extrAngle;
-endfunction
+  d = l * cos(extrAngle);
+ endfunction
 
-
+[d, a] = lineDetails(3, 2)
 angleOfLine(3, 2)
