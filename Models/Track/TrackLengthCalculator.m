@@ -16,7 +16,7 @@ endfunction
 
 function [d, a] = lineDetails(wheelA, wheelB)
   global wheelPositions wheelSizes;
-
+  
   conVect = wheelPositions(wheelB,:) - wheelPositions(wheelA,:);
   initAngle = atan2(conVect(1), conVect(2));
 
@@ -27,6 +27,8 @@ function [d, a] = lineDetails(wheelA, wheelB)
 
   a = initAngle - extrAngle;
   d = l * cos(extrAngle);
+  
+    printf("Calculated the details for wheels %i to %i!\n Wheel-Wheel angle: %f - distance: %f\n Tanget angle: %f - length: %f\n\n", wheelA, wheelB, initAngle, l, a, d);
 endfunction
 
 function i = arLoop(n)
