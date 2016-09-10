@@ -2,6 +2,8 @@
 use strict;
 use warnings;
 
+use CScan;
+
 #Contains all scanned targets in the format "Filename" => {scanned => 0, compiled => 0, uncompiledDeps => 0, referencingFiles => ()}
 my $targets = {};
 my @unscanned = ();
@@ -16,7 +18,7 @@ sub setupTarget {
     compiled => 0,
     uncompiledDeps => 0,
     referencingFiles => [],
-  };
+ 	};
 
   $targets->{$targetname} = $newEntry;
 }
@@ -121,5 +123,5 @@ sub printAllFiles {
   }
 }
 
-scanAllFiles("../MainBoard/main.cpp");
+scanAllFiles("/home/xasin/XasWorks/LZRTag/EclipseWS/MainBoard/main.cpp");
 printAllFiles();
