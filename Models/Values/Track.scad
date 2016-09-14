@@ -25,8 +25,15 @@ motorWheelSize = 15; // Größe des Motor-Antriebsrades
 	floorWheelEndX 		=	45; 	// Ende der Boden-Räder
 	function floorWheels() = [ for(x = [floorWheelStartX:(floorWheelEndX - floorWheelStartX)/(floorWheelNum-1):floorWheelEndX]) [x, smallWheelSize]];
 
+	// Position des Motors
+	motorWheelPosition = [0, 40];
+
+	firstWheelY 	= smallWheelSize*3;
+	firstWheelX 	= floorWheelStartX - (firstWheelY - smallWheelSize);
+	firstWheelPosition = [firstWheelX, firstWheelY];
+
 	// Array mit den einzelnen Positionen der Räder (erster Eintrag bestimmt den Motor)
-	wheelPositions = concat([[0, 40], [-57, 35]], floorWheels());
+	wheelPositions = concat([motorWheelPosition, firstWheelPosition], floorWheels());
 
 	// Zusätzliche Punkte, mit welchen die Backplate an einigen Stellen vergrößert werden kann.
 	backplateExtraSpots = [wheelPositions[0] + [17.5, 17.5], wheelPositions[0] + [-17.5, 17.5]];
