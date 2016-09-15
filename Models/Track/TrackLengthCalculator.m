@@ -7,7 +7,7 @@ wheelPositions = [[0, 40]
 						[-15, 10]
 						[15, 10]
 						[45, 10]];
-wheelSizes = [10, 10, 10, 10, 10, 10];
+wheelSizes = [15, 10, 10, 10, 10, 10];
 
 function aDeg = radToDec(aDeg)
 	aDeg = aDeg * 180 / pi;
