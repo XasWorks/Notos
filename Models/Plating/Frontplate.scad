@@ -8,19 +8,18 @@ use <PlateConnectors.scad>
 module frontplate_basic() linear_extrude(height = frontplateThickness) plating_cut_lower() plating_outline();
 
 module frontplate_screw_cuts() place_at_idlerwheels()
-	translate([0, 0, -trackWidth - plateTrackPlay*2]) cylinder(d = idlerScrewDiameter + playTightFit*2, h = idlerScrewLength);
+	translate([0, 0, -trackWidth - plateTrackPlay*2]) cylinder(d = idlerScrewDiameter + playLooseFit*2, h = idlerScrewLength);
 
-module frontplate_nut_mounts() place_at_idlerwheels() {
-	translate([0, 0, -idlerNutHeight + playLooseFit*2]) difference() {
-		cylinder(d = idlerNutDiameter + idlerNutMountThickness + playTightFit*2, h = idlerNutHeight - playLooseFit*2 + 0.01);
-		translate([0, 0, -0.001]) cylinder(d = idlerNutDiameter + playTightFit*2, h = idlerNutHeight + 0.001);
+module frontplate_spacers() place_at_idlerwheels() {
+	translate([0, 0, -plateTrackPlay]) difference() {
+		cylinder(d = idlerScrewDiameter + playTightFit*2 + plateBearingRingThickness*2, h = plateTrackPlay + 0.001);
 	}
 }
 
 module frontplate_positives() {
 	frontplate_basic();
 
-	frontplate_nut_mounts();
+	frontplate_spacers();
 }
 
 module frontplate_negatives() {

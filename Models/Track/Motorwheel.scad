@@ -12,7 +12,7 @@ module motorwheel_axisCutout() {
 }
 
 module motorwheel_trackCutout() {
-	translate([0, 0, -0.001]) track(motorWheelSize + 0.001, true);
+	translate([0, 0, -0.001]) track(motorWheelSize + 0.001, clearance_offset = true);
 }
 
 module motorwheel() render() {
