@@ -15,12 +15,7 @@ use <../Plating/Frontplate.scad>
 use <../Modules/ModuleMount.scad>
 
 module wheel() {
-		translate([0, 0, plateTrackPlay])
-		translate([0, 0, trackWidth/2]) {
-			mirror([0, 0, 1]) idlerwheel();
-			idlerwheel();
-		}
-
+	translate([0, 0, plateTrackPlay]) idlerwheel();
 	color("grey") idler_screw(true);
 }
 

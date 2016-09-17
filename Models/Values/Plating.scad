@@ -5,6 +5,8 @@ backplateThickness = 2.5;
 frontplateThickness = 2;
 // Wie viel Spielraum zwischen der BP und der Kette gelassen werden soll.
 plateTrackPlay = 2;
+plateBearingRingHeight = 0.2;
+plateBearingRingThickness = 1;
 
 // Wie viel der BP soll unten "geschnitten" werden?
 plateGroundClearance = 5;

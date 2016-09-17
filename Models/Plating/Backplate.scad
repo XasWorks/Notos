@@ -10,7 +10,10 @@ use <../Modules/ModuleMount.scad>
 use <PlateConnectors.scad>
 
 module backplate_idlermount() {
-	tag("positive", true) cylinder(d = idlerScrewHeadDiameter + idlerNutMountThickness*2, h = idlerNutHeight);
+	tag("positive", true) {
+		cylinder(d = idlerScrewHeadDiameter + idlerNutMountThickness*2, h = plateTrackPlay - plateBearingRingHeight);
+		translate([0, 0, plateTrackPlay - plateBearingRingHeight - 0.001]) cylinder(d = idlerScrewDiameter + playTightFit * 2 + plateBearingRingThickness*2, h = plateBearingRingHeight);
+	}
 	tag("negative", false)	idler_screw(true);
 }
 

@@ -11,5 +11,5 @@ module backplate_plate_connectors() place_at_array(plateConnectors) {
 
 module frontplate_plate_connectors() place_at_array(plateConnectors) {
 	cylinder(d = plateConnectorScrewDiameter*2 + playLooseFit*2, h = 10);
-	translate([0, 0, -plateConnectorScrewLength]) cylinder(d = plateConnectorScrewDiameter + playTightFit*2, h = plateConnectorScrewLength + 0.001);
+	translate([0, 0, -plateConnectorScrewLength]) cylinder(d = plateConnectorScrewDiameter + playTightFit*2, h = plateConnectorScrewLength + 0.1);
 }
