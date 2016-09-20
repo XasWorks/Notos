@@ -57,6 +57,7 @@ sub add_file {
 	$fname = clean_file_dir($fname);
 
 	return if fileentry_exists($ftree, $fname);
+	die "File $fname does not exist!" unless -f $fname;
 
 	my $newEntry = {
 		scanned => 0,
@@ -164,11 +165,5 @@ sub get_all_sourcefiles {
 
 	return @files;
 }
-
-my $ftree = new_filetree();
-add_file($ftree, "/home/xasin/XasWorks/LZRTag/EclipseWS/MainBoard/Localcode/Connector.h");
-rescan_all($ftree);
-
-print $_ . "\n" for(get_all_sourcefiles($ftree));
 
 1;
