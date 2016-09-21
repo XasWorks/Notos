@@ -1,0 +1,320 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:MainBoard-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 2 2
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L 7805 U2
+U 1 1 57E31977
+P 4950 5550
+F 0 "U2" H 5100 5354 50  0000 C CNN
+F 1 "7805" H 4950 5750 50  0000 C CNN
+F 2 "" H 4950 5550 50  0000 C CNN
+F 3 "" H 4950 5550 50  0000 C CNN
+	1    4950 5550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4450 5500 4550 5500
+Wire Wire Line
+	5350 5500 5450 5500
+Wire Wire Line
+	4950 6000 4950 5800
+$Comp
+L CP C5
+U 1 1 57E31981
+P 5350 5700
+F 0 "C5" H 5375 5800 50  0000 L CNN
+F 1 "220uF" H 5375 5600 50  0000 L CNN
+F 2 "" H 5388 5550 50  0000 C CNN
+F 3 "" H 5350 5700 50  0000 C CNN
+	1    5350 5700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5350 5550 5400 5500
+Connection ~ 5400 5500
+Wire Wire Line
+	5350 5850 4950 5850
+Connection ~ 4950 5850
+$Comp
+L Battery BT2
+U 1 1 57E3198C
+P 4150 5650
+F 0 "BT2" H 4250 5700 50  0000 L CNN
+F 1 "Battery" H 4250 5600 50  0000 L CNN
+F 2 "" V 4150 5690 50  0000 C CNN
+F 3 "" V 4150 5690 50  0000 C CNN
+	1    4150 5650
+	1    0    0    -1  
+$EndComp
+$Comp
+L D D5
+U 1 1 57E31993
+P 4150 5350
+F 0 "D5" H 4150 5450 50  0000 C CNN
+F 1 "D" H 4150 5250 50  0000 C CNN
+F 2 "" H 4150 5350 50  0000 C CNN
+F 3 "" H 4150 5350 50  0000 C CNN
+	1    4150 5350
+	0    1    1    0   
+$EndComp
+$Comp
+L LED D6
+U 1 1 57E3199A
+P 5800 5400
+F 0 "D6" H 5800 5500 50  0000 C CNN
+F 1 "LED" H 5800 5300 50  0000 C CNN
+F 2 "" H 5800 5400 50  0000 C CNN
+F 3 "" H 5800 5400 50  0000 C CNN
+	1    5800 5400
+	0    -1   -1   0   
+$EndComp
+$Comp
+L R R10
+U 1 1 57E319A1
+P 5800 5750
+F 0 "R10" V 5880 5750 50  0000 C CNN
+F 1 "1kΩ" V 5800 5750 50  0000 C CNN
+F 2 "" V 5730 5750 50  0000 C CNN
+F 3 "" H 5800 5750 50  0000 C CNN
+	1    5800 5750
+	1    0    0    -1  
+$EndComp
+Wire Notes Line
+	3400 6100 6450 6100
+Wire Notes Line
+	6450 6100 6450 4950
+Wire Notes Line
+	6450 4950 3400 4950
+Text Notes 4000 4900 0    60   ~ 0
+Power systems\n
+$Comp
+L R R8
+U 1 1 57E319AC
+P 3850 5350
+F 0 "R8" V 3930 5350 50  0000 C CNN
+F 1 "4.7kΩ" V 3850 5350 50  0000 C CNN
+F 2 "" V 3780 5350 50  0000 C CNN
+F 3 "" H 3850 5350 50  0000 C CNN
+	1    3850 5350
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R9
+U 1 1 57E319B3
+P 3850 5750
+F 0 "R9" V 3930 5750 50  0000 C CNN
+F 1 "2.6kΩ" V 3850 5750 50  0000 C CNN
+F 2 "" V 3780 5750 50  0000 C CNN
+F 3 "" H 3850 5750 50  0000 C CNN
+	1    3850 5750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3850 5500 3850 5600
+Connection ~ 3850 5550
+Wire Notes Line
+	3400 4950 3400 6100
+$Comp
+L F_Small F2
+U 1 1 57E319BD
+P 5450 5300
+F 0 "F2" H 5410 5360 50  0000 L CNN
+F 1 "F_Small" H 5330 5240 50  0000 L CNN
+F 2 "" H 5450 5300 50  0000 C CNN
+F 3 "" H 5450 5300 50  0000 C CNN
+	1    5450 5300
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	5450 5500 5450 5400
+$Comp
+L ZENER D7
+U 1 1 57E319C5
+P 6150 5400
+F 0 "D7" H 6150 5500 50  0000 C CNN
+F 1 "ZENER" H 6150 5300 50  0000 C CNN
+F 2 "" H 6150 5400 50  0000 C CNN
+F 3 "" H 6150 5400 50  0000 C CNN
+	1    6150 5400
+	0    1    1    0   
+$EndComp
+Connection ~ 5250 6000
+Wire Wire Line
+	3850 5900 3850 6000
+Connection ~ 4150 6000
+Wire Wire Line
+	3850 4750 3850 5200
+Wire Wire Line
+	3850 5050 4450 5050
+Wire Wire Line
+	4150 5050 4150 5200
+Connection ~ 4150 5050
+Wire Wire Line
+	4450 5050 4450 5500
+Wire Wire Line
+	5800 6000 5800 5900
+Connection ~ 5800 6000
+Wire Wire Line
+	6150 6000 6150 5600
+Wire Wire Line
+	5450 4750 5450 5200
+Wire Wire Line
+	5450 5100 6150 5100
+Wire Wire Line
+	5800 5100 5800 5200
+Wire Wire Line
+	6150 5100 6150 5200
+Connection ~ 5800 5100
+Wire Wire Line
+	4150 5800 4150 6000
+$Comp
+L CONN_01X10 P10
+U 1 1 57E319DD
+P 2550 5450
+F 0 "P10" H 2550 6000 50  0000 C CNN
+F 1 "CONN_01X10" V 2650 5450 50  0000 C CNN
+F 2 "" H 2550 5450 50  0000 C CNN
+F 3 "" H 2550 5450 50  0000 C CNN
+	1    2550 5450
+	-1   0    0    1   
+$EndComp
+Connection ~ 3850 6000
+Wire Wire Line
+	3850 6000 6150 6000
+Connection ~ 4950 6000
+Text Label 5450 5100 0    60   ~ 0
++5V
+Text Label 3850 5050 0    60   ~ 0
++12V
+Text Label 4350 6000 0    60   ~ 0
+GND
+Wire Wire Line
+	2750 5900 3050 5900
+Wire Wire Line
+	2750 5800 3050 5800
+Wire Bus Line
+	3150 4650 3150 6000
+Wire Wire Line
+	2750 5700 3050 5700
+Entry Wire Line
+	3050 5700 3150 5800
+Entry Wire Line
+	3050 5600 3150 5700
+Entry Wire Line
+	3050 5500 3150 5600
+Entry Wire Line
+	3050 5400 3150 5500
+Entry Wire Line
+	3050 5300 3150 5400
+Entry Wire Line
+	3050 5200 3150 5300
+Entry Wire Line
+	3050 5100 3150 5200
+Entry Wire Line
+	3050 5000 3150 5100
+Wire Wire Line
+	3050 5000 2750 5000
+Wire Wire Line
+	2750 5100 3050 5100
+Wire Wire Line
+	2750 5200 3050 5200
+Wire Wire Line
+	2750 5300 3050 5300
+Wire Wire Line
+	2750 5400 3050 5400
+Wire Wire Line
+	2750 5500 3050 5500
+Wire Wire Line
+	2750 5600 3050 5600
+Text Label 2750 5700 0    60   ~ 0
+VSens
+Entry Wire Line
+	3050 5800 3150 5900
+Entry Wire Line
+	3050 5900 3150 6000
+Text Label 2750 5900 0    60   ~ 0
+GND
+Text Label 2750 5800 0    60   ~ 0
++5V
+Connection ~ 3850 5050
+Connection ~ 5450 5100
+Entry Wire Line
+	3750 4650 3850 4750
+Entry Wire Line
+	5350 4650 5450 4750
+Wire Bus Line
+	3150 4650 5350 4650
+Wire Wire Line
+	3850 5550 3750 5550
+Wire Wire Line
+	3750 5550 3750 4750
+Entry Wire Line
+	3650 4650 3750 4750
+Text Label 3750 5500 1    60   ~ 0
+VSens
+$Comp
+L CONN_01X10 P?
+U 1 1 57E36C76
+P 2000 5450
+F 0 "P?" H 2000 6000 50  0000 C CNN
+F 1 "CONN_01X10" V 2100 5450 50  0000 C CNN
+F 2 "" H 2000 5450 50  0000 C CNN
+F 3 "" H 2000 5450 50  0000 C CNN
+	1    2000 5450
+	1    0    0    -1  
+$EndComp
+Text HLabel 1450 5000 0    60   Input ~ 0
+GND
+Text HLabel 1450 5100 0    60   Input ~ 0
++5V
+Text HLabel 1450 5200 0    60   Input ~ 0
+VSens
+Wire Wire Line
+	1450 5000 1800 5000
+Wire Wire Line
+	1450 5100 1800 5100
+Wire Wire Line
+	1450 5200 1800 5200
+$EndSCHEMATC
