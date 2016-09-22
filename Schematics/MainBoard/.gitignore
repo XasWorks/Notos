@@ -1,1 +1,3 @@
-MainBoard.bak
+*.bak
+*.dcm
+*.net

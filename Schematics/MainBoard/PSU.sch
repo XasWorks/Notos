@@ -48,7 +48,7 @@ L 7805 U2
 U 1 1 57E31977
 P 4950 5550
 F 0 "U2" H 5100 5354 50  0000 C CNN
-F 1 "7805" H 4950 5750 50  0000 C CNN
+F 1 "5V Reg" H 4950 5750 50  0000 C CNN
 F 2 "" H 4950 5550 50  0000 C CNN
 F 3 "" H 4950 5550 50  0000 C CNN
 	1    4950 5550
@@ -82,7 +82,7 @@ L Battery BT2
 U 1 1 57E3198C
 P 4150 5650
 F 0 "BT2" H 4250 5700 50  0000 L CNN
-F 1 "Battery" H 4250 5600 50  0000 L CNN
+F 1 "4C LiPo" H 4250 5600 50  0000 L CNN
 F 2 "" V 4150 5690 50  0000 C CNN
 F 3 "" V 4150 5690 50  0000 C CNN
 	1    4150 5650
@@ -161,7 +161,7 @@ L F_Small F2
 U 1 1 57E319BD
 P 5450 5300
 F 0 "F2" H 5410 5360 50  0000 L CNN
-F 1 "F_Small" H 5330 5240 50  0000 L CNN
+F 1 "2A Fuse" H 5330 5240 50  0000 L CNN
 F 2 "" H 5450 5300 50  0000 C CNN
 F 3 "" H 5450 5300 50  0000 C CNN
 	1    5450 5300
@@ -174,7 +174,7 @@ L ZENER D7
 U 1 1 57E319C5
 P 6150 5400
 F 0 "D7" H 6150 5500 50  0000 C CNN
-F 1 "ZENER" H 6150 5300 50  0000 C CNN
+F 1 ">6.8V" H 6150 5300 50  0000 C CNN
 F 2 "" H 6150 5400 50  0000 C CNN
 F 3 "" H 6150 5400 50  0000 C CNN
 	1    6150 5400
@@ -222,7 +222,7 @@ F 3 "" H 2550 5450 50  0000 C CNN
 $EndComp
 Connection ~ 3850 6000
 Wire Wire Line
-	3850 6000 6150 6000
+	3250 6000 6150 6000
 Connection ~ 4950 6000
 Text Label 5450 5100 0    60   ~ 0
 +5V
@@ -235,7 +235,7 @@ Wire Wire Line
 Wire Wire Line
 	2750 5800 3050 5800
 Wire Bus Line
-	3150 4650 3150 6000
+	3150 3800 3150 6000
 Wire Wire Line
 	2750 5700 3050 5700
 Entry Wire Line
@@ -248,18 +248,6 @@ Entry Wire Line
 	3050 5400 3150 5500
 Entry Wire Line
 	3050 5300 3150 5400
-Entry Wire Line
-	3050 5200 3150 5300
-Entry Wire Line
-	3050 5100 3150 5200
-Entry Wire Line
-	3050 5000 3150 5100
-Wire Wire Line
-	3050 5000 2750 5000
-Wire Wire Line
-	2750 5100 3050 5100
-Wire Wire Line
-	2750 5200 3050 5200
 Wire Wire Line
 	2750 5300 3050 5300
 Wire Wire Line
@@ -295,10 +283,10 @@ Entry Wire Line
 Text Label 3750 5500 1    60   ~ 0
 VSens
 $Comp
-L CONN_01X10 P?
+L CONN_01X10 P9
 U 1 1 57E36C76
 P 2000 5450
-F 0 "P?" H 2000 6000 50  0000 C CNN
+F 0 "P9" H 2000 6000 50  0000 C CNN
 F 1 "CONN_01X10" V 2100 5450 50  0000 C CNN
 F 2 "" H 2000 5450 50  0000 C CNN
 F 3 "" H 2000 5450 50  0000 C CNN
@@ -317,4 +305,333 @@ Wire Wire Line
 	1450 5100 1800 5100
 Wire Wire Line
 	1450 5200 1800 5200
+$Comp
+L A4988 STP1
+U 1 1 57E3E912
+P 3850 2750
+F 0 "STP1" H 4100 3250 60  0000 C CNN
+F 1 "A4988" H 3850 2750 60  0000 C CNN
+F 2 "" H 3850 2750 60  0001 C CNN
+F 3 "" H 3850 2750 60  0001 C CNN
+	1    3850 2750
+	1    0    0    -1  
+$EndComp
+$Comp
+L A4988 STP2
+U 1 1 57E3EE7D
+P 6300 2750
+F 0 "STP2" H 6550 3250 60  0000 C CNN
+F 1 "A4988" H 6300 2750 60  0000 C CNN
+F 2 "" H 6300 2750 60  0001 C CNN
+F 3 "" H 6300 2750 60  0001 C CNN
+	1    6300 2750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3650 3600 3900 3600
+Wire Wire Line
+	6100 3600 6350 3600
+Wire Bus Line
+	5200 1650 5200 3800
+Wire Bus Line
+	2750 3800 5700 3800
+Entry Wire Line
+	5200 2550 5300 2450
+Entry Wire Line
+	5200 2650 5300 2550
+Entry Wire Line
+	5200 2750 5300 2650
+Entry Wire Line
+	5200 3150 5300 3050
+Entry Wire Line
+	5200 3250 5300 3150
+Wire Wire Line
+	5300 3150 5600 3150
+Wire Wire Line
+	5300 3050 5600 3050
+Wire Wire Line
+	5300 2650 5600 2650
+Wire Wire Line
+	5300 2550 5600 2550
+Wire Wire Line
+	5300 2450 5600 2450
+Wire Wire Line
+	5600 2800 5600 2900
+$Comp
+L CONN_01X04 P11
+U 1 1 57E43007
+P 4750 2750
+F 0 "P11" H 4750 3000 50  0000 C CNN
+F 1 "CONN_01X04" V 4850 2750 50  0000 C CNN
+F 2 "" H 4750 2750 50  0000 C CNN
+F 3 "" H 4750 2750 50  0000 C CNN
+	1    4750 2750
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_01X04 P12
+U 1 1 57E43101
+P 7200 2750
+F 0 "P12" H 7200 3000 50  0000 C CNN
+F 1 "CONN_01X04" V 7300 2750 50  0000 C CNN
+F 2 "" H 7200 2750 50  0000 C CNN
+F 3 "" H 7200 2750 50  0000 C CNN
+	1    7200 2750
+	1    0    0    -1  
+$EndComp
+Text Label 5300 2450 0    60   ~ 0
+MS1
+Text Label 5300 2550 0    60   ~ 0
+MS2
+Text Label 5300 2650 0    60   ~ 0
+MS3
+Text Label 5300 3050 0    60   ~ 0
+STEP1
+Text Label 5300 3150 0    60   ~ 0
+STEPD
+Text Label 5300 2300 0    60   ~ 0
+STEPE
+Wire Wire Line
+	5600 2300 5300 2300
+Entry Wire Line
+	5200 2400 5300 2300
+Entry Wire Line
+	2750 2400 2850 2300
+Wire Wire Line
+	2850 2300 3150 2300
+Text Label 2850 2300 0    60   ~ 0
+STEPE
+Wire Bus Line
+	2750 1650 2750 3800
+Wire Wire Line
+	3150 2900 3150 2800
+Wire Wire Line
+	3150 2450 2850 2450
+Wire Wire Line
+	3150 2550 2850 2550
+Wire Wire Line
+	2850 2650 3150 2650
+Wire Wire Line
+	3150 3050 2850 3050
+Wire Wire Line
+	3150 3150 2850 3150
+Entry Wire Line
+	2750 2550 2850 2450
+Entry Wire Line
+	2750 2650 2850 2550
+Entry Wire Line
+	2750 2750 2850 2650
+Entry Wire Line
+	2750 3150 2850 3050
+Entry Wire Line
+	2750 3250 2850 3150
+Text Label 2850 3050 0    60   ~ 0
+STEP0
+Text Label 2850 3150 0    60   ~ 0
+STEPD
+Text Label 2850 2650 0    60   ~ 0
+MS3
+Text Label 2850 2550 0    60   ~ 0
+MS2
+Text Label 2850 2450 0    60   ~ 0
+MS1
+Wire Bus Line
+	2750 1650 3850 1650
+Wire Bus Line
+	5200 1650 6300 1650
+Wire Wire Line
+	3950 1750 3950 1850
+Entry Wire Line
+	3850 1650 3950 1750
+Entry Wire Line
+	3650 1650 3750 1750
+Entry Wire Line
+	6300 1650 6400 1750
+Entry Wire Line
+	6100 1650 6200 1750
+Wire Wire Line
+	6200 1750 6200 1850
+Wire Wire Line
+	6400 1750 6400 1850
+Wire Wire Line
+	3750 1750 3750 1750
+Wire Wire Line
+	3750 1750 3750 1850
+Text Label 3750 1850 2    60   ~ 0
++12V
+Text Label 3950 1850 0    60   ~ 0
++5V
+Text Label 6200 1850 2    60   ~ 0
++12V
+Text Label 6400 1850 0    60   ~ 0
++5V
+$Comp
+L CP C1
+U 1 1 57E4CCD5
+P 3500 3600
+F 0 "C1" H 3525 3700 50  0000 L CNN
+F 1 "220uF" H 3525 3500 50  0000 L CNN
+F 2 "" H 3538 3450 50  0000 C CNN
+F 3 "" H 3500 3600 50  0000 C CNN
+	1    3500 3600
+	0    -1   -1   0   
+$EndComp
+$Comp
+L CP C6
+U 1 1 57E4CE04
+P 5950 3600
+F 0 "C6" H 5975 3700 50  0000 L CNN
+F 1 "220uF" H 5975 3500 50  0000 L CNN
+F 2 "" H 5988 3450 50  0000 C CNN
+F 3 "" H 5950 3600 50  0000 C CNN
+	1    5950 3600
+	0    -1   -1   0   
+$EndComp
+Connection ~ 3800 3600
+Connection ~ 6250 3600
+Wire Wire Line
+	3350 3600 3350 3700
+Wire Wire Line
+	5800 3600 5800 3700
+Entry Wire Line
+	5700 3800 5800 3700
+Entry Wire Line
+	3250 3800 3350 3700
+Text Label 3350 3700 2    60   ~ 0
++12V
+Text Label 5800 3700 2    60   ~ 0
++12V
+Text Label 2750 5600 0    60   ~ 0
+STEP0
+Text Label 2750 5500 0    60   ~ 0
+STEP1
+Text Label 2750 5400 0    60   ~ 0
+STEPD
+Text Label 2750 5300 0    60   ~ 0
+STEPE
+Wire Wire Line
+	1800 5300 1450 5300
+Wire Wire Line
+	1800 5400 1450 5400
+Wire Wire Line
+	1800 5500 1450 5500
+Wire Wire Line
+	1800 5600 1450 5600
+Text HLabel 1450 5300 0    60   Input ~ 0
+STEP0
+Text HLabel 1450 5400 0    60   Input ~ 0
+STEP1
+Text HLabel 1450 5500 0    60   Input ~ 0
+STEPD
+Text HLabel 1450 5600 0    60   Input ~ 0
+STEPE
+Text Notes 6550 5800 0    60   ~ 0
+Overvoltage protector Z-Diode\n\nON-Led\n\n2A Current Fuse
+Wire Notes Line
+	6500 5400 6350 5400
+Wire Notes Line
+	6500 5600 5950 5600
+Wire Notes Line
+	5950 5600 5900 5550
+Wire Notes Line
+	6500 5800 5950 5800
+Wire Notes Line
+	5700 5800 5700 5800
+Wire Notes Line
+	5700 5800 5550 5650
+Wire Notes Line
+	5550 5650 5550 5450
+Text Notes 4300 6450 0    60   ~ 0
+Reverse Polarity Protector Diode\n\nVoltage Divider (1/2.808 ratio or 14V => 5V)
+Wire Notes Line
+	4250 6200 4175 6200
+Wire Notes Line
+	4175 6200 4025 6050
+Wire Notes Line
+	4025 6050 4025 5500
+Wire Notes Line
+	4025 5500 4100 5425
+Wire Notes Line
+	4250 6400 4150 6400
+Wire Notes Line
+	4150 6400 3975 6225
+Wire Notes Line
+	3975 6225 3975 5625
+Wire Notes Line
+	3975 5625 3900 5550
+Wire Notes Line
+	1750 4800 3050 4800
+Wire Notes Line
+	3050 4800 3050 6050
+Wire Notes Line
+	3050 6050 1750 6050
+Wire Notes Line
+	1750 6050 1750 4800
+Text Notes 1750 4750 0    60   ~ 0
+PCB Connector cable \n(10-pin ribbon cable)
+Wire Notes Line
+	2650 1550 2650 3900
+Wire Notes Line
+	2650 3900 7400 3900
+Wire Notes Line
+	7400 3900 7400 1550
+Wire Notes Line
+	7400 1550 2650 1550
+Text Notes 2650 1550 0    60   ~ 0
+Pololu A4988 (or compatible) stepper motor drivers\n
+$Comp
+L CONN_02X04 P13
+U 1 1 57E632D3
+P 2100 2600
+F 0 "P13" H 2100 2850 50  0000 C CNN
+F 1 "CONN_02X04" H 2100 2350 50  0000 C CNN
+F 2 "" H 2100 1400 50  0000 C CNN
+F 3 "" H 2100 1400 50  0000 C CNN
+	1    2100 2600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2350 2450 2650 2450
+Wire Wire Line
+	2350 2550 2650 2550
+Wire Wire Line
+	2350 2650 2650 2650
+Entry Wire Line
+	2650 2450 2750 2550
+Entry Wire Line
+	2650 2550 2750 2650
+Entry Wire Line
+	2650 2650 2750 2750
+Text Label 2400 2650 0    60   ~ 0
+MS3
+Text Label 2400 2550 0    60   ~ 0
+MS2
+Text Label 2400 2450 0    60   ~ 0
+MS1
+Wire Wire Line
+	1850 2450 1800 2500
+Wire Wire Line
+	1850 2550 1800 2600
+Wire Wire Line
+	1800 2700 1850 2650
+Wire Wire Line
+	1800 2500 1800 2950
+Connection ~ 1800 2600
+Wire Wire Line
+	1800 2950 2650 2950
+Connection ~ 1800 2700
+Entry Wire Line
+	2650 2950 2750 3050
+Text Label 1800 2950 2    60   ~ 0
+GND
+Entry Wire Line
+	3150 5900 3250 6000
+Wire Notes Line
+	2650 2300 1600 2300
+Wire Notes Line
+	1600 2300 1600 3000
+Wire Notes Line
+	1600 3000 2650 3000
+Text Notes 1600 2300 0    60   ~ 0
+Microstep select \nswitches
 $EndSCHEMATC
