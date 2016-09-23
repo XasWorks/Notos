@@ -11,6 +11,8 @@ require Exporter;
 @ISA = qw(Exporter);
 our @EXPORT_OK = qw(generate_filetree);
 
+my $cOptions = do "ComOps.pl";
+
 sub get_files_from_ftree {
 	my ($ftree) = @_;
 
@@ -69,11 +71,31 @@ sub generate_filetree {
 	}
 }
 
+sub generate_ccommand {
+	my ($command, $fname) = @_;
 
-my $testFiletree = CScan::new_filetree();
-CScan::add_file($testFiletree, "/home/xasin/XasWorks/LZRTag/EclipseWS/MainBoard/main.cpp");
-CScan::rescan_all($testFiletree);
+	my $strippedName = $fname;
+	$strippedName =~ s/\.\w*$//;
 
-my @sfiles = CScan::get_all_sourcefiles($testFiletree);
-generate_filetree(\@sfiles);
-print "\n";
+	$cOptions->{"strippedName"} 	= $strippedName;
+	$cOptions->{"inputFile"} 		= $fname;
+
+	for(keys($cOptions)) {
+		my ($key, $replacement) = ($_, $cOptions->{$_});
+		$command =~ s/$key/$replacement/;
+	}
+
+	print $command . "\n";
+}
+
+sub test_functions {
+	my $testFiletree = CScan::new_filetree();
+	CScan::add_file($testFiletree, "/home/xasin/XasWorks/LZRTag/EclipseWS/MainBoard/main.cpp");
+	CScan::rescan_all($testFiletree);
+
+	my @sfiles = CScan::get_all_sourcefiles($testFiletree);
+	generate_filetree(\@sfiles);
+	print "\n";
+}
+
+generate_ccommand("avr-gcc -DF_CPU=Frequency -mmcu=Chip -Wall -c -o strippedName.o -OOptimisation inputFile", "main.c");
