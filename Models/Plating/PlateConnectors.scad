@@ -1,6 +1,8 @@
 include <../Values/Values.scad>
 
 use <../Tools.scad>
+use <../Mechanics/Mechanics.scad>
+
 
 module backplate_plate_connectors() place_at_array(plateConnectors) {
 	difference() {
@@ -10,6 +12,5 @@ module backplate_plate_connectors() place_at_array(plateConnectors) {
 }
 
 module frontplate_plate_connectors() place_at_array(plateConnectors) {
-	cylinder(d = plateConnectorScrewDiameter*2 + playLooseFit*2, h = 10);
-	translate([0, 0, -plateConnectorScrewLength]) cylinder(d = plateConnectorScrewDiameter + playTightFit*2, h = plateConnectorScrewLength + 0.1);
+	translate([0, 0, idlerScrewLength - plateTrackPlay*2 - trackWidth]) rotate([180, 0, 0]) idler_screw();
 }
