@@ -1,11 +1,18 @@
 include <../Values/Values.scad>
 
 module idler_screw(backplate_aligned = true) {
-  translate([0, 0, (backplate_aligned) ? - backplateThickness : 0]) {
-	  
-    cylinder(d = idlerScrewHeadDiameter + playLooseFit * 2, h = idlerScrewHeadHeight + playTightFit);
-    translate([0, 0, idlerScrewHeadHeight - 0.0001 ]) cylinder(d = idlerScrewDiameter + playTightFit * 2, h = idlerScrewLength);
-  }
+
+	totalHeadHeight = idlerScrewHeadHeight + playTightFit;
+	totalHeadDiameter = idlerScrewHeadDiameter + playLooseFit * 2;
+
+	totalShaftDiameter = idlerScrewDiameter + playTightFit * 2;
+
+	translate([0, 0, (backplate_aligned) ? - totalHeadHeight : 0]) {
+
+		translate([0, 0, totalHeadHeight - 0.0001 ]) cylinder(d = totalShaftDiameter, h = idlerScrewLength);
+		translate([0, 0, totalHeadHeight - idlerScrewHeadSlope - 0.0001]) cylinder(r1 = totalHeadDiameter/2, r2 = totalShaftDiameter/2, h = idlerScrewHeadSlope + 0.0001);
+		cylinder(d = totalHeadDiameter, h = totalHeadHeight - idlerScrewHeadSlope);
+	}
 }
 
 module idler_screw_nut() {

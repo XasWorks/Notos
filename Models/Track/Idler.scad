@@ -1,7 +1,7 @@
 include <../Values/Values.scad>
 use <Track.scad>
 
-idlerwheel_piece_height = trackWidth;
+idlerwheel_piece_height = trackWidth/2;
 
 module idlerwheel_bearing_cutouts() render() {
 	cylinder(d = ballBearingOuterDiameter + playTightFit*2, h = ballBearingHeight + 0.1);
@@ -20,7 +20,6 @@ module idlerwheel_cutouts() render() {
 	idlerwheel_screw();
 	idlerwheel_track_teeth_cutouts();
 
-	translate([0, 0, idlerwheel_piece_height - (ballBearingHeight)]) idlerwheel_bearing_cutouts();
 	idlerwheel_bearing_cutouts();
 }
 

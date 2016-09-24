@@ -23,12 +23,10 @@ module frontplate_positives() {
 }
 
 module frontplate_negatives() {
-	translate([0, 0, plateConnectorScrewLength - (trackWidth + 2*plateTrackPlay)]) frontplate_plate_connectors();
+	frontplate_plate_connectors();
 
 	frontplate_screw_cuts();
 }
 
 
 module frontplate() difference() { frontplate_positives(); frontplate_negatives(); }
-
-frontplate();
