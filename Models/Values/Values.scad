@@ -3,7 +3,7 @@ $fs = 0.8;
 $fa = 7;
 
 // Spielraum-Werte für den Drucker.
-playTightFit = 0.15;
+playTightFit = 0.09;
 playLooseFit = 0.35;
 
 // Mechanik-Werte
