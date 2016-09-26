@@ -5,10 +5,12 @@ use <../Mechanics/Mechanics.scad>
 
 // POSITIV für die Backplate, an der die Frontplate verbunden wird.
 module backplate_plate_connector() {
-	difference() {
-		cylinder(d = plateConnectorScrewDiameter + playTightFit*2 + 2, h = backplateConnectorHeight);
-		translate([0, 0, -0.1]) cylinder(d = plateConnectorScrewDiameter + playTightFit*2, h = backplateConnectorHeight + 1);
+	tag("positive") difference() {
+		cylinder(d = idlerNutDiameter + playTightFit*2 + 2, h = idlerNutHeight);
+		translate([0, 0, -0.1]) cylinder(d = idlerNutDiameter + playTightFit * 2, h = idlerNutHeight + 0.2, $fn = 6);
 	}
+
+	tag("negative", false) translate([0, 0, -50]) cylinder(d = idlerScrewDiameter + playTightFit*2, h = 100);
 }
 
 // CUTOUT für die Frontplate, da wo die Schrauben rein sollen.

@@ -41,6 +41,7 @@ module backplate_cuts() {
 	modules_screw_cutouts();
 	backplate_motor_cut();
 	translate([0, 0, -0.001]) place_at_idlerwheels() showOnly("negative") backplate_idlermount();
+	showOnly("negative") backplate_plate_connectors();
 }
 
 module backplate_positives() {
