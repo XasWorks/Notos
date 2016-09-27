@@ -15,7 +15,7 @@ module backplate_plate_connector() {
 
 // CUTOUT für die Frontplate, da wo die Schrauben rein sollen.
 module frontplate_plate_connector() {
-	translate([0, 0, idlerScrewLength - plateTrackPlay*2 - trackWidth]) rotate([180, 0, 0]) idler_screw();
+	tag("negative") translate([0, 0, idlerScrewLength - plateTrackPlay*2 - trackWidth]) rotate([180, 0, 0]) idler_screw();
 }
 
 module backplate_plate_connectors()
