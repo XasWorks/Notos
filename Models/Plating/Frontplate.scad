@@ -18,17 +18,6 @@ module frontplate_idler_mount() {
 
 module frontplate_idler_mounts() place_at_idlerwheels() frontplate_idler_mount();
 
-module frontplate_positives() {
-	frontplate_basic();
-
-	frontplate_spacers();
-}
-module frontplate_negatives() {
-	frontplate_plate_connectors();
-
-	frontplate_screw_cuts();
-}
-
 module frontplate() taggedDifference("positive", "negative", "neutral") {
 	frontplate_basic();
 
