@@ -7,12 +7,13 @@ modulesWidth = 40;
 modulesLength = 70;
 
 // Positionen der einzelnen Module
-modulesPositions = [[0, 40 + 37/2 + 3], [-42, 20], [42, 20]];
+lowerModulesHeight = 16;
+modulesPositions = [[0, 40 + 37/2 + 3], [-42, lowerModulesHeight], [42, lowerModulesHeight]];
 
 // Radius der Schraube
 modulesScrewDiameter = 3;
 // Wie tief soll für den Kopf platz gemacht werden?
-modulesScrewHeadCutDepth = 1;
+modulesScrewHeadCutDepth = 1.7;
 
 // --- Variablen des Adapter-Blocks ---
 
