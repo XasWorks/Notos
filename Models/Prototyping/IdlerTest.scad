@@ -11,7 +11,7 @@ screwPos = [[-screwDistance/2, 0], [screwDistance/2, 0]];
 
 module basic_outline() {
 	hull() {
-		circle(r = smallWheelSize);
+		circle(r = idlerwheelSize);
 		place_at_array(screwPos) circle(d = idlerNutDiameter + playTightFit*2 + 2);
 	}
 }

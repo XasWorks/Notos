@@ -8,16 +8,32 @@ module idlerwheel_bearing_cutouts() tag("negative") {
 }
 
 module idlerwheel_track_teeth_cutouts() tag("negative") {
-	track(smallWheelSize, clearance_offset = true);
+	track(idlerwheelSize - 0.001, clearance_offset = true);
 }
 
+iScrewNormalDiameter = idlerScrewDiameter + playLooseFit * 2;
+iScrewSpacedDiameter = iScrewNormalDiameter + idlerwheelScrewExtraSpacing*2;
+iScrewStartHeight = idlerwheelScrewBushingHeight + 1;
+module idlerwheel_screw_start() {
+
+	cylinder(d = iScrewNormalDiameter, h = idlerwheelScrewBushingHeight + 0.01);
+	translate([0, 0, idlerwheelScrewBushingHeight]) cylinder(r1 = iScrewNormalDiameter/2, r2 = iScrewSpacedDiameter/2, h = 1.01);
+}
+
+
 module idlerwheel_screw() tag("negative") {
-	translate([0, 0, -0.1]) cylinder(d = idlerScrewDiameter + playLooseFit * 2, h = idlerwheel_piece_height + 0.2);
+
+	translate([0, 0, -0.001]) {
+		idlerwheel_screw_start();
+		translate([0, 0, iScrewStartHeight]) cylinder(d = iScrewSpacedDiameter, h = trackWidth - iScrewStartHeight * 2 + 0.01);
+		translate([0, 0, trackWidth + 0.01]) mirror([0, 0, 1]) idlerwheel_screw_start();
+	}
 }
 
 // Simple repräsentation eines Idler-Rads
-module idlerwheel() taggedDifference(["positive"],["negative"]) {
-	tag("positive") cylinder(r = smallWheelSize, h = idlerwheel_piece_height - 0.002);
+module idlerwheel()
+	taggedDifference("positive","negative", "neutral") {
+	tag("positive") cylinder(r = idlerwheelSize, h = idlerwheel_piece_height - 0.002);
 
 	translate([0, 0, -0.001]) {
 		idlerwheel_screw();
@@ -27,4 +43,12 @@ module idlerwheel() taggedDifference(["positive"],["negative"]) {
 	}
 }
 
-idlerwheel();
+module bearingless_idlerwheel()
+taggedDifference("positive", "negative", "neutral") {
+	tag("positive") cylinder(r = idlerwheelSize, h = trackWidth);
+
+	idlerwheel_track_teeth_cutouts();
+	idlerwheel_screw();
+}
+
+bearingless_idlerwheel();
