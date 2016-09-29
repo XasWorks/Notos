@@ -16,7 +16,7 @@ modulesScrewHeadCutDepth = 1;
 
 // --- Variablen des Adapter-Blocks ---
 
-modulesAdapterThickness = 3;
+modulesAdapterThickness = 3.5;
 
 // Variablen des Verbinder-Blocks
 modulesAdapterBlockGirth = 5;
@@ -25,5 +25,6 @@ modulesAdapterBlockLift = modulesAdapterThickness - modulesAdapterBlockWallThick
 
 // Variablen der vertikalen Verbinder
 modulesScrewInwardsShift = 3; // Wie weit die Verbinder-Schrauben "nach innen" bewegt werden sollen.
-modulesVertConnectorHeight = 2.4; // Höhe des Verbinders
+modulesVertConnectorHeight =
+	modulesAdapterThickness; // Höhe des Verbinders
 modulesVertConnectorWallThickness = 1;

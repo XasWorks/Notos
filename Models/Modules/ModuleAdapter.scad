@@ -11,20 +11,35 @@ mountUpConnectorPos = [	[mUConX, mUConY],
 								[-mUConX, mUConY],
 								[-mUConX, -mUConY]];
 
+module smoothCube(lX, lY, r, h) {
+	cubeX = lX - r*2;
+	cubeY = lY - r*2;
+
+	linear_extrude(height = h) {
+		offset(r = r) {
+			translate([-cubeX/2, -cubeY/2]) square([cubeX, cubeY]);
+		}
+	}
+}
+
 module mount_connector_block() {
 	wThickness = modulesAdapterBlockWallThickness;
 
 	tScrewDiameter = modulesScrewDiameter + playTightFit*2;
 
+	sleekMode = tScrewDiameter <= modulesAdapterThickness;
+
 	blockWidth = tScrewDiameter + wThickness*2;
 	blockGirth = modulesAdapterBlockGirth;
-	blockHeight = blockWidth;
+	blockHeight = sleekMode ? modulesAdapterThickness : blockWidth ;
 
-	tag("positive") translate([0, -blockWidth/2, 0])	cube([blockGirth, blockWidth, blockHeight]);
-	tag("negative") translate([-0.05, 0, blockHeight/2]) rotate([0, 90, 0]) cylinder(d = tScrewDiameter, h = blockGirth + 10);
+	translate([0, 0, sleekMode ? 0 : modulesAdapterBlockLift]) {
+		tag("positive") translate([0, -blockWidth/2, 0])	cube([blockGirth, blockWidth, blockHeight]);
+		tag("negative") translate([-0.05, 0, blockHeight/2]) rotate([0, 90, 0]) cylinder(d = tScrewDiameter, h = blockGirth + 10);
+	}
 }
 module mount_connector_block_set() {
-	place_at_array(mountConnectorPos) translate([0, 0, modulesAdapterBlockLift]) mount_connector_block();
+	place_at_array(mountConnectorPos) mount_connector_block();
 }
 module mount_connector_blocks() {
 	translate([-modulesLength/2, 0, 0]) mount_connector_block_set();
@@ -37,18 +52,14 @@ module mount_connector_upwards() {
 	tag("negative") translate([0, 0, -0.01])
 		cylinder(d = tScrewDiameter, h = 100);
 
-	tag("positive") cylinder(d = modulesScrewInwardsShift, h = modulesVertConnectorHeight);
+	tag(["positive", "up_connectors"]) cylinder(r = modulesScrewInwardsShift, h = modulesVertConnectorHeight);
 }
 module mount_connectors_upwards() {
 	place_at_array(mountUpConnectorPos) mount_connector_upwards();
 }
 
 module mount_connector_basis() {
-	edgeRounding = modulesScrewInwardsShift;
-
-	tag("positive") linear_extrude(height = modulesAdapterThickness)
-		offset(r = edgeRounding) offset(r = -edgeRounding)
-		translate([-modulesLength/2, -modulesWidth/2]) square([modulesLength, modulesWidth]);
+	tag("positive") smoothCube(modulesLength, modulesWidth, modulesScrewInwardsShift, modulesAdapterThickness);
 }
 
 module mount_connector() {
