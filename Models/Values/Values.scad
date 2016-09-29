@@ -2,7 +2,7 @@
 use <../../../XasCode/OpenSCAD/TagSystem/Tagging.scad>
 
 
-$fs = 0.8;
+$fs = 0.75;
 $fa = 7;
 
 // Spielraum-Werte für den Drucker.

@@ -1,6 +1,6 @@
 
 // Distanz der zwei Anbringungsschrauben für eine Modul-Platte
-modulesConnectorScrewDistance = 25;
+modulesConnectorScrewDistance = 22.5;
 
 // Größenangaben der Module
 modulesWidth = 40;
@@ -13,3 +13,17 @@ modulesPositions = [[0, 40 + 37/2 + 3], [-42, 20], [42, 20]];
 modulesScrewDiameter = 3;
 // Wie tief soll für den Kopf platz gemacht werden?
 modulesScrewHeadCutDepth = 1;
+
+// --- Variablen des Adapter-Blocks ---
+
+modulesAdapterThickness = 3;
+
+// Variablen des Verbinder-Blocks
+modulesAdapterBlockGirth = 5;
+modulesAdapterBlockWallThickness = 1.5;
+modulesAdapterBlockLift = modulesAdapterThickness - modulesAdapterBlockWallThickness;
+
+// Variablen der vertikalen Verbinder
+modulesScrewInwardsShift = 3; // Wie weit die Verbinder-Schrauben "nach innen" bewegt werden sollen.
+modulesVertConnectorHeight = 2.4; // Höhe des Verbinders
+modulesVertConnectorWallThickness = 1;
