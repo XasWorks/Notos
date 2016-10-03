@@ -27,5 +27,5 @@ modulesAdapterBlockLift = modulesAdapterThickness - modulesAdapterBlockWallThick
 // Variablen der vertikalen Verbinder
 modulesScrewInwardsShift = 3; // Wie weit die Verbinder-Schrauben "nach innen" bewegt werden sollen.
 modulesVertConnectorHeight =
-	modulesAdapterThickness; // Höhe des Verbinders
+	modulesAdapterThickness + 1; // Höhe des Verbinders
 modulesVertConnectorWallThickness = 1;
