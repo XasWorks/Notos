@@ -208,7 +208,7 @@ Wire Wire Line
 	6150 5100 6150 5200
 Connection ~ 5800 5100
 Wire Wire Line
-	4150 5800 4150 6000
+	4150 6000 4150 5800
 $Comp
 L CONN_01X10 P10
 U 1 1 57E319DD
@@ -334,7 +334,7 @@ Wire Wire Line
 Wire Bus Line
 	5200 1650 5200 3800
 Wire Bus Line
-	2750 3800 5700 3800
+	2750 3800 6150 3800
 Entry Wire Line
 	5200 2550 5300 2450
 Entry Wire Line
@@ -634,4 +634,16 @@ Wire Notes Line
 	1600 3000 2650 3000
 Text Notes 1600 2300 0    60   ~ 0
 Microstep select \nswitches
+Wire Wire Line
+	3800 3600 3800 3700
+Wire Wire Line
+	6250 3600 6250 3700
+Entry Wire Line
+	3700 3800 3800 3700
+Entry Wire Line
+	6150 3800 6250 3700
+Text Label 3800 3700 0    60   ~ 0
+GND
+Text Label 6250 3700 0    60   ~ 0
+GND
 $EndSCHEMATC
