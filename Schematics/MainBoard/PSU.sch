@@ -83,7 +83,7 @@ U 1 1 57E3198C
 P 4150 5650
 F 0 "BT2" H 4250 5700 50  0000 L CNN
 F 1 "4C LiPo" H 4250 5600 50  0000 L CNN
-F 2 "" V 4150 5690 50  0000 C CNN
+F 2 "Connect:AK300-2" V 4150 5690 50  0001 C CNN
 F 3 "" V 4150 5690 50  0000 C CNN
 	1    4150 5650
 	1    0    0    -1  
@@ -225,9 +225,9 @@ Wire Wire Line
 	3250 6000 6150 6000
 Connection ~ 4950 6000
 Text Label 5450 5100 0    60   ~ 0
-+5V
+5V
 Text Label 3850 5050 0    60   ~ 0
-+12V
+12V
 Text Label 4350 6000 0    60   ~ 0
 GND
 Wire Wire Line
@@ -265,7 +265,7 @@ Entry Wire Line
 Text Label 2750 5900 0    60   ~ 0
 GND
 Text Label 2750 5800 0    60   ~ 0
-+5V
+5V
 Connection ~ 3850 5050
 Connection ~ 5450 5100
 Entry Wire Line
@@ -311,7 +311,7 @@ U 1 1 57E3E912
 P 3850 2750
 F 0 "STP1" H 4100 3250 60  0000 C CNN
 F 1 "A4988" H 3850 2750 60  0000 C CNN
-F 2 "" H 3850 2750 60  0001 C CNN
+F 2 "Housings_DIP:DIP-16_W7.62mm" H 3850 2750 60  0001 C CNN
 F 3 "" H 3850 2750 60  0001 C CNN
 	1    3850 2750
 	1    0    0    -1  
@@ -322,7 +322,7 @@ U 1 1 57E3EE7D
 P 6300 2750
 F 0 "STP2" H 6550 3250 60  0000 C CNN
 F 1 "A4988" H 6300 2750 60  0000 C CNN
-F 2 "" H 6300 2750 60  0001 C CNN
+F 2 "Housings_DIP:DIP-16_W7.62mm" H 6300 2750 60  0001 C CNN
 F 3 "" H 6300 2750 60  0001 C CNN
 	1    6300 2750
 	1    0    0    -1  
@@ -458,13 +458,13 @@ Wire Wire Line
 Wire Wire Line
 	3750 1750 3750 1850
 Text Label 3750 1850 2    60   ~ 0
-+12V
+12V
 Text Label 3950 1850 0    60   ~ 0
-+5V
+5V
 Text Label 6200 1850 2    60   ~ 0
-+12V
+12V
 Text Label 6400 1850 0    60   ~ 0
-+5V
+5V
 $Comp
 L CP C1
 U 1 1 57E4CCD5
@@ -498,9 +498,9 @@ Entry Wire Line
 Entry Wire Line
 	3250 3800 3350 3700
 Text Label 3350 3700 2    60   ~ 0
-+12V
+12V
 Text Label 5800 3700 2    60   ~ 0
-+12V
+12V
 Text Label 2750 5600 0    60   ~ 0
 STEP0
 Text Label 2750 5500 0    60   ~ 0
