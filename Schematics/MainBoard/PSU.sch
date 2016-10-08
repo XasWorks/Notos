@@ -57,15 +57,19 @@ $EndComp
 Wire Wire Line
 	4450 5500 4550 5500
 Wire Wire Line
-	5350 5500 5450 5500
+	5450 5500 5400 5500
 Wire Wire Line
-	4950 6000 4950 5800
+	5400 5500 5350 5500
+Wire Wire Line
+	4950 6000 4950 5850
+Wire Wire Line
+	4950 5850 4950 5800
 $Comp
 L CP C5
 U 1 1 57E31981
 P 5350 5700
 F 0 "C5" H 5375 5800 50  0000 L CNN
-F 1 "220uF" H 5375 5600 50  0000 L CNN
+F 1 "22uF" H 5375 5600 50  0000 L CNN
 F 2 "Capacitors_ThroughHole:C_Radial_D10_L16_P5" H 5388 5550 50  0001 C CNN
 F 3 "" H 5350 5700 50  0000 C CNN
 	1    5350 5700
@@ -80,23 +84,23 @@ Connection ~ 4950 5850
 $Comp
 L Battery BT2
 U 1 1 57E3198C
-P 4150 5650
-F 0 "BT2" H 4250 5700 50  0000 L CNN
-F 1 "4C LiPo" H 4250 5600 50  0000 L CNN
-F 2 "Connect:AK300-2" V 4150 5690 50  0001 C CNN
-F 3 "" V 4150 5690 50  0000 C CNN
-	1    4150 5650
+P 4150 5800
+F 0 "BT2" H 4250 5850 50  0000 L CNN
+F 1 "4C LiPo" H 4250 5750 50  0000 L CNN
+F 2 "Connect:AK300-2" V 4150 5840 50  0001 C CNN
+F 3 "" V 4150 5840 50  0000 C CNN
+	1    4150 5800
 	1    0    0    -1  
 $EndComp
 $Comp
 L D D5
 U 1 1 57E31993
-P 4150 5350
-F 0 "D5" H 4150 5450 50  0000 C CNN
-F 1 "D" H 4150 5250 50  0000 C CNN
-F 2 "Diodes_ThroughHole:Diode_DO-41_SOD81_Vertical_AnodeUp" H 4150 5350 50  0001 C CNN
-F 3 "" H 4150 5350 50  0000 C CNN
-	1    4150 5350
+P 4150 5500
+F 0 "D5" H 4150 5600 50  0000 C CNN
+F 1 "D" H 4150 5400 50  0000 C CNN
+F 2 "Diodes_ThroughHole:Diode_DO-41_SOD81_Vertical_AnodeUp" H 4150 5500 50  0001 C CNN
+F 3 "" H 4150 5500 50  0000 C CNN
+	1    4150 5500
 	0    1    1    0   
 $EndComp
 $Comp
@@ -145,30 +149,34 @@ L R R9
 U 1 1 57E319B3
 P 3850 5750
 F 0 "R9" V 3930 5750 50  0000 C CNN
-F 1 "2.6kΩ" V 3850 5750 50  0000 C CNN
+F 1 "2.2kΩ" V 3850 5750 50  0000 C CNN
 F 2 "Discret:R1" V 3780 5750 50  0001 C CNN
 F 3 "" H 3850 5750 50  0000 C CNN
 	1    3850 5750
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3850 5500 3850 5600
+	3850 5500 3850 5550
+Wire Wire Line
+	3850 5550 3850 5600
 Connection ~ 3850 5550
 Wire Notes Line
 	3400 4950 3400 6100
 $Comp
 L F_Small F2
 U 1 1 57E319BD
-P 5450 5300
-F 0 "F2" H 5410 5360 50  0000 L CNN
-F 1 "2A Fuse" H 5330 5240 50  0000 L CNN
-F 2 "Fuse_Holders_and_Fuses:Fuseholder5x20_horiz_open_lateral_Type-II" H 5450 5300 50  0001 C CNN
-F 3 "" H 5450 5300 50  0000 C CNN
-	1    5450 5300
+P 4150 5250
+F 0 "F2" H 4110 5310 50  0000 L CNN
+F 1 "2A Fuse" H 4030 5190 50  0000 L CNN
+F 2 "Fuse_Holders_and_Fuses:Fuseholder5x20_horiz_open_lateral_Type-II" H 4150 5250 50  0001 C CNN
+F 3 "" H 4150 5250 50  0000 C CNN
+	1    4150 5250
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	5450 5500 5450 5400
+	5450 4750 5450 5100
+Wire Wire Line
+	5450 5100 5450 5500
 $Comp
 L ZENER D7
 U 1 1 57E319C5
@@ -185,11 +193,15 @@ Wire Wire Line
 	3850 5900 3850 6000
 Connection ~ 4150 6000
 Wire Wire Line
-	3850 4750 3850 5200
+	3850 4750 3850 5050
 Wire Wire Line
-	3850 5050 4450 5050
+	3850 5050 3850 5200
 Wire Wire Line
-	4150 5050 4150 5200
+	3850 5050 4150 5050
+Wire Wire Line
+	4150 5050 4450 5050
+Wire Wire Line
+	4150 5050 4150 5150
 Connection ~ 4150 5050
 Wire Wire Line
 	4450 5050 4450 5500
@@ -199,16 +211,16 @@ Connection ~ 5800 6000
 Wire Wire Line
 	6150 6000 6150 5600
 Wire Wire Line
-	5450 4750 5450 5200
+	5450 5100 5800 5100
 Wire Wire Line
-	5450 5100 6150 5100
+	5800 5100 6150 5100
 Wire Wire Line
 	5800 5100 5800 5200
 Wire Wire Line
 	6150 5100 6150 5200
 Connection ~ 5800 5100
 Wire Wire Line
-	4150 6000 4150 5800
+	4150 6000 4150 5950
 $Comp
 L CONN_01X10 P10
 U 1 1 57E319DD
@@ -222,7 +234,17 @@ F 3 "" H 2550 5450 50  0000 C CNN
 $EndComp
 Connection ~ 3850 6000
 Wire Wire Line
-	3250 6000 6150 6000
+	3250 6000 3850 6000
+Wire Wire Line
+	3850 6000 4150 6000
+Wire Wire Line
+	4150 6000 4950 6000
+Wire Wire Line
+	4950 6000 5250 6000
+Wire Wire Line
+	5250 6000 5800 6000
+Wire Wire Line
+	5800 6000 6150 6000
 Connection ~ 4950 6000
 Text Label 5450 5100 0    60   ~ 0
 5V
@@ -235,7 +257,19 @@ Wire Wire Line
 Wire Wire Line
 	2750 5800 3050 5800
 Wire Bus Line
-	3150 3800 3150 6000
+	3150 3800 3150 5400
+Wire Bus Line
+	3150 5400 3150 5500
+Wire Bus Line
+	3150 5500 3150 5600
+Wire Bus Line
+	3150 5600 3150 5700
+Wire Bus Line
+	3150 5700 3150 5800
+Wire Bus Line
+	3150 5800 3150 5900
+Wire Bus Line
+	3150 5900 3150 6000
 Wire Wire Line
 	2750 5700 3050 5700
 Entry Wire Line
@@ -273,7 +307,11 @@ Entry Wire Line
 Entry Wire Line
 	5350 4650 5450 4750
 Wire Bus Line
-	3150 4650 5350 4650
+	3150 4650 3650 4650
+Wire Bus Line
+	3650 4650 3750 4650
+Wire Bus Line
+	3750 4650 5350 4650
 Wire Wire Line
 	3850 5550 3750 5550
 Wire Wire Line
@@ -328,13 +366,39 @@ F 3 "" H 6300 2750 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3650 3600 3900 3600
+	3650 3600 3800 3600
 Wire Wire Line
-	6100 3600 6350 3600
+	3800 3600 3900 3600
+Wire Wire Line
+	6100 3600 6250 3600
+Wire Wire Line
+	6250 3600 6350 3600
 Wire Bus Line
-	5200 1650 5200 3800
+	5200 1650 5200 2400
 Wire Bus Line
-	2750 3800 6150 3800
+	5200 2400 5200 2550
+Wire Bus Line
+	5200 2550 5200 2650
+Wire Bus Line
+	5200 2650 5200 2750
+Wire Bus Line
+	5200 2750 5200 3150
+Wire Bus Line
+	5200 3150 5200 3250
+Wire Bus Line
+	5200 3250 5200 3800
+Wire Bus Line
+	2750 3800 3250 3800
+Wire Bus Line
+	3250 3800 3700 3800
+Wire Bus Line
+	3700 3800 5700 3800
+Wire Bus Line
+	5700 3800 6100 3800
+Wire Bus Line
+	6100 3800 6150 3800
+Wire Bus Line
+	6150 3800 7350 3800
 Entry Wire Line
 	5200 2550 5300 2450
 Entry Wire Line
@@ -402,7 +466,21 @@ Wire Wire Line
 Text Label 2850 2300 0    60   ~ 0
 STEPE
 Wire Bus Line
-	2750 1650 2750 3800
+	2750 1650 2750 2400
+Wire Bus Line
+	2750 2400 2750 2550
+Wire Bus Line
+	2750 2550 2750 2650
+Wire Bus Line
+	2750 2650 2750 2750
+Wire Bus Line
+	2750 2750 2750 3050
+Wire Bus Line
+	2750 3050 2750 3150
+Wire Bus Line
+	2750 3150 2750 3250
+Wire Bus Line
+	2750 3250 2750 3800
 Wire Wire Line
 	3150 2900 3150 2800
 Wire Wire Line
@@ -436,9 +514,13 @@ MS2
 Text Label 2850 2450 0    60   ~ 0
 MS1
 Wire Bus Line
-	2750 1650 3850 1650
+	2750 1650 3650 1650
 Wire Bus Line
-	5200 1650 6300 1650
+	3650 1650 3850 1650
+Wire Bus Line
+	5200 1650 6100 1650
+Wire Bus Line
+	6100 1650 6300 1650
 Wire Wire Line
 	3950 1750 3950 1850
 Entry Wire Line
@@ -525,8 +607,8 @@ Text HLabel 1450 5500 0    60   Input ~ 0
 STEPD
 Text HLabel 1450 5600 0    60   Input ~ 0
 STEPE
-Text Notes 6550 5800 0    60   ~ 0
-Overvoltage protector Z-Diode\n\nON-Led\n\n2A Current Fuse
+Text Notes 6550 5600 0    60   ~ 0
+Overvoltage protector Z-Diode\n\nON-Led
 Wire Notes Line
 	6500 5400 6350 5400
 Wire Notes Line
@@ -534,15 +616,9 @@ Wire Notes Line
 Wire Notes Line
 	5950 5600 5900 5550
 Wire Notes Line
-	6500 5800 5950 5800
-Wire Notes Line
 	5700 5800 5700 5800
-Wire Notes Line
-	5700 5800 5550 5650
-Wire Notes Line
-	5550 5650 5550 5450
 Text Notes 4300 6450 0    60   ~ 0
-Reverse Polarity Protector Diode\n\nVoltage Divider (1/2.808 ratio or 14V => 5V)
+Reverse Polarity Protector Diode and Fuse\n\nVoltage Divider (1/3.136 ratio or 15.6V => 5V)
 Wire Notes Line
 	4250 6200 4175 6200
 Wire Notes Line
@@ -615,7 +691,11 @@ Wire Wire Line
 Wire Wire Line
 	1800 2700 1850 2650
 Wire Wire Line
-	1800 2500 1800 2950
+	1800 2500 1800 2600
+Wire Wire Line
+	1800 2600 1800 2700
+Wire Wire Line
+	1800 2700 1800 2950
 Connection ~ 1800 2600
 Wire Wire Line
 	1800 2950 2650 2950
@@ -646,4 +726,149 @@ Text Label 3800 3700 0    60   ~ 0
 GND
 Text Label 6250 3700 0    60   ~ 0
 GND
+$Comp
+L LED D?
+U 1 1 57F955FD
+P 8550 4400
+F 0 "D?" H 8550 4500 50  0000 C CNN
+F 1 "LED" H 8550 4300 50  0000 C CNN
+F 2 "" H 8550 4400 50  0000 C CNN
+F 3 "" H 8550 4400 50  0000 C CNN
+	1    8550 4400
+	0    -1   -1   0   
+$EndComp
+$Comp
+L LED D?
+U 1 1 57F956E8
+P 8250 4400
+F 0 "D?" H 8250 4500 50  0000 C CNN
+F 1 "LED" H 8250 4300 50  0000 C CNN
+F 2 "" H 8250 4400 50  0000 C CNN
+F 3 "" H 8250 4400 50  0000 C CNN
+	1    8250 4400
+	0    -1   -1   0   
+$EndComp
+$Comp
+L LED D?
+U 1 1 57F9573D
+P 7950 4400
+F 0 "D?" H 7950 4500 50  0000 C CNN
+F 1 "LED" H 7950 4300 50  0000 C CNN
+F 2 "" H 7950 4400 50  0000 C CNN
+F 3 "" H 7950 4400 50  0000 C CNN
+	1    7950 4400
+	0    -1   -1   0   
+$EndComp
+$Comp
+L LED D?
+U 1 1 57F957C6
+P 7700 4400
+F 0 "D?" H 7700 4500 50  0000 C CNN
+F 1 "LED" H 7700 4300 50  0000 C CNN
+F 2 "" H 7700 4400 50  0000 C CNN
+F 3 "" H 7700 4400 50  0000 C CNN
+	1    7700 4400
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7950 4600 8250 4600
+Wire Wire Line
+	8250 4600 8550 4600
+Connection ~ 8250 4600
+Wire Bus Line
+	7350 3500 7350 4750
+Wire Bus Line
+	7350 4750 7600 4750
+Wire Bus Line
+	7600 4750 8150 4750
+Wire Wire Line
+	8250 4650 8250 4600
+Entry Wire Line
+	8150 4750 8250 4650
+Entry Wire Line
+	7600 4750 7700 4650
+Wire Wire Line
+	7700 4650 7700 4600
+Text Label 7700 4650 0    60   ~ 0
+5V
+Text Label 8300 4600 0    60   ~ 0
+GND
+$Comp
+L R R?
+U 1 1 57F968AC
+P 7950 4050
+F 0 "R?" V 8030 4050 50  0000 C CNN
+F 1 "R" V 7950 4050 50  0000 C CNN
+F 2 "" V 7880 4050 50  0000 C CNN
+F 3 "" H 7950 4050 50  0000 C CNN
+	1    7950 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R?
+U 1 1 57F9691F
+P 8250 4050
+F 0 "R?" V 8330 4050 50  0000 C CNN
+F 1 "R" V 8250 4050 50  0000 C CNN
+F 2 "" V 8180 4050 50  0000 C CNN
+F 3 "" H 8250 4050 50  0000 C CNN
+	1    8250 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R?
+U 1 1 57F96972
+P 8550 4050
+F 0 "R?" V 8630 4050 50  0000 C CNN
+F 1 "R" V 8550 4050 50  0000 C CNN
+F 2 "" V 8480 4050 50  0000 C CNN
+F 3 "" H 8550 4050 50  0000 C CNN
+	1    8550 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R?
+U 1 1 57F96A72
+P 7700 4050
+F 0 "R?" V 7780 4050 50  0000 C CNN
+F 1 "R" V 7700 4050 50  0000 C CNN
+F 2 "" V 7630 4050 50  0000 C CNN
+F 3 "" H 7700 4050 50  0000 C CNN
+	1    7700 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7700 3900 7700 3600
+Wire Wire Line
+	7950 3600 7950 3900
+Wire Wire Line
+	8250 3600 8250 3900
+Wire Wire Line
+	8550 3600 8550 3900
+Entry Wire Line
+	7600 3500 7700 3600
+Entry Wire Line
+	7850 3500 7950 3600
+Entry Wire Line
+	8150 3500 8250 3600
+Entry Wire Line
+	8450 3500 8550 3600
+Wire Bus Line
+	8450 3500 8150 3500
+Wire Bus Line
+	8150 3500 7850 3500
+Wire Bus Line
+	7850 3500 7600 3500
+Wire Bus Line
+	7600 3500 7550 3500
+Wire Bus Line
+	7550 3500 7350 3500
+Text Label 7700 3900 1    60   ~ 0
+STEPE
+Text Label 7950 3900 1    60   ~ 0
+STEPD
+Text Label 8250 3900 1    60   ~ 0
+STEP0
+Text Label 8550 3900 1    60   ~ 0
+STEP1
 $EndSCHEMATC
