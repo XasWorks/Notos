@@ -51,7 +51,7 @@ module track_drive() {
 }
 
 module modules_adapters() {
-	for(i = modulesPositions) translate([i[0], 0, i[1] - modulesAdapterThickness/2]) rotate([0, 0, 90]) mount_connector();
+	for(i = modulesPositions) translate([i[0], 0, i[1] - modulesAdapterThickness/2]) rotate([0, 0, 90]) module_adapter();
 }
 
 modules_adapters();

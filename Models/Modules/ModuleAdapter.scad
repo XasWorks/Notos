@@ -22,7 +22,7 @@ module smoothCube(lX, lY, r, h) {
 	}
 }
 
-module mount_connector_block() {
+module module_adapter_block() {
 	wThickness = modulesAdapterBlockWallThickness;
 
 	tScrewDiameter = modulesScrewDiameter + playTightFit*2;
@@ -38,15 +38,15 @@ module mount_connector_block() {
 		tag("negative") translate([-0.05, 0, blockHeight/2]) rotate([0, 90, 0]) cylinder(d = tScrewDiameter, h = blockGirth + 10);
 	}
 }
-module mount_connector_block_set() {
-	place_at_array(mountConnectorPos) mount_connector_block();
+module module_adapter_block_set() {
+	place_at_array(mountConnectorPos) module_adapter_block();
 }
-module mount_connector_blocks() {
-	translate([-modulesLength/2, 0, 0]) mount_connector_block_set();
-	translate([modulesLength/2 - modulesAdapterBlockGirth, 0, 0]) mount_connector_block_set();
+module module_adapter_blocks() {
+	translate([-modulesLength/2, 0, 0]) module_adapter_block_set();
+	translate([modulesLength/2 - modulesAdapterBlockGirth, 0, 0]) module_adapter_block_set();
 }
 
-module mount_connector_upwards() {
+module module_adapter_upwards() {
 	tScrewDiameter = modulesScrewDiameter + playTightFit*2;
 
 	tag("negative") translate([0, 0, -0.01])
@@ -54,20 +54,20 @@ module mount_connector_upwards() {
 
 	tag(["positive", "up_connectors"]) cylinder(r = modulesScrewInwardsShift, h = modulesVertConnectorHeight);
 }
-module mount_connectors_upwards() {
-	place_at_array(mountUpConnectorPos) mount_connector_upwards();
+module module_adapters_upwards() {
+	place_at_array(mountUpConnectorPos) module_adapter_upwards();
 }
 
-module mount_connector_basis() {
+module module_adapter_basis() {
 	tag("positive") smoothCube(modulesLength, modulesWidth, modulesScrewInwardsShift, modulesAdapterThickness);
 }
 
-module mount_connector() {
+module module_adapter() {
 	taggedDifference("positive", "negative", "neutral") {
-		mount_connector_basis();
-		mount_connectors_upwards();
-		mount_connector_blocks();
+		module_adapter_basis();
+		module_adapters_upwards();
+		module_adapter_blocks();
 	}
 }
 
-mount_connector();
+module_adapter();
