@@ -399,11 +399,11 @@ Wire Wire Line
 Wire Wire Line
 	8800 3900 8550 3900
 Text Label 8600 3500 0    60   ~ 0
-MOSI
+LEDR
 Text Label 8600 3700 0    60   ~ 0
-MISO
+LEDG
 Text Label 8600 3900 0    60   ~ 0
-SCK
+LEDB
 Wire Wire Line
 	9200 4350 8550 4350
 Text Label 8600 4350 0    60   ~ 0
@@ -822,7 +822,7 @@ I2C \n Coms\n
 Wire Bus Line
 	3950 1250 4250 1250
 Wire Bus Line
-	3950 1250 3950 6400
+	3950 500  3950 6400
 Wire Bus Line
 	8450 3300 8450 4450
 Wire Bus Line
@@ -902,4 +902,32 @@ Text Label 3500 6000 0    60   ~ 0
 VSens
 Entry Wire Line
 	3850 6000 3950 5900
+Wire Wire Line
+	3550 3150 3850 3150
+Wire Wire Line
+	3550 3250 3850 3250
+Wire Wire Line
+	3550 3350 3850 3350
+Entry Wire Line
+	3850 3150 3950 3250
+Entry Wire Line
+	3850 3250 3950 3350
+Entry Wire Line
+	3850 3350 3950 3450
+Text Label 3600 3150 0    60   ~ 0
+LEDR
+Text Label 3600 3250 0    60   ~ 0
+LEDG
+Text Label 3600 3350 0    60   ~ 0
+LEDB
+Wire Bus Line
+	1450 500  3950 500 
+Wire Wire Line
+	1350 600  1350 1150
+Wire Wire Line
+	1350 1150 1550 1150
+Entry Wire Line
+	1350 600  1450 500 
+Text Label 1350 1150 1    60   ~ 0
+RST
 $EndSCHEMATC
