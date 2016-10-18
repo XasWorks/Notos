@@ -70,7 +70,7 @@ int main() {
 	PORTB |= 0b100;
 
 	// Initialisierung des ADC
-	ADC_Lib::init(ADC_PRSC_128);
+	ADC_Lib::init(ADC_PRSC_128, ADC_REF_AREF);
 
 	// Initialisierung des Timer1 auf CTC (Clear Timer on Compare)-Modus. D.h. ganz normaler Timer Modus.
 	Timer1::set_prescaler(TIMER1_PRESC_64);
