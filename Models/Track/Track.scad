@@ -36,8 +36,9 @@ module track_teeth_noslip(r = 10) {
 	}
 }
 
-module track_teeth(r = 10) {
-	trackCircumference = 6.28318 * r;
+module track_teeth(r = 10, tRadius = -1) {
+	tRadius = (tRadius < 0) ? r : tRadius;
+	trackCircumference = 6.28318 * tRadius;
 	teethNum = floor(trackCircumference / trackTeethSpacing);
 
 	intersection() {
@@ -50,11 +51,11 @@ module track_teeth(r = 10) {
 	}
 }
 
-module track(r = 10, clearance_offset = false) {
+module track(r = 10, rShrink = 0, clearance_offset = false) {
 	$teeth_use_offset = clearance_offset;
 
-	track_teeth(r);
-	track_basicring(r);
+	track_teeth(r - rShrink, r);
+	track_basicring(r - rShrink);
 }
 
 track(25);
