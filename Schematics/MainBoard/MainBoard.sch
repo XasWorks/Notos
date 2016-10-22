@@ -92,17 +92,6 @@ Wire Wire Line
 Connection ~ 2400 750 
 Wire Notes Line
 	1750 7600 4800 7600
-$Comp
-L +5V #PWR03
-U 1 1 57B9B214
-P 1400 2350
-F 0 "#PWR03" H 1400 2200 50  0001 C CNN
-F 1 "+5V" H 1400 2490 50  0000 C CNN
-F 2 "" H 1400 2350 50  0000 C CNN
-F 3 "" H 1400 2350 50  0000 C CNN
-	1    1400 2350
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	1300 2350 1550 2350
 $Comp

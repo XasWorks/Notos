@@ -134,7 +134,7 @@ L R R8
 U 1 1 57E319AC
 P 3850 5350
 F 0 "R8" V 3930 5350 50  0000 C CNN
-F 1 "4.7kΩ" V 3850 5350 50  0000 C CNN
+F 1 "10kΩ" V 3850 5350 50  0000 C CNN
 F 2 "Discret:R1" V 3780 5350 50  0001 C CNN
 F 3 "" H 3850 5350 50  0000 C CNN
 	1    3850 5350
@@ -534,7 +534,7 @@ Wire Notes Line
 Wire Notes Line
 	5700 5800 5700 5800
 Text Notes 4300 6450 0    60   ~ 0
-Reverse Polarity Protector Diode and Fuse\n\nVoltage Divider (1/3.136 ratio or 15.6V => 5V)
+Reverse Polarity Protector Diode and Fuse\n\nVoltage Divider (1/5.545 ratio or 14.2V => 2.56V)
 Wire Notes Line
 	4250 6200 4175 6200
 Wire Notes Line
