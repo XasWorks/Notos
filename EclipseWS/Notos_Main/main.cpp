@@ -15,12 +15,16 @@
 #include "AVR/TIMER/Timer1.h"
 // Die "PrimitiveStepper" Bibliothek erlaubt eine einfache Ansteuerung der Schrittmotoren - sie sollte nur für tests genutzt werden!
 #include "AVR/Actuators/Steppers/PrimitiveStepper.h"
+#include "AVR/Actuators/Steppers/X2Stepper.h"
 // Die ADC-Bibliothek erlaubt einfachen Zugriff auf den Analog-Digital-Wandler, vergleichbar mit der Arduino "AnalogRead" Funktion
 #include "AVR/ADC/ADC_Lib.h"
 
+#define ISR_1_FREQ 5000
+#define ISR_CAL_FREQ 50
+
 // Instanzierung der zwei Test-Schrittmotoren
-PrimitiveStepper test1 = PrimitiveStepper(&PORTB, 0, 2, 5000);
-PrimitiveStepper test2 = PrimitiveStepper(&PORTB, 1, 2, 5000);
+X2::Stepper test1 = X2::Stepper(&PORTB, 0, 2, ISR_1_FREQ / ISR_CAL_FREQ, -160, 20);
+X2::Stepper test2 = X2::Stepper(&PORTB, 1, 2, ISR_1_FREQ / ISR_CAL_FREQ, -160, 20);
 
 
 // Diese Funtkion liest mithilfe des ADC die Batterie-Spannung aus, und vergleicht sie mit einem Prüfwert, um sicher zu stellen dass die Batterie nicht leer ist.
@@ -34,7 +38,8 @@ void check_voltage() {
 }
 
 
-uint16_t isrPresc = 0;
+uint16_t isrPrescA = 1;
+uint16_t isrPrescB = 1;
 
 // Eine "ISR"-Funktion ist eine Funktion, welche zu bestimmten Zeitpunkten automatisch aufgerufen wird.
 // In dieserm Fall handelt es sich um die "TIMER1 - CompareInterrupt A" ISR. D.h. der Timer, hier aufgerufen alle 0.2ms
@@ -45,9 +50,16 @@ ISR(TIMER1_COMPA_vect) {
 	test2.update();
 
 	// "Prescaler", d.h. dass die nachfolgenden Funktionen nicht immer, sondern in längeren Abständen aufgerufen werden.
-	if(--isrPresc == 0) {
+	if(--isrPrescA == 0) {
 		ADC_Lib::start_measurement(7);
-		isrPresc = 500;
+		isrPrescA = 500;
+	}
+
+	if(--isrPrescB == 0) {
+		isrPrescB = ISR_1_FREQ / ISR_CAL_FREQ;
+
+		test1.ISRStepBy(0.2, 0);
+		test2.ISRStepBy(0.2, 0);
 	}
 }
 
@@ -80,29 +92,8 @@ int main() {
 	Timer1::set_OCR1A(50 - 1);
 	sei();
 
-	// Setzten der Motor-Geschwindigkeit in Schritte pro Sekunde
-	test1.setSpeed(800);
-	test2.setSpeed(800);
-
 	// Dauerschleife mit Motor-Test-Programm.
 	while(1) {
-
-		// "move" bewegt die Motoren um die angegebene Anzahl Schritte (800 sind hierbei eine halbe Umdrehung)
-		test1.move(800);
-		test2.move(800);
-
-		// "flush" wartet darauf dass der Motor aufhört sich zu bewegen
-		test1.flush();
-
-		test1.move(800);
-		test2.move(-800);
-
-		test1.flush();
-
-		test1.move(-800);
-		test2.move(800);
-
-		test1.flush();
 	}
 
 	return 1;
