@@ -23,8 +23,8 @@
 #define ISR_CAL_FREQ 50
 
 // Instanzierung der zwei Test-Schrittmotoren
-X2::Stepper test1 = X2::Stepper(&PORTB, 0, 2, ISR_1_FREQ / ISR_CAL_FREQ, -160, 20);
-X2::Stepper test2 = X2::Stepper(&PORTB, 1, 2, ISR_1_FREQ / ISR_CAL_FREQ, -160, 20);
+X2::Stepper test1 = X2::Stepper(&PORTB, 0, 2, ISR_1_FREQ / ISR_CAL_FREQ, -160, 0);
+X2::Stepper test2 = X2::Stepper(&PORTB, 1, 2, ISR_1_FREQ / ISR_CAL_FREQ, -160, 30);
 
 
 // Diese Funtkion liest mithilfe des ADC die Batterie-Spannung aus, und vergleicht sie mit einem Prüfwert, um sicher zu stellen dass die Batterie nicht leer ist.
@@ -58,8 +58,7 @@ ISR(TIMER1_COMPA_vect) {
 	if(--isrPrescB == 0) {
 		isrPrescB = ISR_1_FREQ / ISR_CAL_FREQ;
 
-		test1.ISRStepBy(0.2, 0);
-		test2.ISRStepBy(0.2, 0);
+		X2::Stepper::ISRStepAllBy(0.1, 10);
 	}
 }
 
