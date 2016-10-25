@@ -19,6 +19,8 @@
 // Die ADC-Bibliothek erlaubt einfachen Zugriff auf den Analog-Digital-Wandler, vergleichbar mit der Arduino "AnalogRead" Funktion
 #include "AVR/ADC/ADC_Lib.h"
 
+#include "AVR/Movement/X2/X2-Movable.h"
+
 #define ISR_1_FREQ 5000
 #define ISR_CAL_FREQ 50
 
@@ -26,6 +28,7 @@
 X2::Stepper test1 = X2::Stepper(&PORTB, 0, 2, ISR_1_FREQ / ISR_CAL_FREQ, -160, 0);
 X2::Stepper test2 = X2::Stepper(&PORTB, 1, 2, ISR_1_FREQ / ISR_CAL_FREQ, -160, 30);
 
+X2::Movable testMotor = X2::Movable(ISR_CAL_FREQ);
 
 // Diese Funtkion liest mithilfe des ADC die Batterie-Spannung aus, und vergleicht sie mit einem Prüfwert, um sicher zu stellen dass die Batterie nicht leer ist.
 // Grade jetzt werden dementsprechend einfach nur die Motoren aus oder an geschaltet.
@@ -57,8 +60,7 @@ ISR(TIMER1_COMPA_vect) {
 
 	if(--isrPrescB == 0) {
 		isrPrescB = ISR_1_FREQ / ISR_CAL_FREQ;
-
-		X2::Stepper::ISRStepAllBy(0.1, 10);
+		testMotor.update();
 	}
 }
 
@@ -91,8 +93,12 @@ int main() {
 	Timer1::set_OCR1A(50 - 1);
 	sei();
 
+	testMotor.setSpeed(-1);
+	testMotor.continuousMode();
+
 	// Dauerschleife mit Motor-Test-Programm.
 	while(1) {
+		_delay_ms(2000);
 	}
 
 	return 1;
