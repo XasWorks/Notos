@@ -9,6 +9,7 @@
 // Die folgenden Bibliotheken sind Standard-Header-Dateien, um den Microcontroller nutzen zu können.
 #include <avr/io.h>
 #include <util/delay.h>
+#include <math.h>
 #include <avr/interrupt.h>
 
 // Die "Timer" Bilbiothek erlaubt eine vereinfachte Nutzung der eingebauten Timer des Mega32
@@ -24,9 +25,15 @@
 #define ISR_1_FREQ 5000
 #define ISR_CAL_FREQ 50
 
+#define MICROSTEPPING 8
+#define MOTOR_WHEEL_DIAMETER 30
+#define MOTOR_WHEEL_OUTWARDS_SHIFT (35 + 2.5 + 2 + 10)
+#define STEPS_P_MM ((200 * MICROSTEPPING) / (M_PI * MOTOR_WHEEL_DIAMETER))
+#define STEPS_P_DEGREE (((2 * M_PI * MOTOR_WHEEL_OUTWARDS_SHIFT) / 360) * STEPS_P_MM)
+
 // Instanzierung der zwei Test-Schrittmotoren
-X2::Stepper test1 = X2::Stepper(&PORTB, 0, 2, ISR_1_FREQ / ISR_CAL_FREQ, -160, 0);
-X2::Stepper test2 = X2::Stepper(&PORTB, 1, 2, ISR_1_FREQ / ISR_CAL_FREQ, -160, 30);
+X2::Stepper test1 = X2::Stepper(&PORTB, 0, 2, ISR_1_FREQ / ISR_CAL_FREQ, -STEPS_P_MM, STEPS_P_DEGREE);
+X2::Stepper test2 = X2::Stepper(&PORTB, 1, 2, ISR_1_FREQ / ISR_CAL_FREQ, -STEPS_P_MM, -STEPS_P_DEGREE);
 
 X2::Movable testMotor = X2::Movable(ISR_CAL_FREQ);
 
@@ -93,12 +100,18 @@ int main() {
 	Timer1::set_OCR1A(50 - 1);
 	sei();
 
-	testMotor.setSpeed(-1);
-	testMotor.continuousMode();
+	testMotor.setSpeed(300);
+	testMotor.setRotationSpeed(360);
 
 	// Dauerschleife mit Motor-Test-Programm.
 	while(1) {
-		_delay_ms(2000);
+		testMotor.moveBy(100);
+		testMotor.flush();
+		testMotor.moveBy(100);
+		testMotor.rotateBy(90);
+		testMotor.flush();
+		testMotor.rotateBy(-90);
+		testMotor.flush();
 	}
 
 	return 1;
