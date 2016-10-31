@@ -9,23 +9,37 @@
 // Die folgenden Bibliotheken sind Standard-Header-Dateien, um den Microcontroller nutzen zu können.
 #include <avr/io.h>
 #include <util/delay.h>
+#include <math.h>
 #include <avr/interrupt.h>
 
 // Die "Timer" Bilbiothek erlaubt eine vereinfachte Nutzung der eingebauten Timer des Mega32
 #include "AVR/TIMER/Timer1.h"
-// Die "PrimitiveStepper" Bibliothek erlaubt eine einfache Ansteuerung der Schrittmotoren - sie sollte nur für tests genutzt werden!
-#include "AVR/Actuators/Steppers/PrimitiveStepper.h"
 #include "AVR/Actuators/Steppers/X2Stepper.h"
 // Die ADC-Bibliothek erlaubt einfachen Zugriff auf den Analog-Digital-Wandler, vergleichbar mit der Arduino "AnalogRead" Funktion
 #include "AVR/ADC/ADC_Lib.h"
 
+#include "AVR/Movement/X2/X2-Movable.h"
+
+#include "AVR/Sensors/LineFollow/LF3Sens.h"
+
 #define ISR_1_FREQ 5000
 #define ISR_CAL_FREQ 50
 
-// Instanzierung der zwei Test-Schrittmotoren
-X2::Stepper test1 = X2::Stepper(&PORTB, 0, 2, ISR_1_FREQ / ISR_CAL_FREQ, -160, 0);
-X2::Stepper test2 = X2::Stepper(&PORTB, 1, 2, ISR_1_FREQ / ISR_CAL_FREQ, -160, 30);
+#define MICROSTEPPING 8
+#define MOTOR_WHEEL_DIAMETER 30
+#define MOTOR_WHEEL_OUTWARDS_SHIFT (35 + 2.5 + 2 + 10)
+// #define STEPS_P_MM ((200 * MICROSTEPPING) / (M_PI * MOTOR_WHEEL_DIAMETER))
+#define STEPS_P_MM 	2.1221 * MICROSTEPPING
+//#define STEPS_P_DEGREE (((2 * M_PI * MOTOR_WHEEL_OUTWARDS_SHIFT) / 360) * STEPS_P_MM)
+#define STEPS_P_DEGREE 	1.8334 * MICROSTEPPING
 
+// Instanzierung der zwei Test-Schrittmotoren
+X2::Stepper test1 = X2::Stepper(&PORTB, 0, 2, ISR_1_FREQ / ISR_CAL_FREQ, -STEPS_P_MM, STEPS_P_DEGREE);
+X2::Stepper test2 = X2::Stepper(&PORTB, 1, 2, ISR_1_FREQ / ISR_CAL_FREQ, -STEPS_P_MM, -STEPS_P_DEGREE);
+
+X2::Movable testMotor = X2::Movable(ISR_CAL_FREQ);
+
+LF::Sens3 testSensor = LF::Sens3(&PINA, 0);
 
 // Diese Funtkion liest mithilfe des ADC die Batterie-Spannung aus, und vergleicht sie mit einem Prüfwert, um sicher zu stellen dass die Batterie nicht leer ist.
 // Grade jetzt werden dementsprechend einfach nur die Motoren aus oder an geschaltet.
@@ -57,8 +71,8 @@ ISR(TIMER1_COMPA_vect) {
 
 	if(--isrPrescB == 0) {
 		isrPrescB = ISR_1_FREQ / ISR_CAL_FREQ;
-
-		X2::Stepper::ISRStepAllBy(0.1, 10);
+		testMotor.update();
+		testSensor.update();
 	}
 }
 
@@ -69,6 +83,12 @@ ISR(ADC_vect) {
 	if(ADC_Lib::measuredPin == 7)
 		check_voltage();
 }
+
+void setLED(uint8_t value){
+	PORTC &= ~(0b11100);
+	PORTC |= (value & 0b111) << 2;
+}
+
 
 // Die main-Methode des Roboters. Hier steht alles /wirklich/ wichtige drinnen, nämlich der eigentliche Programmcode.
 int main() {
@@ -91,8 +111,26 @@ int main() {
 	Timer1::set_OCR1A(50 - 1);
 	sei();
 
+	testMotor.setSpeed(0);
+	testMotor.setRotationSpeed(360);
+	testMotor.continuousMode();
+
 	// Dauerschleife mit Motor-Test-Programm.
 	while(1) {
+		testMotor.setRotationSpeed(testSensor.lineOffset * 360.0 / 127);
+		switch(testSensor.lineStatus) {
+		case LF::OK:
+			setLED(0b100);
+		break;
+
+		case LF::LOST:
+			setLED(0b010);
+		break;
+
+		default:
+			setLED(0b001);
+		break;
+		}
 	}
 
 	return 1;
