@@ -102,16 +102,14 @@ int main() {
 
 	testMotor.setSpeed(300);
 	testMotor.setRotationSpeed(360);
+	testMotor.continuousMode();
 
 	// Dauerschleife mit Motor-Test-Programm.
 	while(1) {
-		testMotor.moveBy(100);
-		testMotor.flush();
-		testMotor.moveBy(100);
-		testMotor.rotateBy(90);
-		testMotor.flush();
-		testMotor.rotateBy(-90);
-		testMotor.flush();
+		for(float i=0; i<2*M_PI; i+=0.01) {
+			_delay_ms(10);
+			testMotor.setRotationSpeed(sin(i)*200);
+		}
 	}
 
 	return 1;
