@@ -11,7 +11,7 @@ module frontplate_basic() tag("positive") linear_extrude(height = frontplateThic
 // Distanzhalter für die Idlerwheels.
 module frontplate_idler_mount() {
 	tag("positive") translate([0, 0, -plateTrackPlay])
-		cylinder(d = idlerScrewDiameter + playTightFit*2 + plateBearingRingThickness*2, h = plateTrackPlay + 0.001);
+		cylinder(d = idlerScrewDiameter + playTightFit*2 + 1.5*2, h = plateTrackPlay + 0.001);
 
 	tag("negative") translate([0, 0, -trackWidth - plateTrackPlay*2]) cylinder(d = idlerScrewDiameter + playLooseFit*2, h = idlerScrewLength + playLooseFit);
 }
