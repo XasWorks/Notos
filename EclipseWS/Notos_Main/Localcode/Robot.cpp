@@ -7,6 +7,13 @@
 
 #include "Robot.h"
 
+// Directe Hardware-Libs
+#include "../AVR/TIMER/Timer1.h"					// TIMER Bibliotheken
+#include "../AVR/Actuators/Steppers/X2Stepper.h"	// Schrittmotor-Bibliothek
+#include "../AVR/ADC/ADC_Lib.h"						// ADC-Bibliothek
+#include "../AVR/Sensors/Voltage/Battery.h"			// Batterie-Überprüfung
+
+
 namespace Robot {
 
 X2::Stepper motorA = X2::Stepper(&PORTB, 0, 2, ISR1_FREQ / ISR_CAL_FREQ, -STEPS_P_MM, STEPS_P_DEGREE);
@@ -15,6 +22,8 @@ X2::Stepper motorB = X2::Stepper(&PORTB, 1, 2, ISR1_FREQ / ISR_CAL_FREQ, -STEPS_
 X2::Movable Motor = X2::Movable(ISR_CAL_FREQ);
 
 LF::Sens3 LSensor = LF::Sens3(&PINA, 0);
+
+Voltage::Battery BatteryGuard = Voltage::Battery(7, 15.682, 10.8, 12.9);
 
 // Diese Funtkion liest mithilfe des ADC die Batterie-Spannung aus, und vergleicht sie mit einem Prüfwert, um sicher zu stellen dass die Batterie nicht leer ist.
 // Grade jetzt werden dementsprechend einfach nur die Motoren aus oder an geschaltet.
@@ -35,8 +44,8 @@ void ISR1() {
 
 	// "Prescaler", d.h. dass die nachfolgenden Funktionen nicht immer, sondern in längeren Abständen aufgerufen werden.
 	if(--ISR1PrescA == 0) {
-		ADC_Lib::start_measurement(7);
-		ISR1PrescA = 500;
+		BatteryGuard.update();
+		ISR1PrescA = ISR1_FREQ;
 	}
 
 	if(--ISR1PrescB == 0) {
@@ -47,9 +56,7 @@ void ISR1() {
 }
 void ISRADC() {
 	ADC_Lib::update();
-
-	if(ADC_Lib::measuredPin == 7)
-		check_voltage();
+	BatteryGuard.ADC_update();
 }
 
 void setLED(uint8_t value) {

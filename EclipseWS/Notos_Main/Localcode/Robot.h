@@ -11,14 +11,10 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-// Directe Hardware-Libs
-#include "../AVR/TIMER/Timer1.h"							// TIMER Bibliotheken
-#include "../AVR/Actuators/Steppers/X2Stepper.h"	// Schrittmotor-Bibliothek
-#include "../AVR/ADC/ADC_Lib.h"									// ADC-Bibliothek
+// Utility-Libs (für Motorsteuerung etc.)
+#include "../AVR/Movement/X2/X2-Movable.h"			// Motor-Steuerung
 #include "../AVR/Sensors/LineFollow/LF3Sens.h"		// LineFollow Bibliotheken
 
-// Utility-Libs (für Motorsteuerung etc.)
-#include "../AVR/Movement/X2/X2-Movable.h"
 
 // -- Basische defines für System-Werte
 #define ISR1_FREQ 	5000 	// Frequenz des TIMER1-ISR
