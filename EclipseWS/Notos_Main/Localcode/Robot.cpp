@@ -21,6 +21,8 @@ X2::Stepper motorB = X2::Stepper(&PORTB, 1, 2, ISR1_FREQ / ISR_CAL_FREQ, -STEPS_
 
 X2::Movable Motor = X2::Movable(ISR_CAL_FREQ);
 
+Communication::RGBStatus Led = Communication::RGBStatus(&PORTC, 3, 4, 2);
+
 LF::Sens3 LSensor = LF::Sens3(&PINA, 0);
 
 Voltage::Battery BatteryGuard = Voltage::Battery(7, 15.682, 10.8, 12.9);
@@ -45,7 +47,8 @@ void ISR1() {
 	// "Prescaler", d.h. dass die nachfolgenden Funktionen nicht immer, sondern in längeren Abständen aufgerufen werden.
 	if(--ISR1PrescA == 0) {
 		BatteryGuard.update();
-		ISR1PrescA = ISR1_FREQ;
+		Led.update();
+		ISR1PrescA = ISR1_FREQ/6;
 	}
 
 	if(--ISR1PrescB == 0) {

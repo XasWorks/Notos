@@ -14,7 +14,7 @@
 // Utility-Libs (für Motorsteuerung etc.)
 #include "../AVR/Movement/X2/X2-Movable.h"			// Motor-Steuerung
 #include "../AVR/Sensors/LineFollow/LF3Sens.h"		// LineFollow Bibliotheken
-
+#include "../AVR/Communication/RGBStatus/RGBStatus.h"	// LED-Lib
 
 // -- Basische defines für System-Werte
 #define ISR1_FREQ 	5000 	// Frequenz des TIMER1-ISR
@@ -35,6 +35,7 @@ namespace Robot {
 
 extern X2::Movable	Motor;
 extern LF::Sens3 	LSensor;
+extern Communication::RGBStatus Led;
 
 void ISR1();
 void ISRADC();
