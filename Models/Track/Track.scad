@@ -38,6 +38,7 @@ module track_teeth_noslip(r = 10) {
 
 module track_teeth(r = 10, tRadius = -1) {
 	tRadius = (tRadius < 0) ? r : tRadius;
+	
 	trackCircumference = 6.28318 * tRadius;
 	teethNum = floor(trackCircumference / trackTeethSpacing);
 
@@ -58,4 +59,4 @@ module track(r = 10, rShrink = 0, clearance_offset = false) {
 	track_basicring(r - rShrink);
 }
 
-track(25);
+track(48.556, 3/6.28318);

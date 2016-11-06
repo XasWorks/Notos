@@ -8,6 +8,7 @@
 #include "Localcode/Robot.h"
 
 using namespace Robot;
+using Communication::Pattern;
 
 // Eine "ISR"-Funktion ist eine Funktion, welche zu bestimmten Zeitpunkten automatisch aufgerufen wird.
 // In dieserm Fall handelt es sich um die "TIMER1 - CompareInterrupt A" ISR. D.h. der Timer, hier aufgerufen alle 0.2ms
@@ -26,6 +27,10 @@ int main() {
 
 	init();
 
+	Led.setModes(0b1010101, 0b11001100, 0b11110000);
+
+	_delay_ms(1000);
+
 	Motor.setSpeed(0);
 	Motor.setRotationSpeed(360);
 	Motor.continuousMode();
@@ -35,15 +40,15 @@ int main() {
 		Motor.setRotationSpeed(LSensor.lineOffset * 360.0 / 127);
 		switch(LSensor.lineStatus) {
 		case LF::OK:
-			setLED(0b100);
+			Led.setModes(Pattern::off, Pattern::on, Pattern::off);
 		break;
 
 		case LF::LOST:
-			setLED(0b010);
+			Led.setModes(Pattern::flash, 0, 0);
 		break;
 
 		default:
-			setLED(0b001);
+			Led.setModes(Pattern::off, 0, Pattern::slowblink);
 		break;
 		}
 	}

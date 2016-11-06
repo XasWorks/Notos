@@ -18,12 +18,18 @@ module frontplate_idler_mount() {
 
 module frontplate_idler_mounts() place_at_idlerwheels() frontplate_idler_mount();
 
+module frontplate_motor_spacer() translate([motorWheelPosition[0], motorWheelPosition[1], 0]) {
+	tag("negative") #translate([0, 0, 1.5 - plateTrackPlay]) sphere(d = 3.2);
+}
+
 module frontplate() taggedDifference("positive", "negative", "neutral") {
 	frontplate_basic();
 
 	frontplate_plate_connectors();
 
 	frontplate_idler_mounts();
+
+	frontplate_motor_spacer();
 }
 
 
