@@ -59,4 +59,4 @@ module track(r = 10, rShrink = 0, clearance_offset = false) {
 	track_basicring(r - rShrink);
 }
 
-track(48.556, 3/6.28318);
+track(48.556, 5/6.28318);
