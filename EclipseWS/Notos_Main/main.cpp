@@ -27,30 +27,22 @@ int main() {
 
 	init();
 
-	Led.setModes(0b1010101, 0b11001100, 0b11110000);
+	Led.setModes(0, 0b111110111110, 0);
 
 	_delay_ms(1000);
 
-	Motor.setSpeed(0);
-	Motor.setRotationSpeed(360);
-	Motor.continuousMode();
+	Motor.setSpeed(300);
+	Motor.setRotationSpeed(100);
 
 	// Dauerschleife mit Motor-Test-Programm.
 	while(1) {
-		Motor.setRotationSpeed(LSensor.lineOffset * 360.0 / 127);
-		switch(LSensor.lineStatus) {
-		case LF::OK:
-			Led.setModes(Pattern::off, Pattern::on, Pattern::off);
-		break;
+		Motor.moveBy(100);
+		Motor.flush();
+		Motor.moveBy(-100);
+		Motor.flush();
 
-		case LF::LOST:
-			Led.setModes(Pattern::flash, 0, 0);
-		break;
+		_delay_ms(3000);
 
-		default:
-			Led.setModes(Pattern::off, 0, Pattern::slowblink);
-		break;
-		}
 	}
 
 	return 1;
