@@ -1,4 +1,6 @@
-# Notos
+<img align="right" src="Logo.png"/>
+# Notos 
+
 Public repository of the Notos robot project of the [Kolleg St. Thomas][kst] robotics group, 2016/2017
 
 [kst]:http://www.kolleg-st-thomas.de
