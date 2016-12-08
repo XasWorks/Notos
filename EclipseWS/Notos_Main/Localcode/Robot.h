@@ -22,7 +22,6 @@
 #define ISR_LED_FREQ	6	// Frequenz der LED und Battery-Checking
 #define SAFE_VOLTAGE 495	// Minimum für die Spannungs-Messung (in ADC-Wert)
 
-
 // Definitionen des Bewegungs-Systemes
 #define MICROSTEPPING 8		// Microstepping-Definition
 #define MOTOR_WHEEL_DIAMETER 30
