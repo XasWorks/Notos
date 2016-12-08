@@ -27,16 +27,6 @@ LF::Sens3 LSensor = LF::Sens3(&PINA, 0);
 
 Voltage::Battery BatteryGuard = Voltage::Battery(7, 15.682, 10.8, 12.9);
 
-// Diese Funtkion liest mithilfe des ADC die Batterie-Spannung aus, und vergleicht sie mit einem Prüfwert, um sicher zu stellen dass die Batterie nicht leer ist.
-// Grade jetzt werden dementsprechend einfach nur die Motoren aus oder an geschaltet.
-void check_voltage() {
-	uint16_t voltage = ADC_Lib::lastResult;
-	if(voltage > SAFE_VOLTAGE)
-		PORTB &= ~(1<< 3);
-	else
-		PORTB |= (1<< 3);
-}
-
 uint16_t ISR1PrescA = 1;
 uint16_t ISR1PrescB = 1;
 void ISR1() {
@@ -48,7 +38,7 @@ void ISR1() {
 	if(--ISR1PrescA == 0) {
 		BatteryGuard.update();
 		Led.update();
-		ISR1PrescA = ISR1_FREQ/6;
+		ISR1PrescA = ISR1_FREQ/ISR_LED_FREQ;
 	}
 
 	if(--ISR1PrescB == 0) {
