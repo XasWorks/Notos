@@ -534,7 +534,7 @@ Wire Notes Line
 Wire Notes Line
 	5700 5800 5700 5800
 Text Notes 4300 6450 0    60   ~ 0
-Reverse Polarity Protector Diode and Fuse\n\nVoltage Divider (1/3.136 ratio or 15.462V => 4.93V)
+Reverse Polarity Protector Diode and Fuse\n\nVoltage Divider (1/3.136 ratio or 15.682V => 5V)
 Wire Notes Line
 	4250 6200 4175 6200
 Wire Notes Line

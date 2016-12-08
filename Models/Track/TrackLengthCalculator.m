@@ -1,12 +1,12 @@
 
 global wheelPositions wheelSizes;
 
-wheelPositions = [[0, 40]
-						[-57, 35]
-						[-45, 10]
-						[-15, 10]
-						[15, 10]
-						[45, 10]];
+wheelPositions =  [[0, 40]
+						      [-65, 30]
+						      [-45, 10]
+						      [-15, 10]
+						      [15, 10]
+						      [45, 10]];
 wheelSizes = [15, 10, 10, 10, 10, 10];
 
 function aDeg = radToDec(aDeg)
