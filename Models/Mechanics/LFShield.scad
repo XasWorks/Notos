@@ -8,7 +8,7 @@ coverY = 7;
 
 coverShiftY = 9;
 
-coverPositions = [[1, 0], [1, 7], [1.5, 15], [1.5, 16]];
+coverPositions = [[1, 0], [1, 7], [1.5, 15], [1.5, 23]];
 
 module LFS_ScrewHole() {
 	tag("positive") cylinder(d = 7.5, h = sliceHeight);
