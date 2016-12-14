@@ -27,22 +27,17 @@ int main() {
 
 	init();
 
-	Led.setModes(0, 0b111110111110, 0);
+	Led.setModes(Pattern::flash, 0, 0);
 
 	_delay_ms(1000);
 
-	Motor.setSpeed(300);
-	Motor.setRotationSpeed(100);
+	Motor.setSpeed(100);
+	Motor.setRotationSpeed(0);
+
+	Motor.continuousMode();
 
 	// Dauerschleife mit Motor-Test-Programm.
 	while(1) {
-		Motor.moveBy(100);
-		Motor.flush();
-		Motor.moveBy(-100);
-		Motor.flush();
-
-		_delay_ms(3000);
-
 	}
 
 	return 1;
