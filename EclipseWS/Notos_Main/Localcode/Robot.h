@@ -23,7 +23,7 @@
 #define ISR1_FREQ 	5000 	// Frequenz des TIMER1-ISR
 #define ISR_CAL_FREQ	50	// Frequenz der Movable-Kalkulationen
 #define ISR_LED_FREQ	6	// Frequenz der LED und Battery-Checking
-#define SAFE_VOLTAGE 495	// Minimum für die Spannungs-Messung (in ADC-Wert)
+#define SAFE_VOLTAGE 10.5	// Minimum für die Spannungs-Messung (in ADC-Wert)
 
 // Definitionen des Bewegungs-Systemes
 #define MICROSTEPPING 8		// Microstepping-Definition
@@ -40,7 +40,7 @@
 // Der Robot-Namespace, ein Haupt-Namespace für alle wichtigen Basisfunktionen des Roboters
 namespace Robot {
 
-enum InitStatus : uint8_t { noButton, noVoltage, powerupButton, startButton};
+enum InitStatus : uint8_t { noButton, noVoltage, powerupButton, startButton, lowBattery};
 
 extern X2::Movable	Motor;
 extern LF::Sens3 	LSensor;

@@ -36,6 +36,11 @@ int main() {
 		while(true) {}
 	break;
 
+	case lowBattery:
+		Led.setModes(0b101101011, 0, 0);
+		while(true) {}
+	break;
+
 	case noButton:
 		Led.setModes(0, 0b101, 0);
 		while(true) {}

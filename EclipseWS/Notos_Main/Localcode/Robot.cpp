@@ -23,7 +23,7 @@ Communication::RGBStatus Led = Communication::RGBStatus(&PORTC, 3, 4, 2);
 
 LF::Sens3 LSensor = LF::Sens3(&PINA, 0);
 
-Voltage::Battery Battery = Voltage::Battery(7, 15.682, 10.8, 12.9);
+Voltage::Battery Battery = Voltage::Battery(7, 15.682, SAFE_VOLTAGE, 12.9);
 
 uint16_t ISR1PrescA = 1;
 uint16_t ISR1PrescB = 1;
@@ -84,7 +84,7 @@ InitStatus init() {
 	_delay_ms(100);
 
 
-	if(Battery.getVoltage() > 2) {
+	if(Battery.getVoltage() > SAFE_VOLTAGE) {
 		Led.setModes(0b100100100100, 0b010010010010, 0b001001001001);
 		for(uint8_t i = 20; i != 0; i--) {
 			if(getButton()) {
@@ -93,6 +93,8 @@ InitStatus init() {
 			_delay_ms(450);
 		}
 	}
+	else if(Battery.getVoltage() > 2)
+		return InitStatus::lowBattery;
 	else
 		return InitStatus::noVoltage;
 
