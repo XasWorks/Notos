@@ -15,6 +15,9 @@
 #include "../AVR/Movement/X2/X2-Movable.h"			// Motor-Steuerung
 #include "../AVR/Sensors/LineFollow/LF3Sens.h"		// LineFollow Bibliotheken
 #include "../AVR/Communication/RGBStatus/RGBStatus.h"	// LED-Lib
+#include "../AVR/Sensors/Voltage/Battery.h"			// Batterie-Überprüfung
+
+#include "Pins.h"
 
 // -- Basische defines für System-Werte
 #define ISR1_FREQ 	5000 	// Frequenz des TIMER1-ISR
@@ -40,13 +43,16 @@ namespace Robot {
 extern X2::Movable	Motor;
 extern LF::Sens3 	LSensor;
 extern Communication::RGBStatus Led;
+extern Voltage::Battery Battery;
 
 void ISR1();
 void ISRADC();
 
-void setLED(uint8_t value);
+void setMotors(bool state);
 
-void init();
+uint8_t init();
+
+bool getButton();
 
 }
 

@@ -11,8 +11,6 @@
 #include "../AVR/TIMER/Timer1.h"					// TIMER Bibliotheken
 #include "../AVR/Actuators/Steppers/X2Stepper.h"	// Schrittmotor-Bibliothek
 #include "../AVR/ADC/ADC_Lib.h"						// ADC-Bibliothek
-#include "../AVR/Sensors/Voltage/Battery.h"			// Batterie-Überprüfung
-
 
 namespace Robot {
 
@@ -25,7 +23,7 @@ Communication::RGBStatus Led = Communication::RGBStatus(&PORTC, 3, 4, 2);
 
 LF::Sens3 LSensor = LF::Sens3(&PINA, 0);
 
-Voltage::Battery BatteryGuard = Voltage::Battery(7, 15.682, 10.8, 12.9);
+Voltage::Battery Battery = Voltage::Battery(7, 15.682, 10.8, 12.9);
 
 uint16_t ISR1PrescA = 1;
 uint16_t ISR1PrescB = 1;
@@ -36,9 +34,9 @@ void ISR1() {
 
 	// "Prescaler", d.h. dass die nachfolgenden Funktionen nicht immer, sondern in längeren Abständen aufgerufen werden.
 	if(--ISR1PrescA == 0) {
-		BatteryGuard.update();
+		Battery.update();
 		Led.update();
-		ISR1PrescA = ISR1_FREQ/ISR_LED_FREQ;
+		ISR1PrescA = ISR1_FREQ/ ISR_LED_FREQ;
 	}
 
 	if(--ISR1PrescB == 0) {
@@ -49,18 +47,24 @@ void ISR1() {
 }
 void ISRADC() {
 	ADC_Lib::update();
-	BatteryGuard.ADC_update();
+	Battery.ADC_update();
 }
 
-void setLED(uint8_t value) {
-	PORTC &= ~(0b11100);
-	PORTC |= (value & 0b111) << 2;
+void setMotors(bool state) {
+	if(state)
+		PORTB &= ~(1<< PB3);
+	else
+		PORTB |= (1<< PB3);
 }
 
-void init() {
+bool getButton() {
+	return (PINB & (1<< PIN_BUTTON)) == 0;
+}
+
+uint8_t init() {
 	// Initialisierung der Hardware-Pins (ähnlich des "pinMode" des Arduino)
 	DDRB |= (0b1111);
-	PORTB |= (0b10000);
+	PORTB |= (0b11000);
 	DDRC |= (0b11100);
 
 	// Initialisierung des ADC
@@ -72,6 +76,25 @@ void init() {
 	// Setzen der Dauer des Timer auf 0.2ms, d.h. also dass die TIMER1_COMPA_vect ISR mit 5000kHz aufgerufen wird.
 	Timer1::set_OCR1A(50 - 1);
 	sei();
+
+	if(getButton())
+		return 1;
+
+	_delay_ms(100);
+
+	if(Battery.getVoltage() > 2) {
+		Led.setModes(0b100100100100, 0b010010010010, 0b001001001001);
+		for(uint8_t i = 10; i != 0; i--) {
+			if(getButton()) {
+				return 3;
+			}
+			_delay_ms(450);
+		}
+	}
+	else
+		return 2;
+
+	return 0;
 }
 
 }
