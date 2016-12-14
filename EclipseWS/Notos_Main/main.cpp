@@ -26,23 +26,23 @@ ISR(ADC_vect) {
 int main() {
 
 	switch(init()) {
-	case 1:
+	case powerupButton:
 		Led.setModes(0, 0, Pattern::slowblink);
 		while(true) {}
 	break;
 
-	case 2:
+	case noVoltage:
 		Led.setModes(0, 1, 0);
 		while(true) {}
 	break;
 
-	case 0:
+	case noButton:
 		Led.setModes(0, 0b101, 0);
 		while(true) {}
 	break;
 
-	case 3:
-	break;
+	case startButton:
+		break;
 	}
 
 	setMotors(true);

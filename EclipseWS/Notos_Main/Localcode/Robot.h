@@ -40,6 +40,8 @@
 // Der Robot-Namespace, ein Haupt-Namespace für alle wichtigen Basisfunktionen des Roboters
 namespace Robot {
 
+enum InitStatus : uint8_t { noButton, noVoltage, powerupButton, startButton};
+
 extern X2::Movable	Motor;
 extern LF::Sens3 	LSensor;
 extern Communication::RGBStatus Led;
@@ -50,7 +52,7 @@ void ISRADC();
 
 void setMotors(bool state);
 
-uint8_t init();
+InitStatus init();
 
 bool getButton();
 

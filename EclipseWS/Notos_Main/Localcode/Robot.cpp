@@ -61,7 +61,7 @@ bool getButton() {
 	return (PINB & (1<< PIN_BUTTON)) == 0;
 }
 
-uint8_t init() {
+InitStatus init() {
 	// Initialisierung der Hardware-Pins (ähnlich des "pinMode" des Arduino)
 	DDRB |= (0b1111);
 	PORTB |= (0b11000);
@@ -77,24 +77,26 @@ uint8_t init() {
 	Timer1::set_OCR1A(50 - 1);
 	sei();
 
+	// Startup-Button erkennen
 	if(getButton())
-		return 1;
+		return InitStatus::powerupButton;
 
 	_delay_ms(100);
 
+
 	if(Battery.getVoltage() > 2) {
 		Led.setModes(0b100100100100, 0b010010010010, 0b001001001001);
-		for(uint8_t i = 10; i != 0; i--) {
+		for(uint8_t i = 20; i != 0; i--) {
 			if(getButton()) {
-				return 3;
+				return InitStatus::startButton;
 			}
 			_delay_ms(450);
 		}
 	}
 	else
-		return 2;
+		return InitStatus::noVoltage;
 
-	return 0;
+	return InitStatus::noButton;
 }
 
 }
