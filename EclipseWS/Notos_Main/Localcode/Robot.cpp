@@ -58,7 +58,7 @@ void setMotors(bool state) {
 }
 
 bool getButton() {
-	return (PINB & (1<< PIN_BUTTON)) == 0;
+	return (PINx_BUTTON & (1<< PIN_BUTTON)) == 0;
 }
 
 InitStatus init() {
@@ -71,11 +71,7 @@ InitStatus init() {
 	ADC_Lib::init(ADC_PRSC_128, ADC_REF_AREF);
 
 	// Initialisierung des Timer1 auf CTC (Clear Timer on Compare)-Modus. D.h. ganz normaler Timer Modus.
-	Timer1::set_prescaler(TIMER1_PRESC_64);
-	Timer1::set_mode(TIMER1_MODE_CTC);
-	// Setzen der Dauer des Timer auf 0.2ms, d.h. also dass die TIMER1_COMPA_vect ISR mit 5000kHz aufgerufen wird.
-	Timer1::set_OCR1A(50 - 1);
-	sei();
+	Timer1::enable_CTC(5000);
 
 	// Startup-Button erkennen
 	if(getButton())
@@ -92,13 +88,13 @@ InitStatus init() {
 			}
 			_delay_ms(450);
 		}
+
+		return InitStatus::noButton;
 	}
 	else if(Battery.getVoltage() > 2)
 		return InitStatus::lowBattery;
 	else
 		return InitStatus::noVoltage;
-
-	return InitStatus::noButton;
 }
 
 }
