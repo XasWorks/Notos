@@ -71,7 +71,7 @@ InitStatus init() {
 	ADC_Lib::init(ADC_PRSC_128, ADC_REF_AREF);
 
 	// Initialisierung des Timer1 auf CTC (Clear Timer on Compare)-Modus. D.h. ganz normaler Timer Modus.
-	Timer1::enable_CTC(5000);
+	Timer1::enable_CTC(ISR1_FREQ);
 
 	// Startup-Button erkennen
 	if(getButton())
