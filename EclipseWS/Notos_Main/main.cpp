@@ -25,24 +25,43 @@ ISR(ADC_vect) {
 // Die main-Methode des Roboters. Hier steht alles /wirklich/ wichtige drinnen, nämlich der eigentliche Programmcode.
 int main() {
 
-	init();
+	switch(init()) {
+	case powerupButton:
+		Led.setModes(0, 0, Pattern::slowblink);
+		while(true) {}
+	break;
 
-	Led.setModes(0, 0b111110111110, 0);
+	case noVoltage:
+		Led.setModes(0, 1, 0);
+		while(true) {}
+	break;
+
+	case lowBattery:
+		Led.setModes(0b101101011, 0, 0);
+		while(true) {}
+	break;
+
+	case noButton:
+		Led.setModes(0, 0b101, 0);
+		while(true) {}
+	break;
+
+	case startButton:
+		break;
+	}
+
+	setMotors(true);
+	Led.setModes(Pattern::flash, 0, 0);
 
 	_delay_ms(1000);
 
-	Motor.setSpeed(300);
-	Motor.setRotationSpeed(100);
+	Motor.setSpeed(350);
+	Motor.setRotationSpeed(0);
+
+	Motor.continuousMode();
 
 	// Dauerschleife mit Motor-Test-Programm.
 	while(1) {
-		Motor.moveBy(100);
-		Motor.flush();
-		Motor.moveBy(-100);
-		Motor.flush();
-
-		_delay_ms(3000);
-
 	}
 
 	return 1;

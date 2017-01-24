@@ -15,12 +15,15 @@
 #include "../AVR/Movement/X2/X2-Movable.h"			// Motor-Steuerung
 #include "../AVR/Sensors/LineFollow/LF3Sens.h"		// LineFollow Bibliotheken
 #include "../AVR/Communication/RGBStatus/RGBStatus.h"	// LED-Lib
+#include "../AVR/Sensors/Voltage/Battery.h"			// Batterie-Überprüfung
+
+#include "Pins.h"
 
 // -- Basische defines für System-Werte
 #define ISR1_FREQ 	5000 	// Frequenz des TIMER1-ISR
 #define ISR_CAL_FREQ	50	// Frequenz der Movable-Kalkulationen
 #define ISR_LED_FREQ	6	// Frequenz der LED und Battery-Checking
-#define SAFE_VOLTAGE 495	// Minimum für die Spannungs-Messung (in ADC-Wert)
+#define SAFE_VOLTAGE 10.5	// Minimum für die Spannungs-Messung (in ADC-Wert)
 
 // Definitionen des Bewegungs-Systemes
 #define MICROSTEPPING 8		// Microstepping-Definition
@@ -37,16 +40,21 @@
 // Der Robot-Namespace, ein Haupt-Namespace für alle wichtigen Basisfunktionen des Roboters
 namespace Robot {
 
+enum InitStatus : uint8_t { noButton, noVoltage, powerupButton, startButton, lowBattery};
+
 extern X2::Movable	Motor;
 extern LF::Sens3 	LSensor;
 extern Communication::RGBStatus Led;
+extern Voltage::Battery Battery;
 
 void ISR1();
 void ISRADC();
 
-void setLED(uint8_t value);
+void setMotors(bool state);
 
-void init();
+InitStatus init();
+
+bool getButton();
 
 }
 
