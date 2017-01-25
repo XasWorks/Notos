@@ -57,6 +57,11 @@ void setMotors(bool state) {
 		PORTB |= (1<< PB3);
 }
 
+#ifdef PIN_BUMPER
+bool getBumper() {
+	return (PINx_BUMPER & (1<< PIN_BUMPER)) == 0;
+}
+#endif
 bool getButton() {
 	return (PINx_BUTTON & (1<< PIN_BUTTON)) == 0;
 }
@@ -66,6 +71,10 @@ InitStatus init() {
 	DDRB |= (0b1111);
 	PORTB |= (0b11000);
 	DDRC |= (0b11100);
+
+#ifdef PIN_BUMPER
+	PORTx_BUMPER |= (1<< PIN_BUMPER);
+#endif
 
 	// Initialisierung des ADC
 	ADC_Lib::init(ADC_PRSC_128, ADC_REF_AREF);
@@ -82,11 +91,11 @@ InitStatus init() {
 
 	if(Battery.getVoltage() > SAFE_VOLTAGE) {
 		Led.setModes(0b100100100100, 0b010010010010, 0b001001001001);
-		for(uint8_t i = 20; i != 0; i--) {
+		for(uint8_t i = 6; i != 0; i--) {
+			_delay_ms(450);
 			if(getButton()) {
 				return InitStatus::startButton;
 			}
-			_delay_ms(450);
 		}
 
 		return InitStatus::noButton;

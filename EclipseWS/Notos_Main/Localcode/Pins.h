@@ -11,6 +11,8 @@
 #define PIN_BUTTON PB4
 #define PINx_BUTTON PINB
 
-
+#define PINx_BUMPER PINA
+#define PORTx_BUMPER PORTA
+#define PIN_BUMPER PA3
 
 #endif /* LOCALCODE_PINS_H_ */

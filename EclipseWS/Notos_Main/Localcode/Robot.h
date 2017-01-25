@@ -54,6 +54,9 @@ void setMotors(bool state);
 
 InitStatus init();
 
+#ifdef PIN_BUMPER
+	bool getBumper();
+#endif
 bool getButton();
 
 }
