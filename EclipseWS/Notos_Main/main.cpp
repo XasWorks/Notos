@@ -7,6 +7,7 @@
 
 #include "main.h"
 #include "Localcode/States/USB.h"
+#include "Localcode/States/LineFollow.h"
 
 using namespace Robot;
 using Communication::Pattern;
@@ -34,6 +35,7 @@ int main() {
 		while(true) {}
 	break;
 
+	case noButton:
 	case noVoltage:
 		stateFunction = &State::USB::simpleDebug;
 	break;
@@ -43,12 +45,9 @@ int main() {
 		while(true) {}
 	break;
 
-	case noButton:
-		Led.setModes(0, 0b101, 0);
-		while(true) {}
-	break;
-
 	case startButton:
+		setMotors(true);
+		stateFunction = &State::LineFollow::simpleLF;
 		break;
 	}
 

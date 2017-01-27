@@ -21,7 +21,7 @@
 
 // -- Basische defines für System-Werte
 #define ISR1_FREQ 	5000 	// Frequenz des TIMER1-ISR
-#define ISR_CAL_FREQ	50	// Frequenz der Movable-Kalkulationen
+#define ISR_CAL_FREQ	100	// Frequenz der Movable-Kalkulationen
 #define ISR_LED_FREQ	6	// Frequenz der LED und Battery-Checking
 #define SAFE_VOLTAGE 10.5	// Minimum für die Spannungs-Messung (in ADC-Wert)
 
@@ -49,6 +49,8 @@ extern Voltage::Battery Battery;
 
 void ISR1();
 void ISRADC();
+
+void waitForSensors();
 
 void setMotors(bool state);
 

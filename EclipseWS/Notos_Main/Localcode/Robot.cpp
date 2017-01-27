@@ -27,6 +27,7 @@ Voltage::Battery Battery = Voltage::Battery(7, 15.682, SAFE_VOLTAGE, 12.9);
 
 uint16_t ISR1PrescA = 1;
 uint16_t ISR1PrescB = 1;
+volatile uint8_t sensorStatus;
 void ISR1() {
 	// Aufruf der Schrittmotoren, um sich zu updaten.
 	motorA.update();
@@ -40,14 +41,25 @@ void ISR1() {
 	}
 
 	if(--ISR1PrescB == 0) {
-		ISR1PrescB = ISR1_FREQ / ISR_CAL_FREQ;
-		Motor.update();
-		LSensor.update();
+		ISR1PrescB = ISR1_FREQ / ISR_CAL_FREQ /2;
+		if(sensorStatus != 0) {
+			Motor.update();
+			sensorStatus = 0;
+		}
+		else {
+			LSensor.update();
+			sensorStatus = 1;
+		}
 	}
 }
 void ISRADC() {
 	ADC_Lib::update();
 	Battery.ADC_update();
+}
+
+void waitForSensors() {
+	while(sensorStatus != 1) {}
+	sensorStatus = 2;
 }
 
 void setMotors(bool state) {
