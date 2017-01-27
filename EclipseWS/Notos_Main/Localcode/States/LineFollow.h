@@ -15,6 +15,7 @@ namespace State {
 namespace LineFollow {
 
 void simpleLF();
+void avoidObject();
 
 }
 }
