@@ -17,6 +17,8 @@
 #include "../AVR/Communication/RGBStatus/RGBStatus.h"	// LED-Lib
 #include "../AVR/Sensors/Voltage/Battery.h"			// Batterie-Überprüfung
 
+#include "AccellSensor.h"
+
 #include "Pins.h"
 
 // -- Basische defines für System-Werte

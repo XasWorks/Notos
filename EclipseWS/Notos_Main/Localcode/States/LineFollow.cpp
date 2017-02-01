@@ -13,6 +13,15 @@ namespace LineFollow {
 using namespace Robot;
 using Communication::Pattern;
 
+void ramp() {
+	Motor.setRotationSpeed(0);
+	Motor.setSpeed(120);
+
+	while(Sensor::Accelleration::isTilted()) {
+		_delay_ms(10);
+	}
+}
+
 void avoidObject() {
 	Led.setModes(0, Pattern::flash, Pattern::flash);
 
@@ -59,6 +68,9 @@ void simpleLF() {
 		if(getBumper()) {
 			avoidObject();
 		}
+
+		if(Sensor::Accelleration::isTilted())
+			ramp();
 
 		if(getButton()) {
 			setMotors(false);

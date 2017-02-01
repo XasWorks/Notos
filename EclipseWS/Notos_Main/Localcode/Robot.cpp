@@ -14,6 +14,8 @@
 
 namespace Robot {
 
+using namespace Sensor;
+
 X2::Stepper motorA = X2::Stepper(&PORTB, 0, 2, ISR1_FREQ / ISR_CAL_FREQ, -STEPS_P_MM, STEPS_P_DEGREE);
 X2::Stepper motorB = X2::Stepper(&PORTB, 1, 2, ISR1_FREQ / ISR_CAL_FREQ, -STEPS_P_MM, -STEPS_P_DEGREE);
 
@@ -48,6 +50,7 @@ void ISR1() {
 		}
 		else {
 			LSensor.update();
+			Accelleration::initMeasurement();
 			sensorStatus = 1;
 		}
 	}
@@ -55,6 +58,7 @@ void ISR1() {
 void ISRADC() {
 	ADC_Lib::update();
 	Battery.ADC_update();
+	Accelleration::analogUpdate();
 }
 
 void waitForSensors() {
