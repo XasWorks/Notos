@@ -16,16 +16,16 @@ namespace Robot {
 
 using namespace Sensor;
 
-X2::Stepper motorA = X2::Stepper(&PORTB, 0, 2, ISR1_FREQ / ISR_CAL_FREQ, -STEPS_P_MM, STEPS_P_DEGREE);
-X2::Stepper motorB = X2::Stepper(&PORTB, 1, 2, ISR1_FREQ / ISR_CAL_FREQ, -STEPS_P_MM, -STEPS_P_DEGREE);
+X2::Stepper motorA = X2::Stepper(&PORTx_STEPPERS, PIN_STEPPER0_S, PIN_STEPPER0_D, ISR1_FREQ / ISR_CAL_FREQ, -STEPS_P_MM, STEPS_P_DEGREE);
+X2::Stepper motorB = X2::Stepper(&PORTx_STEPPERS, PIN_STEPPER1_S, PIN_STEPPER1_D, ISR1_FREQ / ISR_CAL_FREQ, -STEPS_P_MM, -STEPS_P_DEGREE);
 
 X2::Movable Motor = X2::Movable(ISR_CAL_FREQ);
 
-Communication::RGBStatus Led = Communication::RGBStatus(&PORTC, 3, 4, 2);
+Communication::RGBStatus Led = Communication::RGBStatus(&PORTx_RGB, PIN_RGB_R, PIN_RGB_G, PIN_RGB_B);
 
-LF::Sens3 LSensor = LF::Sens3(&PINA, 0);
+LF::Sens3 LSensor = LF::Sens3(&PORTx_LF_SENSOR, PIN_LF_SENSOR_START);
 
-Voltage::Battery Battery = Voltage::Battery(7, 15.682, SAFE_VOLTAGE, 12.9);
+Voltage::Battery Battery = Voltage::Battery(PIN_BATTERY, 15.682, SAFE_VOLTAGE, 12.9);
 
 uint16_t ISR1PrescA = 1;
 uint16_t ISR1PrescB = 1;
@@ -73,24 +73,21 @@ void setMotors(bool state) {
 		PORTB |= (1<< PB3);
 }
 
-#ifdef PIN_BUMPER
+
 bool getBumper() {
 	return (PINx_BUMPER & (1<< PIN_BUMPER)) == 0;
 }
-#endif
 bool getButton() {
 	return (PINx_BUTTON & (1<< PIN_BUTTON)) == 0;
 }
 
 InitStatus init() {
 	// Initialisierung der Hardware-Pins (ähnlich des "pinMode" des Arduino)
-	DDRB |= (0b1111);
-	PORTB |= (0b11000);
-	DDRC |= (0b11100);
 
-#ifdef PIN_BUMPER
+	PORTx_BUTTON |= (1<< PIN_BUTTON);
+	PORTx_STEPPERS |= (1<< PIN_STEPPER_E);
+	DDRx_STEPPERS |= (1<< PIN_STEPPER_E);
 	PORTx_BUMPER |= (1<< PIN_BUMPER);
-#endif
 
 	// Initialisierung des ADC
 	ADC_Lib::init(ADC_PRSC_128, ADC_REF_AREF);
