@@ -68,9 +68,9 @@ void waitForSensors() {
 
 void setMotors(bool state) {
 	if(state)
-		PORTB &= ~(1<< PB3);
+		PORTx_STEPPERS &= ~(1<< PIN_STEPPER_E);
 	else
-		PORTB |= (1<< PB3);
+		PORTx_STEPPERS |= (1<< PIN_STEPPER_E);
 }
 
 
