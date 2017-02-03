@@ -19,10 +19,13 @@ void initMeasurement() {
 }
 
 void analogUpdate() {
-	if(ADC_Lib::measuredPin == PINx_TILT_SENSOR) {
-		conseqTriggers = (ADC_Lib::lastResult >= TRIGGER_PLUS) || (ADC_Lib::lastResult <= TRIGGER_MINUS) ?
-				conseqTriggers + 1 :
-				0;
+	if((ADC_Lib::measuredPin == PINx_TILT_SENSOR)) {
+		if((ADC_Lib::lastResult >= TRIGGER_PLUS) || (ADC_Lib::lastResult <= TRIGGER_MINUS)) {
+			if(conseqTriggers != CONSECUTIVE_TRIGGERS)
+				conseqTriggers++;
+		}
+		else
+			conseqTriggers = 0;
 
 	}
 }
@@ -33,6 +36,3 @@ bool isTilted() {
 
 }
 }
-
-
-
