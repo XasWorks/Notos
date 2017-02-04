@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:MainBoard-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -213,7 +214,7 @@ F 3 "" H 9500 4350 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L LED_RCBG D3
+L LED_RCBG-RESCUE-MainBoard D3
 U 1 1 57B9E648
 P 9500 3700
 F 0 "D3" H 9500 4050 50  0000 C CNN

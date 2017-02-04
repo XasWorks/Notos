@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:MainBoard-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -78,7 +79,7 @@ Wire Wire Line
 	5350 5850 4950 5850
 Connection ~ 4950 5850
 $Comp
-L Battery BT2
+L Battery-RESCUE-MainBoard BT2
 U 1 1 57E3198C
 P 4150 5800
 F 0 "BT2" H 4250 5850 50  0000 L CNN
@@ -100,7 +101,7 @@ F 3 "" H 4150 5500 50  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L LED D6
+L LED-RESCUE-MainBoard D6
 U 1 1 57E3199A
 P 5800 5400
 F 0 "D6" H 5800 5500 50  0000 C CNN
@@ -639,7 +640,7 @@ GND
 Text Label 6250 3700 0    60   ~ 0
 GND
 $Comp
-L LED D8
+L LED-RESCUE-MainBoard D8
 U 1 1 57F955FD
 P 8550 4400
 F 0 "D8" H 8550 4500 50  0000 C CNN
@@ -650,7 +651,7 @@ F 3 "" H 8550 4400 50  0000 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L LED D4
+L LED-RESCUE-MainBoard D4
 U 1 1 57F956E8
 P 8250 4400
 F 0 "D4" H 8250 4500 50  0000 C CNN
@@ -661,7 +662,7 @@ F 3 "" H 8250 4400 50  0000 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L LED D2
+L LED-RESCUE-MainBoard D2
 U 1 1 57F9573D
 P 7950 4400
 F 0 "D2" H 7950 4500 50  0000 C CNN
@@ -672,7 +673,7 @@ F 3 "" H 7950 4400 50  0000 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L LED D1
+L LED-RESCUE-MainBoard D1
 U 1 1 57F957C6
 P 7700 4400
 F 0 "D1" H 7700 4500 50  0000 C CNN

@@ -5,10 +5,14 @@
  *      Author: xasin
  */
 
-#include "Localcode/Robot.h"
+#include "main.h"
+#include "Localcode/States/USB.h"
+#include "Localcode/States/LineFollow.h"
 
 using namespace Robot;
 using Communication::Pattern;
+
+void (*stateFunction)();
 
 // Eine "ISR"-Funktion ist eine Funktion, welche zu bestimmten Zeitpunkten automatisch aufgerufen wird.
 // In dieserm Fall handelt es sich um die "TIMER1 - CompareInterrupt A" ISR. D.h. der Timer, hier aufgerufen alle 0.2ms
@@ -31,9 +35,9 @@ int main() {
 		while(true) {}
 	break;
 
+	case noButton:
 	case noVoltage:
-		Led.setModes(0, 1, 0);
-		while(true) {}
+		stateFunction = &State::USB::simpleDebug;
 	break;
 
 	case lowBattery:
@@ -41,27 +45,17 @@ int main() {
 		while(true) {}
 	break;
 
-	case noButton:
-		Led.setModes(0, 0b101, 0);
-		while(true) {}
-	break;
-
 	case startButton:
+		setMotors(true);
+		stateFunction = &State::LineFollow::simpleLF;
 		break;
 	}
 
-	setMotors(true);
-	Led.setModes(Pattern::flash, 0, 0);
-
-	_delay_ms(1000);
-
-	Motor.setSpeed(350);
-	Motor.setRotationSpeed(0);
-
-	Motor.continuousMode();
-
 	// Dauerschleife mit Motor-Test-Programm.
 	while(1) {
+		_delay_ms(10);
+		if(stateFunction != 0)
+			stateFunction();
 	}
 
 	return 1;

@@ -14,19 +14,22 @@
 
 namespace Robot {
 
-X2::Stepper motorA = X2::Stepper(&PORTB, 0, 2, ISR1_FREQ / ISR_CAL_FREQ, -STEPS_P_MM, STEPS_P_DEGREE);
-X2::Stepper motorB = X2::Stepper(&PORTB, 1, 2, ISR1_FREQ / ISR_CAL_FREQ, -STEPS_P_MM, -STEPS_P_DEGREE);
+using namespace Sensor;
+
+X2::Stepper motorA = X2::Stepper(&PORTx_STEPPERS, PIN_STEPPER0_S, PIN_STEPPER0_D, ISR1_FREQ / ISR_CAL_FREQ, -STEPS_P_MM, STEPS_P_DEGREE);
+X2::Stepper motorB = X2::Stepper(&PORTx_STEPPERS, PIN_STEPPER1_S, PIN_STEPPER1_D, ISR1_FREQ / ISR_CAL_FREQ, -STEPS_P_MM, -STEPS_P_DEGREE);
 
 X2::Movable Motor = X2::Movable(ISR_CAL_FREQ);
 
-Communication::RGBStatus Led = Communication::RGBStatus(&PORTC, 3, 4, 2);
+Communication::RGBStatus Led = Communication::RGBStatus(&PORTx_RGB, PIN_RGB_R, PIN_RGB_G, PIN_RGB_B);
 
-LF::Sens3 LSensor = LF::Sens3(&PINA, 0);
+LF::Sens3 LSensor = LF::Sens3(&PORTx_LF_SENSOR, PIN_LF_SENSOR_START);
 
-Voltage::Battery Battery = Voltage::Battery(7, 15.682, SAFE_VOLTAGE, 12.9);
+Voltage::Battery Battery = Voltage::Battery(PIN_BATTERY, 15.682, SAFE_VOLTAGE, 12.9);
 
 uint16_t ISR1PrescA = 1;
 uint16_t ISR1PrescB = 1;
+volatile uint8_t sensorStatus;
 void ISR1() {
 	// Aufruf der Schrittmotoren, um sich zu updaten.
 	motorA.update();
@@ -40,32 +43,51 @@ void ISR1() {
 	}
 
 	if(--ISR1PrescB == 0) {
-		ISR1PrescB = ISR1_FREQ / ISR_CAL_FREQ;
-		Motor.update();
-		LSensor.update();
+		ISR1PrescB = ISR1_FREQ / ISR_CAL_FREQ /2;
+		if(sensorStatus != 0) {
+			Motor.update();
+			sensorStatus = 0;
+		}
+		else {
+			LSensor.update();
+			Accelleration::initMeasurement();
+			sensorStatus = 1;
+		}
 	}
 }
 void ISRADC() {
 	ADC_Lib::update();
 	Battery.ADC_update();
+	Accelleration::analogUpdate();
+}
+
+void waitForSensors() {
+	while(sensorStatus != 1) {}
+	sensorStatus = 2;
 }
 
 void setMotors(bool state) {
 	if(state)
-		PORTB &= ~(1<< PB3);
+		PORTx_STEPPERS &= ~(1<< PIN_STEPPER_E);
 	else
-		PORTB |= (1<< PB3);
+		PORTx_STEPPERS |= (1<< PIN_STEPPER_E);
 }
 
+
+bool getBumper() {
+	return (PINx_BUMPER & (1<< PIN_BUMPER)) == 0;
+}
 bool getButton() {
 	return (PINx_BUTTON & (1<< PIN_BUTTON)) == 0;
 }
 
 InitStatus init() {
 	// Initialisierung der Hardware-Pins (ähnlich des "pinMode" des Arduino)
-	DDRB |= (0b1111);
-	PORTB |= (0b11000);
-	DDRC |= (0b11100);
+
+	PORTx_BUTTON |= (1<< PIN_BUTTON);
+	PORTx_STEPPERS |= (1<< PIN_STEPPER_E);
+	DDRx_STEPPERS |= (1<< PIN_STEPPER_E);
+	PORTx_BUMPER |= (1<< PIN_BUMPER);
 
 	// Initialisierung des ADC
 	ADC_Lib::init(ADC_PRSC_128, ADC_REF_AREF);
@@ -82,11 +104,11 @@ InitStatus init() {
 
 	if(Battery.getVoltage() > SAFE_VOLTAGE) {
 		Led.setModes(0b100100100100, 0b010010010010, 0b001001001001);
-		for(uint8_t i = 20; i != 0; i--) {
+		for(uint8_t i = 6; i != 0; i--) {
+			_delay_ms(450);
 			if(getButton()) {
 				return InitStatus::startButton;
 			}
-			_delay_ms(450);
 		}
 
 		return InitStatus::noButton;
