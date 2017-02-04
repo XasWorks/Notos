@@ -1,9 +1,12 @@
 
-$fs = 0.8;
+use <../../../XasCode/OpenSCAD/TagSystem/Tagging.scad>
+
+
+$fs = 0.75;
 $fa = 7;
 
 // Spielraum-Werte für den Drucker.
-playTightFit = 0.15;
+playTightFit = 0.09;
 playLooseFit = 0.35;
 
 // Mechanik-Werte

@@ -1,9 +1,12 @@
 
 // Größen für die M4-Schraube (Idler)
-idlerScrewDiameter = 4;
-idlerScrewHeadDiameter = 8;
+idlerScrewDiameter = 3.9;
+idlerScrewHeadDiameter = 7.85;
 idlerScrewHeadHeight = 3.25;
 idlerScrewLength = 25;
+// Wie weit soll der Kopf "nach unten gezogen werden" um das Drucken zu vereinfachen?
+idlerScrewHeadSlope = 1;
+
 
 // Größen für die Mutter
 idlerNutHeight = 3.2;

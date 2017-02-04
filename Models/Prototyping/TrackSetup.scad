@@ -1,6 +1,6 @@
 include <MCAD/stepper.scad>
 
-use <TagSystem/Tagging.scad>
+use <../Tools.scad>
 include <../Values/Values.scad>
 
 use <../Track/Idler.scad>
@@ -13,10 +13,11 @@ use <../Plating/BasicPlating.scad>
 use <../Plating/Frontplate.scad>
 
 use <../Modules/ModuleMount.scad>
+use <../Modules/ModuleAdapter.scad>
 
 module wheel() {
-	translate([0, 0, plateTrackPlay]) idlerwheel();
-	color("grey") idler_screw(true);
+	translate([0, 0, plateTrackPlay]) bearingless_idlerwheel();
+	color("grey") %idler_screw(true);
 }
 
 module motor_wheel() {
@@ -49,4 +50,9 @@ module track_drive() {
 	mirror([0, 1, 0]) track_assembly();
 }
 
+module modules_adapters() {
+	for(i = modulesPositions) translate([i[0], 0, i[1] - modulesAdapterThickness/2]) rotate([0, 0, 90]) module_adapter();
+}
+
+modules_adapters();
 track_drive();

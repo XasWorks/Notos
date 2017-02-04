@@ -1,6 +1,5 @@
 include <../Values/Values.scad>
 
-
 module place_at_idlerwheels() {
 	if(len(wheelPositions) >= 2) {
 
@@ -13,7 +12,7 @@ module place_at_idlerwheels() {
 module plating_outline() {
 	hull() {
 		translate(wheelPositions[0]) circle(r = motorWheelSize);
-		place_at_idlerwheels() circle(r = smallWheelSize - playLooseFit*2);
+		place_at_idlerwheels() circle(r = idlerwheelSize - playLooseFit*2);
 	}
 }
 
