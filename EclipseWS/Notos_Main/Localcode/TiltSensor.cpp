@@ -5,12 +5,11 @@
  *      Author: xasin
  */
 
-#include "AccellSensor.h"
-
+#include "TiltSensor.h"
 #include "../AVR/ADC/ADC_Lib.h"
 
 namespace Sensor {
-namespace Accelleration {
+namespace Tilting {
 
 uint8_t conseqTriggers;
 
