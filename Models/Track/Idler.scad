@@ -8,7 +8,7 @@ module idlerwheel_bearing_cutouts() tag("negative") {
 }
 
 module idlerwheel_track_teeth_cutouts() tag("negative") {
-	track(idlerwheelSize - 0.001, clearance_offset = true);
+	track(idlerwheelSize + 0.1, -0.11, clearance_offset = true);
 }
 
 iScrewNormalDiameter = idlerScrewDiameter + playLooseFit * 2;
@@ -45,9 +45,9 @@ module idlerwheel()
 
 module bearingless_idlerwheel()
 taggedDifference("positive", "negative", "neutral") {
-	tag("positive") cylinder(r = idlerwheelSize, h = trackWidth);
+	tag("positive") cylinder(r = idlerwheelSize - trackTeethHeight, h = trackWidth);
 
-	idlerwheel_track_teeth_cutouts();
+	tag("positive") translate([0, 0, trackWidth/2]) track_teeth_noslip(idlerwheelSize);
 	idlerwheel_screw();
 }
 
