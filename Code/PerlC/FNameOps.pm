@@ -7,6 +7,7 @@ package FNameOps;
 
 sub cleanPath {
 	my $fName = shift;
+	
 	my $hasImpurity;
 	while(1) {
 		$hasImpurity = 0;

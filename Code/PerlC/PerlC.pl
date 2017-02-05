@@ -3,90 +3,82 @@ use strict;
 use warnings;
 
 use FNameOps;
-
-#Contains all scanned targets in the format "Filename" => {scanned => 0, compiled => 0, uncompiledDeps => 0, referencingFiles => ()}
-my $targets = {};
-my @unscanned = ();
-my %scanned = ();
-
-sub setupTarget {
-  my $targetname = shift;
-
-  return if defined($targets->{$targetname});
-
-  my $newEntry = {
-    referencingFiles => [],
- 	};
-
-  $targets->{$targetname} = $newEntry;
-}
+use Filetree;
 
 sub hasBeenScanned {
-  my $targetname = shift;
-  return defined($scanned{$targetname});
+	my $workEnv = shift;
+	my $targetname = shift;
+	return defined($workEnv->{scanned}->{$targetname});
 }
 sub markAsScanned {
-  my $targetname = shift;
-  $scanned{$targetname} = 1;
+	my $workEnv = shift;
+	my $targetname = shift;
+
+	$workEnv->{scanned}->{$targetname} = 1;
 }
 
-sub addReferencingFile {
-  my ($targetname, $filename) = @_;
-  push $targets->{$targetname}->{"referencingFiles"}, $filename;
+sub markToScan {
+	my $workEnv = shift;
+	my $targetname = shift;
+
+	push $workEnv->{unscanned}, $targetname unless hasBeenScanned $workEnv, $targetname;
 }
 
 sub scanFile {
-  my $scanFilename = FNameOps::cleanPath shift;
-  my $scanFiledir = FNameOps::getPath $scanFilename;
+	my $workEnv = shift;
+ 	my $scanFilename = FNameOps::cleanPath shift;
+	return if hasBeenScanned $workEnv, $scanFilename;
 
-  return 0 if hasBeenScanned($scanFilename);
+	my $scanFiledir = FNameOps::getPath $scanFilename;
 
-  open(my $to_scan_file, "<", $scanFilename) or return 0;
+	open(my $to_scan_file, "<", $scanFilename) or return 0;
 
-  print "Scanning $scanFilename\n";
-
-  while(<$to_scan_file>) {
+	while(<$to_scan_file>) {
 		# Filter out any lines containing a possible #include "NAME.h"
 		if($_ =~ /#include\s*"([\w\-\/(\.\.)]+\.(?:h|hpp))"/) {
 			my $includedFile = FNameOps::cleanPath($scanFiledir . $1);
-			push @unscanned, $includedFile unless hasBeenScanned($includedFile);
+
+			markToScan $workEnv, $includedFile;
 
 			my $sourcefile = FNameOps::getMatching($includedFile, "c", "cpp");
-
 			if($sourcefile) {
-				push @unscanned, $sourcefile unless hasBeenScanned($sourcefile);
-
-				setupTarget($sourcefile);
-				addReferencingFile($sourcefile, $scanFilename);
+				markToScan $workEnv, $sourcefile;
+				Filetree::addFile $workEnv->{files}, $sourcefile;
 			}
 		}
 	}
 
-	markAsScanned($scanFilename);
+	markAsScanned $workEnv, $scanFilename;
 	close $to_scan_file;
 }
 
-sub scanAllFiles {
-  my $startFile = shift;
-  setupTarget($startFile);
+sub scanFilesFrom {
+	my $workEnv = shift;
+	my $startFile = shift;
 
-  print "Starting to search for all includes, starting from: $startFile\n";
+	Filetree::addFile $workEnv->{files}, $startFile;
 
-  push(@unscanned, $startFile);
+	push $workEnv->{unscanned}, $startFile;
 
-  while(@unscanned) {
-    my $nextFile = pop(@unscanned);
-    scanFile($nextFile);
-  }
-}
+	# Explicitly use an array dereference, otherwise the loop turns endless :c
+	while(@{$workEnv->{unscanned}}) {
+		my $nextFile = pop $workEnv->{unscanned};
 
-sub printAllFiles {
-	foreach(keys($targets)) {
-		print "Detected Source File: $_\n";
+		scanFile($workEnv, $nextFile);
 	}
 }
 
-scanAllFiles("/home/xasin/XasWorks/Notos/EclipseWS/Notos_Main/main.cpp");
-print "\n";
-printAllFiles();
-print("Scanned " . keys(%scanned) . " files alltogether, found " . keys($targets) . " source files!\n");
+sub setupWorkEnv {
+	my $workEnv = shift;
+
+	$workEnv->{files} = {} unless defined $workEnv->{files};
+	$workEnv->{unscanned} = [] unless defined $workEnv->{unscanned};
+	$workEnv->{scanned} = {} unless defined $workEnv->{scanned};
+}
+
+my $workingEnv = {};
+setupWorkEnv $workingEnv;
+scanFilesFrom $workingEnv, "/home/xasin/XasWorks/Notos/EclipseWS/Notos_Main/main.cpp";
+foreach(keys $workingEnv->{files}) {
+	print $_ . "\n";
+}
