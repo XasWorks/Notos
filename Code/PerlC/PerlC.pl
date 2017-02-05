@@ -2,11 +2,12 @@
 use strict;
 use warnings;
 
-use CScan;
+use FNameOps;
 
 #Contains all scanned targets in the format "Filename" => {scanned => 0, compiled => 0, uncompiledDeps => 0, referencingFiles => ()}
 my $targets = {};
 my @unscanned = ();
+my %scanned = ();
 
 sub setupTarget {
   my $targetname = shift;
@@ -14,9 +15,6 @@ sub setupTarget {
   return if defined($targets->{$targetname});
 
   my $newEntry = {
-    scanned => 0,
-    compiled => 0,
-    uncompiledDeps => 0,
     referencingFiles => [],
  	};
 
@@ -25,47 +23,21 @@ sub setupTarget {
 
 sub hasBeenScanned {
   my $targetname = shift;
-  return 0 unless defined($targets->{$targetname});
-
-  return $targets->{$targetname}->{"scanned"} or 0;
+  return defined($scanned{$targetname});
 }
 sub markAsScanned {
   my $targetname = shift;
-  $targets->{$targetname}->{"scanned"} = 1;
+  $scanned{$targetname} = 1;
 }
+
 sub addReferencingFile {
   my ($targetname, $filename) = @_;
   push $targets->{$targetname}->{"referencingFiles"}, $filename;
 }
 
-sub getSourceFile {
-  my $fName = shift;
-  $fName =~ s/\.(h|hpp)//;
-
-  return ($fName . ".c") if( -f ($fName . ".c"));
-  return ($fName . ".cpp") if( -f ($fName . ".cpp"));
-  return 0;
-}
-
-sub getFileDir {
-  my $fName = shift;
-  $fName =~ s/\/[\w\.]*$/\//;
-  return $fName;
-}
-
-sub cleanFileDir {
-  my $fName = shift;
-  while($fName =~ /[\w]+\/\.\.\//) {
-    $fName =~ s/[\w]+\/\.\.\///;
-  }
-  return $fName;
-}
-
 sub scanFile {
-  my $scanFilename = shift;
-  $scanFilename = cleanFileDir($scanFilename);
-
-  my $scanFiledir = getFileDir($scanFilename);
+  my $scanFilename = FNameOps::cleanPath shift;
+  my $scanFiledir = FNameOps::getPath $scanFilename;
 
   return 0 if hasBeenScanned($scanFilename);
 
@@ -74,32 +46,24 @@ sub scanFile {
   print "Scanning $scanFilename\n";
 
   while(<$to_scan_file>) {
-    # Filter out any lines containing a possible #include "NAME.h"
-    if($_ =~ /#include\s*"([\w\/(\.\.)]+\.(?:h|hpp))"/) {
-      my $includedFile = $scanFiledir . $1;
-      $includedFile = cleanFileDir($includedFile);
+		# Filter out any lines containing a possible #include "NAME.h"
+		if($_ =~ /#include\s*"([\w\-\/(\.\.)]+\.(?:h|hpp))"/) {
+			my $includedFile = FNameOps::cleanPath($scanFiledir . $1);
+			push @unscanned, $includedFile unless hasBeenScanned($includedFile);
 
-      my $sourcefile = getSourceFile($includedFile);
+			my $sourcefile = FNameOps::getMatching($includedFile, "c", "cpp");
 
-      next if $sourcefile eq $scanFilename;
+			if($sourcefile) {
+				push @unscanned, $sourcefile unless hasBeenScanned($sourcefile);
 
-      if($sourcefile) {
-        print " - $sourcefile\n";
+				setupTarget($sourcefile);
+				addReferencingFile($sourcefile, $scanFilename);
+			}
+		}
+	}
 
-        $targets->{$scanFilename}->{"uncompiledDeps"}++;
-
-        setupTarget($sourcefile);
-        addReferencingFile($sourcefile, $scanFilename);
-
-        push @unscanned, $sourcefile if not hasBeenScanned($sourcefile);
-      }
-    }
-  }
-
-
-
-  markAsScanned($scanFilename);
-  close $to_scan_file;
+	markAsScanned($scanFilename);
+	close $to_scan_file;
 }
 
 sub scanAllFiles {
@@ -117,11 +81,12 @@ sub scanAllFiles {
 }
 
 sub printAllFiles {
-  foreach(keys($targets)) {
-    print "Detected File: $_\n";
-    print " Dependencies: $targets->{$_}->{'uncompiledDeps'}\n";
-  }
+	foreach(keys($targets)) {
+		print "Detected Source File: $_\n";
+	}
 }
 
-scanAllFiles("/home/xasin/XasWorks/LZRTag/EclipseWS/MainBoard/main.cpp");
+scanAllFiles("/home/xasin/XasWorks/Notos/EclipseWS/Notos_Main/main.cpp");
+print "\n";
 printAllFiles();
+print("Scanned " . keys(%scanned) . " files alltogether, found " . keys($targets) . " source files!\n");

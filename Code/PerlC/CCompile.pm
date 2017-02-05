@@ -6,11 +6,6 @@ use CScan;
 
 package CScan;
 
-use vars qw($VERSION @ISA @EXPORT);
-require Exporter;
-@ISA = qw(Exporter);
-our @EXPORT_OK = qw(generate_filetree);
-
 my $cOptions = do "ComOps.pl";
 
 sub get_files_from_ftree {
@@ -31,7 +26,7 @@ sub clean_directory {
 
 ## ACTUAL FUNCTIONS
 
-# Recoursively generate the directory given.
+# Recursively generate the directory given.
 sub generate_directory_recursion {
 	my ($directory) = @_;
 

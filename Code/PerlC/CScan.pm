@@ -5,11 +5,6 @@ use warnings;
 
 package CScan;
 
-use vars qw($VERSION @ISA @EXPORT);
-require Exporter;
-@ISA = qw(Exporter);
-our @EXPORT_OK = qw(new_filetree add_file scan_file rescan_all get_all_files get_all_sourcefiles);
-
 # Filename-Based operations (getting directory and cleaning)
 sub clean_file_dir {
 	my $fname = shift;
