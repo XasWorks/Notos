@@ -32,8 +32,8 @@
 
 #define PINx_BUMPER 	PINA
 #define PORTx_BUMPER PORTA
-#define PIN_BUMPER 	3
+#define PIN_BUMPER 	4
 
-#define PINx_TILT_SENSOR 4
+#define PINx_TILT_SENSOR 5
 
 #endif /* LOCALCODE_PINS_H_ */
