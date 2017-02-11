@@ -1,0 +1,3 @@
+{
+	startFiles => [ "main.cpp" ],
+}

@@ -30,8 +30,9 @@ sub scanFile {
 	return if hasBeenScanned $workEnv, $scanFilename;
 
 	my $scanFiledir = FNameOps::getPath $scanFilename;
+	my $fullFilename = $workEnv->{path} . $scanFilename;
 
-	open(my $to_scan_file, "<", $scanFilename) or return 0;
+	open(my $to_scan_file, "<", $fullFilename) or return 0;
 
 	while(<$to_scan_file>) {
 		# Filter out any lines containing a possible #include "NAME.h"
@@ -40,7 +41,9 @@ sub scanFile {
 
 			markToScan $workEnv, $includedFile;
 
-			my $sourcefile = FNameOps::getMatching($includedFile, "c", "cpp");
+			my $sourcefile = FNameOps::getMatching($workEnv->{path} . $includedFile, "c", "cpp");
+			$sourcefile =~ s/^$workEnv->{path}//;
+
 			if($sourcefile) {
 				markToScan $workEnv, $sourcefile;
 				Filetree::addFile $workEnv->{files}, $sourcefile;
@@ -52,13 +55,8 @@ sub scanFile {
 	close $to_scan_file;
 }
 
-sub scanFilesFrom {
+sub scanAllFiles {
 	my $workEnv = shift;
-	my $startFile = shift;
-
-	Filetree::addFile $workEnv->{files}, $startFile;
-
-	push $workEnv->{unscanned}, $startFile;
 
 	# Explicitly use an array dereference, otherwise the loop turns endless :c
 	while(@{$workEnv->{unscanned}}) {
@@ -68,17 +66,38 @@ sub scanFilesFrom {
 	}
 }
 
-sub setupWorkEnv {
+sub addStartFile {
+	my $workEnv = shift;
+	my $fName = shift;
+
+	Filetree::addFile $workEnv->{files}, $fName;
+	push $workEnv->{unscanned}, $fName;
+}
+
+sub setupScan {
 	my $workEnv = shift;
 
 	$workEnv->{files} = {} unless defined $workEnv->{files};
 	$workEnv->{unscanned} = [] unless defined $workEnv->{unscanned};
 	$workEnv->{scanned} = {} unless defined $workEnv->{scanned};
+
+	die "No start files were specified!" unless defined $workEnv->{startFiles};
+
+	foreach(@{$workEnv->{startFiles}}) {
+		addStartFile $workEnv, $_;
+	}
 }
 
-my $workingEnv = {};
-setupWorkEnv $workingEnv;
-scanFilesFrom $workingEnv, "/home/xasin/XasWorks/Notos/EclipseWS/Notos_Main/main.cpp";
+
+print "Running PerlC on file: " . $ARGV[0] . "\n";
+
+my $workingEnv = do($ARGV[0]);
+$workingEnv->{path} = FNameOps::getPath($ARGV[0]);
+print "Working environment: " . $workingEnv->{path} ."\n";
+
+setupScan $workingEnv;
+scanAllFiles $workingEnv;
+
 foreach(keys $workingEnv->{files}) {
 	print $_ . "\n";
 }

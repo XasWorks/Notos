@@ -7,7 +7,7 @@ package FNameOps;
 
 sub cleanPath {
 	my $fName = shift;
-	
+
 	my $hasImpurity;
 	while(1) {
 		$hasImpurity = 0;
@@ -26,7 +26,8 @@ sub cleanPath {
 }
 sub getPath {
   my $fName = cleanPath shift;
-  $fName =~ s/[\w\-\.]+$/\//;
+
+  $fName =~ s/[\w\-\.]+$//;
   return $fName;
 }
 
