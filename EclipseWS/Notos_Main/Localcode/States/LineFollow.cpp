@@ -102,7 +102,7 @@ void simpleLF() {
 		if(LSensor.lineStatus == LF::Status::OK) {
 			Led.setModes(0, Pattern::on, 0);
 			Motor.setSpeed(fmin(MIN_MOTOR_SPEED,
-			MAX_MOTOR_SPEED - offsetBuffer/MAX_SPEED_EDGE * (MAX_MOTOR_SPEED - MIN_MOTOR_SPEED));
+			MAX_MOTOR_SPEED - offsetBuffer/MAX_SPEED_EDGE * (MAX_MOTOR_SPEED - MIN_MOTOR_SPEED) ));
 			
 			Motor.setRotationSpeed(-((float)LSensor.lineOffset) * MAX_ROTATION_SPEED / 127);
 			
