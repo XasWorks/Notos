@@ -23,7 +23,7 @@ X2::Movable Motor = X2::Movable(ISR_CAL_FREQ);
 
 Communication::RGBStatus Led = Communication::RGBStatus(&PORTx_RGB, PIN_RGB_R, PIN_RGB_G, PIN_RGB_B);
 
-LF::Sens3 LSensor = LF::Sens3(&PORTx_LF_SENSOR, PIN_LF_SENSOR_START);
+LF::ASens2 LSensor = LF::ASens2(PIN_LF_SENSOR_START);
 
 Voltage::Battery Battery = Voltage::Battery(PIN_BATTERY, 15.682, SAFE_VOLTAGE, 12.9);
 
@@ -49,8 +49,8 @@ void ISR1() {
 			sensorStatus = 0;
 		}
 		else {
+			Tilting::initMeasurement();
 			LSensor.update();
-			Accelleration::initMeasurement();
 			sensorStatus = 1;
 		}
 	}
@@ -58,11 +58,14 @@ void ISR1() {
 void ISRADC() {
 	ADC_Lib::update();
 	Battery.ADC_update();
-	Accelleration::analogUpdate();
+	Tilting::analogUpdate();
+	LSensor.ADCUpdate();
 }
 
 void waitForSensors() {
-	while(sensorStatus != 1) {}
+	while(sensorStatus != 1 || !LSensor.isUpdated()) {
+		_delay_ms(1);
+	}
 	sensorStatus = 2;
 }
 

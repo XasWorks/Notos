@@ -33,7 +33,7 @@ void simpleDebug() {
 	if(getBumper())
 		Led.signal(0b11, 0b1, 0b1011, 6);
 
-	if(Sensor::Accelleration::isTilted())
+	if(Sensor::Tilting::isTilted())
 		Led.signal(0b1011, 0b1, 0b11, 6);
 
 	Led.setModes(0, 0b11, 0);

@@ -13,13 +13,12 @@
 
 // Utility-Libs (für Motorsteuerung etc.)
 #include "../AVR/Movement/X2/X2-Movable.h"			// Motor-Steuerung
-#include "../AVR/Sensors/LineFollow/LF3Sens.h"		// LineFollow Bibliotheken
+#include "../AVR/Sensors/LineFollow/LFA2Sens.h"		// LineFollow Bibliotheken
 #include "../AVR/Communication/RGBStatus/RGBStatus.h"	// LED-Lib
 #include "../AVR/Sensors/Voltage/Battery.h"			// Batterie-Überprüfung
 
-#include "AccellSensor.h"
-
 #include "Pins.h"
+#include "TiltSensor.h"
 
 // -- Basische defines für System-Werte
 #define ISR1_FREQ 	5000 	// Frequenz des TIMER1-ISR
@@ -28,7 +27,7 @@
 #define SAFE_VOLTAGE 10.5	// Minimum für die Spannungs-Messung (in ADC-Wert)
 
 // Definitionen des Bewegungs-Systemes
-#define MICROSTEPPING 8		// Microstepping-Definition
+#define MICROSTEPPING 4		// Microstepping-Definition
 #define MOTOR_WHEEL_DIAMETER 30
 #define MOTOR_WHEEL_OUTWARDS_SHIFT (35 + 2.5 + 2 + 10)
 // #define STEPS_P_MM ((200 * MICROSTEPPING) / (M_PI * MOTOR_WHEEL_DIAMETER))
@@ -45,7 +44,7 @@ namespace Robot {
 enum InitStatus : uint8_t { noButton, noVoltage, powerupButton, startButton, lowBattery};
 
 extern X2::Movable	Motor;
-extern LF::Sens3 	LSensor;
+extern LF::ASens2	LSensor;
 extern Communication::RGBStatus Led;
 extern Voltage::Battery Battery;
 
