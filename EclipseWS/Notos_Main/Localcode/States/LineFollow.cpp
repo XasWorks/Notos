@@ -17,7 +17,7 @@ void ramp() {
 	Led.setModes(Pattern::blink, 0, Pattern::blink);
 
 	Motor.setRotationSpeed(0);
-	Motor.setSpeed(MIN_MOTOR_SPEED/2);
+	Motor.setSpeed(MIN_MOTOR_SPEED);
 	while(Sensor::Tilting::isTilted()) {
 		_delay_ms(10);
 	}
