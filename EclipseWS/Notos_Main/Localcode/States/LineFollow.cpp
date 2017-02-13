@@ -97,7 +97,7 @@ void simpleLF() {
 
 		if(LSensor.lineStatus == LF::Status::OK) {
 			Led.setModes(0, Pattern::on, 0);
-			Motor.setSpeed(MAX_MOTOR_SPEED);
+			Motor.setSpeed(MAX_MOTOR_SPEED - fmin(fabs(LSensor.lineOffset)/(MAX_SPEED_EDGE), 1) * (MAX_MOTOR_SPEED - MIN_MOTOR_SPEED));
 			Motor.setRotationSpeed(-((float)LSensor.lineOffset) * MAX_ROTATION_SPEED / 127);
 		}
 		else {
@@ -109,7 +109,7 @@ void simpleLF() {
 			else {
 				Led.setModes(Pattern::on, 0, 0);
 				Motor.setSpeed(0);
-				Motor.setRotationSpeed(MAX_ROTATION_SPEED * (LSensor.lineOffset < 0 ? 0.5 : -0.5));
+				Motor.setRotationSpeed(MAX_ROTATION_SPEED * (LSensor.lineOffset < 0 ? 1 : -1));
 			}
 		}
 
