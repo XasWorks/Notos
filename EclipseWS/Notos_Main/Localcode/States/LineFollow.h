@@ -11,13 +11,15 @@
 #include "../Robot.h"
 #include "../../main.h"
 
-#define MAX_MOTOR_SPEED 	450
-#define MIN_MOTOR_SPEED		250
-#define MAX_ROTATION_SPEED 	250
-#define MAX_SPEED_EDGE			0.25
-#define OFFSET_BUFFER_DECREASE 0.5/100
+#define MAX_MOTOR_SPEED 	500
+#define MIN_MOTOR_SPEED		180
+#define MAX_ROTATION_SPEED 	300
 
-#define LINE_CENTERED_CUTOFF 	30
+#define OFFSET_BUFFER_TIME			0.15
+#define OFFSET_BUFFER_SPEED_TIME	0.1
+#define OFFSET_BUFFER_DECREASE 	0.01
+
+#define LINE_CENTERED_CUTOFF 	10
 
 
 namespace State {

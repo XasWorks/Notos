@@ -17,7 +17,7 @@ void ramp() {
 	Led.setModes(Pattern::blink, 0, Pattern::blink);
 
 	Motor.setRotationSpeed(0);
-	Motor.setSpeed(MAX_MOTOR_SPEED/2);
+	Motor.setSpeed(MIN_MOTOR_SPEED/2);
 	while(Sensor::Tilting::isTilted()) {
 		_delay_ms(10);
 	}
@@ -95,14 +95,13 @@ void simpleLF() {
 		if(Sensor::Tilting::isTilted())
 			ramp();
 
-		float lineOffset = fabs(LSensor.lineOffset) / 127;
-		if(lineOffset > offsetBuffer)
-			offsetBuffer = lineOffset;
+		if(fabs(LSensor.lineOffset) > LINE_CENTERED_CUTOFF)
+			offsetBuffer = OFFSET_BUFFER_TIME;
 
 		if(LSensor.lineStatus == LF::Status::OK) {
 			Led.setModes(0, Pattern::on, 0);
-			Motor.setSpeed(fmin(MIN_MOTOR_SPEED,
-			MAX_MOTOR_SPEED - offsetBuffer/MAX_SPEED_EDGE * (MAX_MOTOR_SPEED - MIN_MOTOR_SPEED) ));
+			Motor.setSpeed(fmax(MIN_MOTOR_SPEED,
+			MAX_MOTOR_SPEED - offsetBuffer/OFFSET_BUFFER_SPEED_TIME * (MAX_MOTOR_SPEED - MIN_MOTOR_SPEED) ));
 			
 			Motor.setRotationSpeed(-((float)LSensor.lineOffset) * MAX_ROTATION_SPEED / 127);
 			
