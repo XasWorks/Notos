@@ -11,13 +11,13 @@
 #include "../Robot.h"
 #include "../../main.h"
 
-#define MAX_MOTOR_SPEED 	400
+#define MAX_MOTOR_SPEED 	450
 #define MID_MOTOR_SPEED		250
-#define MIN_MOTOR_SPEED		150
+#define MIN_MOTOR_SPEED		180
 
 #define MAX_ROTATION_SPEED 	230
 
-#define LINE_CENTERED_CUTOFF 	20
+#define LINE_CENTERED_CUTOFF 	25
 
 
 namespace State {
