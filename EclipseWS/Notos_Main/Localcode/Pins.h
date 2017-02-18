@@ -16,7 +16,7 @@
 
 #define PORTx_BUTTON	PORTB
 #define PINx_BUTTON 	PINB
-#define PIN_BUTTON 	4
+#define PIN_BUTTON 		4
 
 #define PORTx_RGB 	PORTC
 #define PIN_RGB_R		3
@@ -31,10 +31,12 @@
 #define PIN_STEPPER1_D	2
 #define PIN_STEPPER_E	3
 
-#define PINx_BUMPER 	PINA
-#define PORTx_BUMPER PORTA
-#define PIN_BUMPER 	4
+#define PINx_BUMPER 	PIND
+#define PORTx_BUMPER 	PORTD
+#define PIN_BUMPER 		2
 
-#define PINx_TILT_SENSOR 5
+#define PINx_TILT_SENSOR 3
+
+#define PINx_GREEN_SENSOR	2
 
 #endif /* LOCALCODE_PINS_H_ */

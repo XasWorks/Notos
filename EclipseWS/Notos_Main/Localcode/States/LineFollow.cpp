@@ -35,7 +35,7 @@ void simpleLF() {
 			Motor.setRotationSpeed(-((float)LSensor.lineOffset) * MAX_ROTATION_SPEED / 127);
 		}
 		// "Event"-Handling für das Verlieren der Linie
-		else {
+		else if(LSensor.lineStatus == LF::Status::LOST) {
 			if(LSensor.lineOffset < LINE_CENTERED_CUTOFF && LSensor.lineOffset > -LINE_CENTERED_CUTOFF) {
 				Led.setModes(0, 0, Pattern::blink);
 				Motor.setRotationSpeed(0);
@@ -47,7 +47,13 @@ void simpleLF() {
 				Motor.setRotationSpeed(MAX_ROTATION_SPEED * (LSensor.lineOffset < 0 ? 1 : -1));
 			}
 		}
-
+		else {
+			Motor.setRotationSpeed(0);
+			Motor.setSpeed(0);
+			Led.signal(	(LSensor.lineOffset > 0) ? 0b111 : 0b011,
+						0b011,
+						(LSensor.lineOffset < 0) ? 0b100 : 0b000, 3);
+		}
 	}
 }
 
