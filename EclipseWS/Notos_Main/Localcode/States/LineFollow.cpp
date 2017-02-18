@@ -7,6 +7,8 @@
 
 #include "LineFollow.h"
 #include "Utility.h"
+#include "Intersection.h"
+
 
 namespace State {
 namespace LineFollow {
@@ -48,11 +50,8 @@ void simpleLF() {
 			}
 		}
 		else {
-			Motor.setRotationSpeed(0);
-			Motor.setSpeed(0);
-			Led.signal(	(LSensor.lineOffset > 0) ? 0b111 : 0b011,
-						0b011,
-						(LSensor.lineOffset < 0) ? 0b100 : 0b000, 3);
+			Intsec::runIntsec();
+			return;
 		}
 	}
 }

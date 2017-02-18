@@ -11,7 +11,7 @@
 #include "../Robot.h"
 #include "../../main.h"
 
-#define MAX_MOTOR_SPEED 	350
+#define MAX_MOTOR_SPEED 	200
 #define MID_MOTOR_SPEED		200
 #define MIN_MOTOR_SPEED		50
 
