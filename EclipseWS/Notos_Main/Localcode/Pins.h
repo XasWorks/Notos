@@ -8,8 +8,9 @@
 #ifndef LOCALCODE_PINS_H_
 #define LOCALCODE_PINS_H_
 
-#define PIN_LF_SENSOR_START 	0
-#define PORTx_LF_SENSOR			PORTA
+#define PIN_ALF_SENSORS		0
+#define PINx_ELF_SENSORS	PIND
+#define	PIN_ELF_SENSORS		0
 
 #define PIN_BATTERY 	7
 
