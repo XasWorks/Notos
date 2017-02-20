@@ -42,13 +42,18 @@ void runIntsec() {
 
 	Led.setModes(Pattern::flash, Pattern::flash << 1, 0);
 
-	Motor.moveBy(3);
+	Motor.moveBy(1.5);
 	Motor.flush();
+	_delay_ms(100);
 
 	tDir = LSensor.lineOffset;
 
 	Motor.moveBy(20);
-	Motor.flush();
+	while(!Motor.isReady()) {
+		Robot::waitForSensors();
+		if(LSensor.lineStatus == LF::Status::INTSEC && LSensor.lineOffset == 0)
+			tDir = 0;
+	}
 
 	if((tDir != 0) && (LSensor.lineStatus == LF::Status::LOST)) {
 		driveOff(tDir);
