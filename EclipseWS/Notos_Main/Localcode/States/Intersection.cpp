@@ -53,6 +53,8 @@ void runIntsec() {
 		Robot::waitForSensors();
 		if(LSensor.lineStatus == LF::Status::INTSEC && LSensor.lineOffset == 0)
 			tDir = 0;
+		if(Sensor::Tilting::isTilted())
+			return;
 	}
 
 	if((tDir != 0) && (LSensor.lineStatus == LF::Status::LOST)) {

@@ -25,7 +25,7 @@ void sensitiveSituation() {
 		_delay_ms(10);
 	}
 
-	Motor.moveBy(40);
+	Motor.moveBy(60);
 	Motor.flush();
 	Motor.continuousMode();
 }
