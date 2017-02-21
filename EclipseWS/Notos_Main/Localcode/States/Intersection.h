@@ -10,6 +10,10 @@
 
 #include "../Robot.h"
 
+#define GREEN_THRESHOLD 80
+
+#define SCAN_ANGLE		60
+
 namespace State  {
 namespace Intsec {
 

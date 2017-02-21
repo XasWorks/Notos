@@ -62,12 +62,12 @@ void avoidObject() {
 	Motor.flush();
 	Motor.rotateBy(90);
 	Motor.flush();
-	Motor.moveBy(140);
+	Motor.moveBy(150);
 	Motor.flush();
 	Motor.rotateBy(-90);
 	Motor.flush();
 
-	Motor.moveBy(250);
+	Motor.moveBy(280);
 	Motor.flush();
 
 	Motor.rotateBy(-90);

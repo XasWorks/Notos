@@ -31,8 +31,8 @@ void simpleLF() {
 			// Dies sorgt für High-Speed bei gerader Strecke, und feinen, problemlosen Kurven
 			Motor.setSpeed(fmax(					//
 			MID_MOTOR_SPEED - (MID_MOTOR_SPEED - MIN_MOTOR_SPEED) * fabs(LSensor.lineOffset)/127,
-			MAX_MOTOR_SPEED - (MAX_MOTOR_SPEED - MIN_MOTOR_SPEED) * fabs(LSensor.lineOffset)/LINE_CENTERED_CUTOFF));
-			
+			MAX_MOTOR_SPEED - (MAX_MOTOR_SPEED - MID_MOTOR_SPEED) * fabs(LSensor.lineOffset)/LINE_CENTERED_CUTOFF));
+
 			// Rotationsgeschwindigkeit proportional abhängig von der Auslenkung der Linie
 			Motor.setRotationSpeed(-((float)LSensor.lineOffset) * MAX_ROTATION_SPEED / 127);
 		}
@@ -58,5 +58,3 @@ void simpleLF() {
 
 }
 }
-
-

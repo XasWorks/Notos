@@ -26,11 +26,11 @@ void driveOff(int8_t dir) {
 
 bool checkDir(int8_t dir) {
 
-	Motor.rotateBy((dir < 0) ? 60 : -60);
+	Motor.rotateBy((dir < 0) ? SCAN_ANGLE : -SCAN_ANGLE);
 	Motor.flush();
 	uint16_t adcValue = ADC_Lib::measure(PINx_GREEN_SENSOR);
-	bool status = adcValue > 80;
-	Motor.rotateBy((dir > 0) ? 60 : -60);
+	bool status = adcValue > GREEN_THRESHOLD;
+	Motor.rotateBy((dir > 0) ? SCAN_ANGLE : -SCAN_ANGLE);
 	Motor.flush();
 
 	return status;
