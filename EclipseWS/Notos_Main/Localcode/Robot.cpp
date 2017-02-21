@@ -23,7 +23,7 @@ X2::Movable Motor = X2::Movable(ISR_CAL_FREQ);
 
 Communication::RGBStatus Led = Communication::RGBStatus(&PORTx_RGB, PIN_RGB_R, PIN_RGB_G, PIN_RGB_B);
 
-LF::ASens2 LSensor = LF::ASens2(PIN_LF_SENSOR_START);
+LF::ASens2 LSensor = LF::ASens2(PIN_ALF_SENSORS, &PINx_ELF_SENSORS, PIN_ELF_SENSORS);
 
 Voltage::Battery Battery = Voltage::Battery(PIN_BATTERY, 15.682, SAFE_VOLTAGE, 12.9);
 
