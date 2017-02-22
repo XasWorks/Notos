@@ -67,7 +67,7 @@ void avoidObject() {
 	Motor.rotateBy(-90);
 	Motor.flush();
 
-	Motor.moveBy(280);
+	Motor.moveBy(300);
 	Motor.flush();
 
 	Motor.rotateBy(-90);
@@ -76,7 +76,7 @@ void avoidObject() {
 	Motor.setRotationSpeed(0);
 	Motor.setSpeed(100);
 	Motor.continuousMode();
-	while(LSensor.lineStatus != LF::Status::OK) {}
+	while(LSensor.lineStatus == LF::Status::LOST) {}
 
 	Motor.setRotationSpeed(100);
 	Motor.moveBy(50);
