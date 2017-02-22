@@ -11,20 +11,19 @@
 #include "../Robot.h"
 #include "../../main.h"
 
-#define MAX_MOTOR_SPEED 	400
-#define MID_MOTOR_SPEED		250
-#define MIN_MOTOR_SPEED		150
+#define MAX_MOTOR_SPEED 	200
+#define MID_MOTOR_SPEED		200
+#define MIN_MOTOR_SPEED		50
 
-#define MAX_ROTATION_SPEED 	230
+#define MAX_ROTATION_SPEED 	250
 
-#define LINE_CENTERED_CUTOFF 	20
+#define LINE_CENTERED_CUTOFF 	25
 
 
 namespace State {
 namespace LineFollow {
 
 void simpleLF();
-void avoidObject();
 
 }
 }
