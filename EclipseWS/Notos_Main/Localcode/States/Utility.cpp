@@ -22,12 +22,13 @@ void sensitiveSituation() {
 	Motor.setRotationSpeed(0);
 	Motor.setSpeed(SLOW_MOTOR_SPEED);
 	while(Sensor::Tilting::isTilted()) {
-		_delay_ms(10);
+		_delay_ms(1);
+		if(!Sensor::Tilting::isTilted()) {
+			Motor.moveBy(50);
+			Motor.flush();
+			Motor.continuousMode();
+		}
 	}
-
-	Motor.moveBy(60);
-	Motor.flush();
-	Motor.continuousMode();
 }
 
 void buttonPause() {
@@ -42,7 +43,7 @@ void buttonPause() {
 	while(!getButton()) {
 		_delay_ms(100);
 	}
-	_delay_ms(1000);
+	_delay_ms(400);
 
 	setMotors(true);
 }
