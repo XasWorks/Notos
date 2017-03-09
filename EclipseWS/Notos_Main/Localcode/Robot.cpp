@@ -107,7 +107,7 @@ InitStatus init() {
 
 	if(Battery.getVoltage() > SAFE_VOLTAGE) {
 		Led.setModes(0b100100100100, 0b010010010010, 0b001001001001);
-		for(uint8_t i = 6; i != 0; i--) {
+		for(uint8_t i = 4; i != 0; i--) {
 			_delay_ms(450);
 			if(getButton()) {
 				return InitStatus::startButton;

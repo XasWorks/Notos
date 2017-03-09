@@ -13,8 +13,8 @@
 namespace Sensor {
 namespace Tilting {
 
-#define TRIGGER_PLUS 500
-#define TRIGGER_MINUS 350
+#define TRIGGER_PLUS  490 	// Close-Up trigger end
+#define TRIGGER_MINUS 320	// Far-Away trigger end
 
 #define CONSECUTIVE_TRIGGERS 4
 
