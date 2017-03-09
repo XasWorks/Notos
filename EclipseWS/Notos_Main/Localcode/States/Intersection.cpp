@@ -40,8 +40,8 @@ bool checkDir(int8_t dir) {
 }
 
 void runIntsec() {
-	Motor.setSpeed(100);
-	Motor.setRotationSpeed(90);
+	Motor.setSpeed(70);
+	Motor.setRotationSpeed(50);
 
 	Led.setModes(Pattern::flash, Pattern::flash << 1, 0);
 
@@ -51,7 +51,7 @@ void runIntsec() {
 
 	tDir = LSensor.lineOffset;
 
-	Motor.moveBy(19);
+	Motor.moveBy(25);
 	while(!Motor.isReady()) {
 		Robot::waitForSensors();
 		if(LSensor.lineStatus == LF::Status::INTSEC && LSensor.lineOffset == 0)
