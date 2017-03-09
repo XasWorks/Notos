@@ -10,7 +10,9 @@
 
 #include "../Robot.h"
 
-#define SLOW_MOTOR_SPEED 200
+#define SLOW_MOTOR_SPEED 100
+
+#define AVOID_TURN_DIR -1
 
 namespace State {
 namespace Utility {

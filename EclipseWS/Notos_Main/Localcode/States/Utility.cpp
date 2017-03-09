@@ -60,17 +60,17 @@ void avoidObject() {
 
 	Motor.moveBy(-50);
 	Motor.flush();
-	Motor.rotateBy(90);
+	Motor.rotateBy(90 * AVOID_TURN_DIR);
 	Motor.flush();
 	Motor.moveBy(150);
 	Motor.flush();
-	Motor.rotateBy(-90);
+	Motor.rotateBy(-90 * AVOID_TURN_DIR);
 	Motor.flush();
 
-	Motor.moveBy(300);
+	Motor.moveBy(320);
 	Motor.flush();
 
-	Motor.rotateBy(-90);
+	Motor.rotateBy(-90 * AVOID_TURN_DIR);
 	Motor.flush();
 
 	Motor.setRotationSpeed(0);
@@ -81,7 +81,7 @@ void avoidObject() {
 	Motor.setRotationSpeed(100);
 	Motor.moveBy(50);
 	Motor.flush();
-	Motor.rotateBy(110);
+	Motor.rotateBy(110 * AVOID_TURN_DIR);
 	Motor.flush();
 
 	Motor.continuousMode();
