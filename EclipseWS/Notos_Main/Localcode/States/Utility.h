@@ -12,7 +12,7 @@
 
 #define SLOW_MOTOR_SPEED 100
 
-#define AVOID_TURN_DIR -1
+#define AVOID_TURN_DIR 1
 
 namespace State {
 namespace Utility {

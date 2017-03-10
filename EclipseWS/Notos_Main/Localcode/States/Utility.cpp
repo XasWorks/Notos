@@ -13,6 +13,19 @@ namespace Utility {
 using namespace Robot;
 using Communication::Pattern;
 
+bool checkForLine(int8_t dir) {
+	Motor.rotateBy(70 * dir);
+	while(!Motor.isReady()) {
+		if(LSensor.lineStatus != LF::Status::LOST)
+			return true;
+	}
+
+	Motor.rotateBy(-70 * dir);
+	Motor.flush();
+	return false;
+
+}
+
 void sensitiveSituation() {
 	if(!Sensor::Tilting::isTilted())
 		return;
@@ -29,6 +42,16 @@ void sensitiveSituation() {
 			Motor.continuousMode();
 		}
 	}
+
+	Motor.setRotationSpeed(90);
+
+	if(LSensor.lineStatus != LF::Status::LOST)
+		return;
+	else if(checkForLine(1)) {}
+	else
+		checkForLine(-1);
+
+	Motor.continuousMode();
 }
 
 void buttonPause() {
