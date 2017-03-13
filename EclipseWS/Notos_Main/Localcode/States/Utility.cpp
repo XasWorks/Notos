@@ -13,6 +13,19 @@ namespace Utility {
 using namespace Robot;
 using Communication::Pattern;
 
+bool checkForLine(int8_t dir) {
+	Motor.rotateBy(70 * dir);
+	while(!Motor.isReady()) {
+		if(LSensor.lineStatus != LF::Status::LOST)
+			return true;
+	}
+
+	Motor.rotateBy(-70 * dir);
+	Motor.flush();
+	return false;
+
+}
+
 void sensitiveSituation() {
 	if(!Sensor::Tilting::isTilted())
 		return;
@@ -22,11 +35,22 @@ void sensitiveSituation() {
 	Motor.setRotationSpeed(0);
 	Motor.setSpeed(SLOW_MOTOR_SPEED);
 	while(Sensor::Tilting::isTilted()) {
-		_delay_ms(10);
+		_delay_ms(1);
+		if(!Sensor::Tilting::isTilted()) {
+			Motor.moveBy(50);
+			Motor.flush();
+			Motor.continuousMode();
+		}
 	}
 
-	Motor.moveBy(60);
-	Motor.flush();
+	Motor.setRotationSpeed(90);
+
+	if(LSensor.lineStatus != LF::Status::LOST)
+		return;
+	else if(checkForLine(1)) {}
+	else
+		checkForLine(-1);
+
 	Motor.continuousMode();
 }
 
@@ -42,7 +66,7 @@ void buttonPause() {
 	while(!getButton()) {
 		_delay_ms(100);
 	}
-	_delay_ms(1000);
+	_delay_ms(400);
 
 	setMotors(true);
 }
@@ -58,30 +82,26 @@ void avoidObject() {
 	Motor.setSpeed(120);
 	Motor.setRotationSpeed(70);
 
-	Motor.moveBy(-50);
+	Motor.moveBy(-20);
 	Motor.flush();
-	Motor.rotateBy(90);
-	Motor.flush();
-	Motor.moveBy(150);
-	Motor.flush();
-	Motor.rotateBy(-90);
+	Motor.rotateBy(90 * AVOID_TURN_DIR);
 	Motor.flush();
 
-	Motor.moveBy(280);
-	Motor.flush();
 
-	Motor.rotateBy(-90);
-	Motor.flush();
-
-	Motor.setRotationSpeed(0);
-	Motor.setSpeed(100);
+	Motor.setSpeed(CIRCLE_MOV_SPEED);
+	Motor.setRotationSpeed(CIRCLE_DEG_SPEED * -AVOID_TURN_DIR);
 	Motor.continuousMode();
-	while(LSensor.lineStatus != LF::Status::OK) {}
 
-	Motor.setRotationSpeed(100);
+	while(LSensor.lineStatus == LF::Status::LOST) {
+		_delay_ms(20);
+	}
+
+	Motor.setSpeed(120);
+	Motor.setRotationSpeed(70);
+
 	Motor.moveBy(50);
 	Motor.flush();
-	Motor.rotateBy(110);
+	Motor.rotateBy(90 * AVOID_TURN_DIR);
 	Motor.flush();
 
 	Motor.continuousMode();

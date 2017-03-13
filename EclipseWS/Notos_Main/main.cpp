@@ -31,11 +31,7 @@ int main() {
 
 	switch(init()) {
 	case powerupButton:
-		Led.setModes(0, 0, Pattern::slowblink);
-		while(true) {}
-	break;
-
-	case noButton:
+	case startButton:
 	case noVoltage:
 		stateFunction = &State::USB::simpleDebug;
 	break;
@@ -45,7 +41,7 @@ int main() {
 		while(true) {}
 	break;
 
-	case startButton:
+	case noButton:
 		setMotors(true);
 		stateFunction = &State::LineFollow::simpleLF;
 		break;

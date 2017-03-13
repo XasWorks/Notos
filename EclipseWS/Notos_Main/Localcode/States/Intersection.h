@@ -12,7 +12,7 @@
 
 #define GREEN_THRESHOLD 80
 
-#define SCAN_ANGLE		60
+#define SCAN_ANGLE		55
 
 namespace State  {
 namespace Intsec {

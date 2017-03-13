@@ -41,7 +41,7 @@ void simpleLF() {
 			if(LSensor.lineOffset < LINE_CENTERED_CUTOFF && LSensor.lineOffset > -LINE_CENTERED_CUTOFF) {
 				Led.setModes(0, 0, Pattern::blink);
 				Motor.setRotationSpeed(0);
-				Motor.setSpeed(MIN_MOTOR_SPEED);
+				Motor.setSpeed(MID_MOTOR_SPEED);
 			}
 			else {
 				Led.setModes(Pattern::on, 0, 0);

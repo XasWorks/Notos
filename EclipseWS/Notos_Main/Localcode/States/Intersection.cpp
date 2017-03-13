@@ -17,7 +17,10 @@ using Communication::Pattern;
 int8_t tDir;
 
 void driveOff(int8_t dir) {
-	Motor.moveBy(34);
+	Motor.setSpeed(120);
+	Motor.setRotationSpeed(100);
+
+	Motor.moveBy(27);
 	Motor.flush();
 
 	Motor.rotateBy((dir < 0) ? 90 : -90);
@@ -37,18 +40,18 @@ bool checkDir(int8_t dir) {
 }
 
 void runIntsec() {
-	Motor.setSpeed(100);
-	Motor.setRotationSpeed(90);
+	Motor.setSpeed(70);
+	Motor.setRotationSpeed(50);
 
 	Led.setModes(Pattern::flash, Pattern::flash << 1, 0);
 
-	Motor.moveBy(1.5);
+	Motor.moveBy(1);
 	Motor.flush();
 	_delay_ms(100);
 
 	tDir = LSensor.lineOffset;
 
-	Motor.moveBy(20);
+	Motor.moveBy(23.5);
 	while(!Motor.isReady()) {
 		Robot::waitForSensors();
 		if(LSensor.lineStatus == LF::Status::INTSEC && LSensor.lineOffset == 0)
@@ -73,6 +76,8 @@ void runIntsec() {
 			return;
 		}
 
+	Motor.moveBy(20);
+	Motor.flush();
 
 }
 
