@@ -82,30 +82,26 @@ void avoidObject() {
 	Motor.setSpeed(120);
 	Motor.setRotationSpeed(70);
 
-	Motor.moveBy(-50);
+	Motor.moveBy(-20);
 	Motor.flush();
 	Motor.rotateBy(90 * AVOID_TURN_DIR);
 	Motor.flush();
-	Motor.moveBy(150);
-	Motor.flush();
-	Motor.rotateBy(-90 * AVOID_TURN_DIR);
-	Motor.flush();
 
-	Motor.moveBy(320);
-	Motor.flush();
 
-	Motor.rotateBy(-90 * AVOID_TURN_DIR);
-	Motor.flush();
-
-	Motor.setRotationSpeed(0);
-	Motor.setSpeed(100);
+	Motor.setSpeed(CIRCLE_MOV_SPEED);
+	Motor.setRotationSpeed(CIRCLE_DEG_SPEED * -AVOID_TURN_DIR);
 	Motor.continuousMode();
-	while(LSensor.lineStatus == LF::Status::LOST) {}
 
-	Motor.setRotationSpeed(100);
+	while(LSensor.lineStatus == LF::Status::LOST) {
+		_delay_ms(20);
+	}
+
+	Motor.setSpeed(120);
+	Motor.setRotationSpeed(70);
+
 	Motor.moveBy(50);
 	Motor.flush();
-	Motor.rotateBy(110 * AVOID_TURN_DIR);
+	Motor.rotateBy(90 * AVOID_TURN_DIR);
 	Motor.flush();
 
 	Motor.continuousMode();
