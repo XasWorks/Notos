@@ -16,9 +16,12 @@
 #include "../AVR/Sensors/LineFollow/LFA2Sens.h"		// LineFollow Bibliotheken
 #include "../AVR/Communication/RGBStatus/RGBStatus.h"	// LED-Lib
 #include "../AVR/Sensors/Voltage/Battery.h"			// Batterie-Überprüfung
+#include "../AVR/Communication/NEW_TWI/TWI.h"
 
 #include "Pins.h"
 #include "TiltSensor.h"
+
+#include "PeripheralsComs/LaserFinder.h"
 
 // -- Basische defines für System-Werte
 #define ISR1_FREQ 	5000 	// Frequenz des TIMER1-ISR
@@ -47,6 +50,7 @@ extern X2::Movable	Motor;
 extern LF::ASens2	LSensor;
 extern Communication::RGBStatus Led;
 extern Voltage::Battery Battery;
+extern Peripheral::LaserFinder Laser;
 
 void ISR1();
 void ISRADC();
