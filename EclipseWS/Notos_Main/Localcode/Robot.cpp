@@ -27,6 +27,8 @@ LF::ASens2 LSensor = LF::ASens2(PIN_ALF_SENSORS, &PINx_ELF_SENSORS, PIN_ELF_SENS
 
 Voltage::Battery Battery = Voltage::Battery(PIN_BATTERY, 15.682, SAFE_VOLTAGE, 12.9);
 
+Peripheral::LaserFinder Laser = Peripheral::LaserFinder();
+
 uint16_t ISR1PrescA = 1;
 uint16_t ISR1PrescB = 1;
 volatile uint8_t sensorStatus;
@@ -94,6 +96,8 @@ InitStatus init() {
 
 	// Initialisierung des ADC
 	ADC_Lib::init(ADC_PRSC_128, ADC_REF_AREF);
+
+	TWI::init();
 
 	// Initialisierung des Timer1 auf CTC (Clear Timer on Compare)-Modus. D.h. ganz normaler Timer Modus.
 	Timer1::enable_CTC(ISR1_FREQ);

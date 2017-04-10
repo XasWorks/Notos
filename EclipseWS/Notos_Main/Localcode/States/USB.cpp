@@ -14,6 +14,10 @@ using namespace Robot;
 using Communication::Pattern;
 
 void simpleDebug() {
+	Led.setModes(0, 0b11, 0);
+
+	_delay_ms(100);
+
 	if(LSensor.lineStatus != LF::Status::OK) {
 		switch(LSensor.lineStatus) {
 		case LF::Status::LOST:
@@ -36,9 +40,27 @@ void simpleDebug() {
 	if(Sensor::Tilting::isTilted())
 		Led.signal(0b1011, 0b1, 0b11, 6);
 
-	Led.setModes(0, 0b11, 0);
+	Laser.ping();
+	if(!Laser.isPresent)
+		Led.signal(0b11111, 0b111, 0b111, 5);
+	else if(Laser.hitData.hitStatus < 0)
+		Led.signal(0b111, 0b111, 0b111, 6);
+
+}
+
+void testBallSearch() {
+	Motor.setRotationSpeed(10);
+	Motor.continuousMode();
+
+	Laser.pingAndWait();
+	if(Laser.hitData.hitStatus < 0) {
+		Motor.setRotationSpeed(0);
+		Led.signal(0, 0b1010, 0b0101, 5);
+		Motor.setRotationSpeed(90);
+		Motor.rotateBy(3);
+		Motor.flush();
+	}
 }
 
 }
 }
-

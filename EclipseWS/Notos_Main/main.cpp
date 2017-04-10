@@ -25,6 +25,9 @@ ISR(ADC_vect) {
 	ISRADC();
 }
 
+ISR(TWI_vect) {
+	TWI::updateTWI();
+}
 
 // Die main-Methode des Roboters. Hier steht alles /wirklich/ wichtige drinnen, nämlich der eigentliche Programmcode.
 int main() {
@@ -43,8 +46,9 @@ int main() {
 
 	case noButton:
 		setMotors(true);
-		stateFunction = &State::LineFollow::simpleLF;
-		break;
+		//stateFunction = &State::LineFollow::simpleLF;
+		stateFunction = &State::USB::testBallSearch;
+	break;
 	}
 
 	// Dauerschleife mit Motor-Test-Programm.
