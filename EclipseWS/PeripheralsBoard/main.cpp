@@ -23,7 +23,6 @@ ISR(TWI_vect) {
 	TWI::updateTWI();
 }
 
-uint8_t sftPresc = 0;
 ISR(TIMER0_COMPA_vect) {
 	ballLaser.update();
 }
@@ -31,11 +30,6 @@ ISR(TIMER0_COMPA_vect) {
 ISR(ADC_vect) {
 	ADC_Lib::update();
 	ballLaser.ADCUpdate();
-}
-
-void waitFor(uint16_t ms) {
-	while(ms-- != 0)
-		_delay_ms(1);
 }
 
 void setServo(float pos) {
@@ -69,7 +63,6 @@ int main() {
 	sei();
 
 
-
 	while(1) {
 		if(ballLaser.hitData.hitStatus < 0)
 			PORTD |= (1<< 6);
@@ -77,5 +70,3 @@ int main() {
 			PORTD &= ~(1<< 6);
 	}
 }
-
-
