@@ -12,18 +12,15 @@
 #include "../AVR/Communication/NEW_TWI/TWI.h"
 #include "../AVR/ADC/ADC_Lib.h"
 
-#define LZR_CMD_START 0
+#include "Packets.h"
+
+#define BALL_DETECT_THRESHOLD 	10
+#define BALL_CONSEC_HITS		3
+#define BALL_ALLOWED_MISSES		-1
 
 enum LaserPhase : uint8_t {
-	PAUSED			= 0xf0,
-
-	C_BACKGROUND	= 0b10,
-	C_LASER			= 0b11,
-
-	S_BACKGROUND	= 0b00,
-	S_LASER			= 0b01,
-
-	PULLDOWN_ADJUST	= 0b100,
+	PULLDOWN_ADJUSTMENT,
+	LASER_MEASURING,
 };
 
 class BallLaser : TWI::Job {
@@ -36,21 +33,20 @@ private:
 	volatile uint16_t 	reflected 	= 0;
 	volatile int16_t 	reflectance = 0;
 
-	volatile LaserPhase phase = PULLDOWN_ADJUST;
-	volatile LaserPhase oPhase = C_BACKGROUND;
+	volatile LaserPhase phase = PULLDOWN_ADJUSTMENT;
 
+	uint8_t laserTimeout = 0;
 	uint8_t adjustValue = 0;
 
 	void setPulldown(uint8_t value);
-	uint8_t getPulldown();
 
 public:
+	LaserReadData hitData;
+
 	BallLaser(uint8_t const greyscalePin, uint8_t const laserPin, uint8_t volatile * const laserPort);
 
 	void ADCUpdate();
 	void update();
-
-	uint8_t getReflectance();
 
 	void laserOff();
 

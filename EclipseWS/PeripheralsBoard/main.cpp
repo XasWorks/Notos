@@ -71,7 +71,7 @@ int main() {
 
 
 	while(1) {
-		if(ballLaser.getReflectance() > 10)
+		if(ballLaser.hitData.hitStatus < 0)
 			PORTD |= (1<< 6);
 		else
 			PORTD &= ~(1<< 6);

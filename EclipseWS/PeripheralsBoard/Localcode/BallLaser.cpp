@@ -18,46 +18,48 @@ void BallLaser::ADCUpdate() {
 		return;
 
 	switch(phase) {
-	case S_BACKGROUND:
-	case C_BACKGROUND:
-		if((ADC_Lib::lastResult > 900) || (adjustValue == 0)) {
-			oPhase = phase;
-
-			phase = PULLDOWN_ADJUST;
-			adjustValue = 1;
-			this->setPulldown(1);
-		}
-		else {
-			this->background = ADC_Lib::lastResult;
-			phase = (LaserPhase)(phase + 1);
-			*lzrPort |= (1<< lzrPin);
-		}
-	break;
-
-	case S_LASER:
-		phase = (LaserPhase)(phase - 1);
-	case C_LASER:
-		phase = (LaserPhase)(phase - 1);
-
-		this->reflected = ADC_Lib::lastResult;
-		this->reflectance = this->reflected - this->background;
-
-		*lzrPort &= ~(1<< lzrPin);
-	break;
-
-	case PULLDOWN_ADJUST:
+	case PULLDOWN_ADJUSTMENT:
 		if(ADC_Lib::lastResult < 900) {
 			adjustValue = 255;
-			phase = oPhase;
+			phase = LASER_MEASURING;
 		}
 		else {
 			setPulldown(++adjustValue);
 
 			if(adjustValue == 7) {
 				adjustValue = 255;
-				phase = oPhase;
+				phase = LASER_MEASURING;
 			}
 		}
+	break;
+
+	case LASER_MEASURING:
+		if((laserTimeout & 0b1) == 0) {
+			this->background = ADC_Lib::lastResult;
+			*(lzrPort) |= (1<< lzrPin);
+		}
+		else {
+			this->reflectance = ADC_Lib::lastResult - this->background;
+			*(lzrPort) &= ~(1<< lzrPin);
+
+			if(this->reflectance > BALL_DETECT_THRESHOLD) {
+				if(hitData.hitStatus < 0)
+					hitData.hitStatus = BALL_ALLOWED_MISSES;
+				else {
+					hitData.hitStatus++;
+					if(hitData.hitStatus == BALL_CONSEC_HITS)
+						hitData.hitStatus = BALL_ALLOWED_MISSES;
+				}
+			}
+			else {
+				if(hitData.hitStatus < 0)
+					hitData.hitStatus++;
+				else if(hitData.hitStatus != 0)
+					hitData.hitStatus--;
+			}
+		}
+
+		laserTimeout--;
 	break;
 
 	default: break;
@@ -65,11 +67,19 @@ void BallLaser::ADCUpdate() {
 }
 
 void BallLaser::update() {
-	if(phase != PULLDOWN_ADJUST)
+	if(phase == LASER_MEASURING) {
 		if(adjustValue != 0)
 			adjustValue--;
 
-	if(phase != PAUSED)
+		if(((laserTimeout & 0b1) == 0) && (adjustValue == 0)) {
+			phase = PULLDOWN_ADJUSTMENT;
+			adjustValue = 1;
+			setPulldown(1);
+		}
+		else if(laserTimeout != 0)
+			ADC_Lib::start_measurement(greyscalePin);
+	}
+	else
 		ADC_Lib::start_measurement(greyscalePin);
 }
 
@@ -77,47 +87,25 @@ void BallLaser::setPulldown(uint8_t value) {
 	DDRB &= ~(0b111 << PB3);
 	DDRB |= ((value & 0b111) << PB3);
 }
-uint8_t BallLaser::getPulldown() {
-	return (DDRB & (0b111 << PB3)) >> PB3;
-}
-
-
-uint8_t BallLaser::getReflectance() {
-	if(reflectance < 0)
-		return 0;
-	if(reflectance > 255)
-		return 255;
-
-	return reflectance;
-}
 
 void BallLaser::laserOff() {
-	phase = PAUSED;
+	laserTimeout = 0;
 	*lzrPort &= ~(1<< lzrPin);
 }
 
 bool BallLaser::slavePrepare() {
-	if(TWI::targetReg == LZR_CMD_START) {
-		TWI::dataLength = 6;
-		TWI::dataPacket = (uint8_t *)&this->background;
+	if(TWI::targetReg == PeripheralCommand::READ_LASER) {
+		TWI::dataLength = 2;
+
+		if(this->reflectance < 0)
+			hitData.reflectance = 0;
+		else
+			hitData.reflectance = (this->reflectance & 0xff);
+
+		TWI::dataPacket = (uint8_t *)&this->hitData;
+		this->laserTimeout |= 0b11111110;
 
 		return true;
 	}
-
-	else if(TWI::targetReg == LZR_CMD_START+1) {
-		this->laserOff();
-		return true;
-	}
-	else if(TWI::targetReg == LZR_CMD_START+2) {
-		phase = C_BACKGROUND;
-		return true;
-	}
-	else if(TWI::targetReg == LZR_CMD_START+3) {
-		phase = S_BACKGROUND;
-		ADC_Lib::start_measurement(greyscalePin);
-
-		return true;
-	}
-
 	return false;
 }
