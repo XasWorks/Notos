@@ -10,6 +10,7 @@
 
 enum PeripheralCommand : uint8_t {
 	READ_LASER,
+	SET_THRESHOLD,
 };
 
 struct LaserReadData {
