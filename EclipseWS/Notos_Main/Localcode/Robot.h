@@ -30,7 +30,7 @@
 #define SAFE_VOLTAGE 10.5	// Minimum für die Spannungs-Messung (in ADC-Wert)
 
 // Definitionen des Bewegungs-Systemes
-#define MICROSTEPPING 4		// Microstepping-Definition
+#define MICROSTEPPING 8		// Microstepping-Definition
 #define MOTOR_WHEEL_DIAMETER 30
 #define MOTOR_WHEEL_OUTWARDS_SHIFT (35 + 2.5 + 2 + 10)
 // #define STEPS_P_MM ((200 * MICROSTEPPING) / (M_PI * MOTOR_WHEEL_DIAMETER))
