@@ -51,17 +51,22 @@ void simpleDebug() {
 void driveUpToBall() {
 	PORTD |= (1<< 3);
 
-	Motor.setRotationSpeed(0);
-	Motor.setSpeed(50);
+	Motor.cancel();
+	Motor.setSpeeds(150, 30);
 
-	Motor.continuousMode();
+	Laser.setArmMode(RAISED_OPEN);
+
+	Motor.continuousMode(10, 0);
 	while((PIND & (1<< 3)) != 0) {
 		Laser.pingAndWait();
 		_delay_ms(50);
 	}
 
-	Motor.moveBy(-5);
-	Motor.flush();
+	Motor.setSpeeds(100, 90);
+
+	Motor.rotateF(-45);
+
+	Laser.setArmMode(LOWERED_CLOSED);
 
 	_delay_ms(1000);
 }
