@@ -101,8 +101,10 @@ bool BallLaser::slavePrepare() {
 
 		if(this->reflectance < 0)
 			hitData.reflectance = 0;
+		else if(this->reflectance > 0xff)
+			hitData.reflectance = 0xff;
 		else
-			hitData.reflectance = (this->reflectance & 0xff);
+			hitData.reflectance = this->reflectance;
 
 		TWI::dataPacket = (uint8_t *)&this->hitData;
 		this->laserTimeout |= 0b11111110;

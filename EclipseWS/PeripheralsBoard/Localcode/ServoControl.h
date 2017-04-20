@@ -24,12 +24,12 @@ private:
 	const uint8_t servoAPositions[5] = {100, 50, 0, 50, 0};
 	const uint8_t servoBPositions[5] = {100, 0, 0, 60, 60};
 
+	void setServoA(float percentage);
 	void setServoB(float percentage);
 
 	void setArmsTo(GrabbingArmModes);
 
 public:
-	void setServoA(float percentage);
 	GrabbingArmModes targetMode = RETRACTED;
 
 	ServoControl();
