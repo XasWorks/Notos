@@ -97,5 +97,5 @@ void LaserFinder::setArmMode(GrabbingArmModes mode) {
 	tasks |= (0b100);
 	TWI::checkMasterJobs();
 }
-
+  
 } /* namespace Peripheral */

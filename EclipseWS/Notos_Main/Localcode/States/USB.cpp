@@ -45,7 +45,6 @@ void simpleDebug() {
 		Led.signal(0b11111, 0b111, 0b111, 5);
 	else if(Laser.hitData.hitStatus < 0)
 		Led.signal(0b111, 0b111, 0b111, 6);
-
 }
 
 void driveUpToBall() {
