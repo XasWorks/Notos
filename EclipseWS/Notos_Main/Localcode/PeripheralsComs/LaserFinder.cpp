@@ -34,6 +34,16 @@ bool LaserFinder::masterPrepare() {
 		return true;
 	}
 
+	if((tasks & 0b100) != 0) {
+		TWI::targetAddr = 0x10 << 1;
+
+		TWI::dataLength = 1;
+		TWI::dataPacket = (uint8_t *)&armMode;
+		TWI::targetReg = PeripheralCommand::SET_ARM_MODE;
+
+		return true;
+	}
+
 	return false;
 }
 
@@ -47,6 +57,10 @@ bool LaserFinder::masterEnd() {
 
 	case SET_THRESHOLD:
 	 	tasks &= ~(0b10);
+	break;
+
+	case SET_ARM_MODE:
+		tasks &= ~(0b100);
 	break;
 	default: break;
 	}
@@ -76,6 +90,11 @@ void LaserFinder::pingAndWait() {
 void LaserFinder::setThreshold(uint8_t newThreshold) {
 	this->threshold = newThreshold;
 	tasks |= (0b10);
+	TWI::checkMasterJobs();
+}
+void LaserFinder::setArmMode(GrabbingArmModes mode) {
+	this->armMode = mode;
+	tasks |= (0b100);
 	TWI::checkMasterJobs();
 }
 
