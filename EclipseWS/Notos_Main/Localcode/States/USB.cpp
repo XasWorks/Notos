@@ -45,20 +45,48 @@ void simpleDebug() {
 		Led.signal(0b11111, 0b111, 0b111, 5);
 	else if(Laser.hitData.hitStatus < 0)
 		Led.signal(0b111, 0b111, 0b111, 6);
-
 }
 
-void testBallSearch() {
-	Motor.setRotationSpeed(10);
-	Motor.continuousMode();
+void driveUpToBall() {
+	PORTD |= (1<< 3);
 
-	Laser.pingAndWait();
-	if(Laser.hitData.hitStatus < 0) {
-		Motor.setRotationSpeed(0);
-		Led.signal(0, 0b1010, 0b0101, 5);
-		Motor.setRotationSpeed(90);
-		Motor.rotateBy(3);
-		Motor.flush();
+	Motor.cancel();
+	Motor.setSpeeds(150, 30);
+
+	Laser.setArmMode(RAISED_OPEN);
+
+	Motor.continuousMode(10, 0);
+	while((PIND & (1<< 3)) != 0) {
+		Laser.pingAndWait();
+		_delay_ms(50);
+	}
+
+	Motor.setSpeeds(100, 90);
+
+	Motor.rotateF(-45);
+
+	Laser.setArmMode(LOWERED_CLOSED);
+
+	_delay_ms(1000);
+}
+
+int8_t si = 1;
+void testBallSearch() {
+	Motor.setRotationSpeed(3);
+
+	Motor.rotateBy(45 * si);
+	si = -si;
+
+	while(!Motor.isReady()) {
+		Laser.pingAndWait();
+		if(Laser.hitData.hitStatus < 0) {
+			driveUpToBall();
+
+
+			Motor.setRotationSpeed(90);
+			Motor.rotateBy(3);
+			Motor.flush();
+		}
 	}
 }
 

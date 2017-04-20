@@ -42,7 +42,7 @@ void BallLaser::ADCUpdate() {
 			this->reflectance = ADC_Lib::lastResult - this->background;
 			*(lzrPort) &= ~(1<< lzrPin);
 
-			if(this->reflectance > BALL_DETECT_THRESHOLD) {
+			if(this->reflectance >= this->detectThreshold) {
 				if(hitData.hitStatus < 0)
 					hitData.hitStatus = BALL_ALLOWED_MISSES;
 				else {
@@ -94,18 +94,31 @@ void BallLaser::laserOff() {
 }
 
 bool BallLaser::slavePrepare() {
-	if(TWI::targetReg == PeripheralCommand::READ_LASER) {
+	switch((PeripheralCommand)TWI::targetReg) {
+
+	case PeripheralCommand::READ_LASER:
 		TWI::dataLength = 2;
 
 		if(this->reflectance < 0)
 			hitData.reflectance = 0;
+		else if(this->reflectance > 0xff)
+			hitData.reflectance = 0xff;
 		else
-			hitData.reflectance = (this->reflectance & 0xff);
+			hitData.reflectance = this->reflectance;
 
 		TWI::dataPacket = (uint8_t *)&this->hitData;
 		this->laserTimeout |= 0b11111110;
 
 		return true;
+
+	case PeripheralCommand::SET_THRESHOLD:
+		TWI::dataLength = 1;
+		TWI::dataPacket= (uint8_t *)&this->detectThreshold;
+
+		return true;
+
+
+	default:
+		return false;
 	}
-	return false;
 }

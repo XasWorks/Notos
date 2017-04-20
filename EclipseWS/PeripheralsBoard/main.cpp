@@ -12,12 +12,14 @@
 #include "AVR/Communication/NEW_TWI/TWI.h"
 
 #include "Localcode/BallLaser.h"
+#include "Localcode/ServoControl.h"
 
 #include <avr/interrupt.h>
 
 #include <util/delay.h>
 
 BallLaser ballLaser(0, 0, &PORTB);
+ServoControl servos = ServoControl();
 
 ISR(TWI_vect) {
 	TWI::updateTWI();
@@ -25,6 +27,7 @@ ISR(TWI_vect) {
 
 ISR(TIMER0_COMPA_vect) {
 	ballLaser.update();
+	servos.update();
 }
 
 ISR(ADC_vect) {
@@ -32,21 +35,9 @@ ISR(ADC_vect) {
 	ballLaser.ADCUpdate();
 }
 
-void setServo(float pos) {
-	if(pos < 0)
-		pos = 0;
-	if(pos > 180)
-		pos = 180;
-	OCR1A = 1500 + 3500 * (pos/180);
-}
-
 int main() {
 	DDRB |= (1<< PB0 | 1<< PB1);
 	DDRD |= (0b11 << PD6);
-
-	Timer1::set_mode(TIMER1_MODE_FPWM);
-	ICR1 = 40000 -1;
-	Timer1::set_prescaler(TIMER1_PRESC_8);
 
 	Timer0::set_mode(TIMER0_MODE_CTC);
 	Timer0::set_OCR0A(156 -1);					// With 1024 prescaler, roughly 100Hz
@@ -57,16 +48,8 @@ int main() {
 
 	ADC_Lib::init(ADC_PRSC_128, ADC_REF_AREF);
 
-	setServo(90);
-	_delay_ms(1000);
-
 	sei();
 
-
 	while(1) {
-		if(ballLaser.hitData.hitStatus < 0)
-			PORTD |= (1<< 6);
-		else
-			PORTD &= ~(1<< 6);
 	}
 }

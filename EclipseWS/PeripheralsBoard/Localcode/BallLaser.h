@@ -14,9 +14,8 @@
 
 #include "Packets.h"
 
-#define BALL_DETECT_THRESHOLD 	10
-#define BALL_CONSEC_HITS		3
-#define BALL_ALLOWED_MISSES		-1
+#define BALL_CONSEC_HITS			1
+#define BALL_ALLOWED_MISSES		-10
 
 enum LaserPhase : uint8_t {
 	PULLDOWN_ADJUSTMENT,
@@ -32,6 +31,8 @@ private:
 	volatile uint16_t 	background 	= 0;
 	volatile uint16_t 	reflected 	= 0;
 	volatile int16_t 	reflectance = 0;
+
+	volatile uint8_t 	detectThreshold = 20;
 
 	volatile LaserPhase phase = PULLDOWN_ADJUSTMENT;
 

@@ -17,6 +17,8 @@ namespace Peripheral {
 class LaserFinder: public TWI::Job {
 private:
 	volatile uint8_t tasks = 0;
+	uint8_t threshold = 20;
+	GrabbingArmModes armMode = RETRACTED;
 
 public:
 	volatile bool isPresent = false;
@@ -34,6 +36,8 @@ public:
 	void ping();
 	void pingAndWait();
 
+	void setThreshold(uint8_t newThreshold);
+	void setArmMode(GrabbingArmModes mode);
 };
 
 } /* namespace Peripheral */
