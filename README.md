@@ -1,4 +1,5 @@
 <img align="right" src="Logo.png"/>
+
 # Notos 
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/01772fe49d4c452887582b17bea2e4c0)](https://www.codacy.com/app/Xasin/Notos?utm_source=github.com&utm_medium=referral&utm_content=XasWorks/Notos&utm_campaign=badger)
