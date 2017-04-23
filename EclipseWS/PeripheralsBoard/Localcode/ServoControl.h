@@ -22,7 +22,7 @@ private:
 	GrabbingArmModes currentMode = RETRACTED;
 
 	const uint8_t servoAPositions[5] = {100, 50, 0, 50, 0};
-	const uint8_t servoBPositions[5] = {100, 0, 0, 60, 60};
+	const uint8_t servoBPositions[5] = {100, 45, 45, 80, 100};
 
 	void setServoA(float percentage);
 	void setServoB(float percentage);
@@ -30,7 +30,7 @@ private:
 	void setArmsTo(GrabbingArmModes);
 
 public:
-	GrabbingArmModes targetMode = RETRACTED;
+	GrabbingArmModes targetMode = RAISED_CLOSED;
 
 	ServoControl();
 

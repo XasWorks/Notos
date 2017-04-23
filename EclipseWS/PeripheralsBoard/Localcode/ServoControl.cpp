@@ -26,14 +26,14 @@ bool ServoControl::slavePrepare() {
 }
 
 void ServoControl::setServoA(float percentage) {
-	OCR1A = 1650 + 3100 * (percentage/100);
+	OCR1A = 1650 + 3000 * (percentage/100);
 }
 void ServoControl::setServoB(float percentage) {
-	OCR1B = 1750 + 3112 * (percentage/100);
+	OCR1B = 1750 + 3100 * (percentage/100);
 }
 
 void ServoControl::setArmsTo(GrabbingArmModes mode) {
-	moveDelay = 70;
+	moveDelay = 20;
 	this->currentMode = mode;
 
 	this->setServoA(servoAPositions[(uint8_t)mode]);
@@ -48,6 +48,8 @@ void ServoControl::update() {
 			this->setArmsTo(RAISED_OPEN);
 		else if((currentMode == LOWERED_OPEN) && (targetMode == RAISED_CLOSED))
 			this->setArmsTo(LOWERED_CLOSED);
+		else if((currentMode == RAISED_OPEN) && (targetMode == RAISED_CLOSED))
+			this->setArmsTo(LOWERED_OPEN);
 		else
 			this->setArmsTo(targetMode);
 	}
