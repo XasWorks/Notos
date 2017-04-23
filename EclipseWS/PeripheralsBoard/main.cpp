@@ -36,7 +36,7 @@ ISR(ADC_vect) {
 }
 
 int main() {
-	DDRB |= (1<< PB0 | 1<< PB1);
+	DDRB |= (1<< PB0 | 1<< PB1 | 1<< PB2);
 	DDRD |= (0b11 << PD6);
 
 	Timer0::set_mode(TIMER0_MODE_CTC);
@@ -49,6 +49,9 @@ int main() {
 	ADC_Lib::init(ADC_PRSC_128, ADC_REF_AREF);
 
 	sei();
+
+	_delay_ms(1000);
+	servos.targetMode = RETRACTED;
 
 	while(1) {
 	}
