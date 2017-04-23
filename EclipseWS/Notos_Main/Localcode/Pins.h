@@ -31,12 +31,15 @@
 #define PIN_STEPPER1_D	2
 #define PIN_STEPPER_E	3
 
-#define PINx_BUMPER 	PIND
-#define PORTx_BUMPER 	PORTD
+#define PORTx_DINPUTS	PORTD
+#define PINx_DINPUTS	PIND
+
 #define PIN_BUMPER 		2
+#define PIN_CONDUCTOR	4
+#define PIN_BALLBOOP	3
+
 
 #define PINx_TILT_SENSOR 3
-
 #define PINx_GREEN_SENSOR	2
 
 #endif /* LOCALCODE_PINS_H_ */
