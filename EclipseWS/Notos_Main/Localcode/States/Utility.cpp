@@ -35,10 +35,22 @@ void sensitiveSituation() {
 	Motor.setRotationSpeed(0);
 	Motor.setSpeed(SLOW_MOTOR_SPEED);
 	while(Sensor::Tilting::isTilted()) {
+
+		if(getGroundConductive()) {
+			stateFunction = &Ball::ballSearch;
+			return;
+		}
+
 		_delay_ms(1);
 		if(!Sensor::Tilting::isTilted()) {
 			Motor.moveBy(50);
-			Motor.flush();
+			while(!Motor.atPosition()) {
+				if(getGroundConductive()) {
+					Motor.cancel();
+					stateFunction = &Ball::ballSearch;
+					return;
+				}
+			}
 			Motor.continuousMode();
 		}
 	}

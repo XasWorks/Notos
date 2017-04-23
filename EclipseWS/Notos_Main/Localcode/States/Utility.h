@@ -8,7 +8,10 @@
 #ifndef LOCALCODE_STATES_UTILITY_H_
 #define LOCALCODE_STATES_UTILITY_H_
 
+#include "../../main.h"
 #include "../Robot.h"
+
+#include "BallCapture.h"
 
 #define SLOW_MOTOR_SPEED 100
 
