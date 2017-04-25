@@ -33,7 +33,7 @@ void ServoControl::setServoB(float percentage) {
 }
 
 void ServoControl::setArmsTo(GrabbingArmModes mode) {
-	moveDelay = 20;
+	moveDelay = 30;
 	this->currentMode = mode;
 
 	this->setServoA(servoAPositions[(uint8_t)mode]);

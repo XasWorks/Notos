@@ -50,7 +50,7 @@ int main() {
 
 	sei();
 
-	_delay_ms(1000);
+	_delay_ms(2000);
 	servos.targetMode = RETRACTED;
 
 	while(1) {
