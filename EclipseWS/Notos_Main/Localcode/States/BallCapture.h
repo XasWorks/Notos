@@ -11,11 +11,14 @@
 #include "../../main.h"
 #include <math.h>
 
-#define COURSE_SIZE_X (1200 - 20)
-#define COURSE_SIZE_Y (900  - 20)
+#define FRONT_TO_CENTER 10
+
+#define CORNER_INSET		300
+#define COURSE_SIZE_X 	(1200 - 2*FRONT_TO_CENTER)
+#define COURSE_SIZE_Y 	(900  - 2*FRONT_TO_CENTER)
 
 #define START_X	-150
-#define START_Y -450
+#define START_Y	-450
 
 namespace State {
 namespace Ball {
