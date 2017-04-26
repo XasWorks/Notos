@@ -11,10 +11,10 @@
 #include "../../main.h"
 #include <math.h>
 
-#define COURSE_SIZE_X 1200
-#define COURSE_SIZE_Y 900
+#define COURSE_SIZE_X (1200 - 20)
+#define COURSE_SIZE_Y (900  - 20)
 
-#define START_X	-600
+#define START_X	-150
 #define START_Y -450
 
 namespace State {

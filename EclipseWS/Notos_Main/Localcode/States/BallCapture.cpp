@@ -60,14 +60,14 @@ bool snatchBall() {
 Coords getCornerPosition(uint8_t c) {
 	switch(c) {
 	case 0:
-		return {COURSE_SIZE_X/2 - 150, COURSE_SIZE_Y/2 - 150};
+		return {COURSE_SIZE_X/2 - 300, COURSE_SIZE_Y/2 - 300};
 	case 1:
-		return {COURSE_SIZE_X/2 - 150, -COURSE_SIZE_Y/2 + 150};
+		return {COURSE_SIZE_X/2 - 300, -COURSE_SIZE_Y/2 + 300};
 	case 2:
-		return {-COURSE_SIZE_X/2 + 150, -COURSE_SIZE_Y/2 + 150};
+		return {-COURSE_SIZE_X/2 + 300, -COURSE_SIZE_Y/2 + 300};
 	default:
 	case 3:
-		return {-COURSE_SIZE_X/2 + 150, COURSE_SIZE_Y/2 -150};
+		return {-COURSE_SIZE_X/2 + 300, COURSE_SIZE_Y/2 -300};
 	}
 }
 
@@ -186,9 +186,14 @@ bool searchForBalls() {
 
 void depositBall() {
 	moveToPosition(getCornerPosition(cornerNum));
+
+	float toDoRotation = 45 + 90*cornerNum - Motor.movedRotation;
+	Motor.rotateF(toDoRotation);
+
 	Laser.setArmMode(RAISED_OPEN);
 	_delay_ms(300);
 
+	Motor.rotateF(-toDoRotation);
 	Motor.moveF(-Motor.movedDistance);
 	assumedPosition = {0, 0};
 }
@@ -201,7 +206,7 @@ void ballSearch() {
 
 	assumedPosition = {START_X, START_Y};
 
-	getBlackCorner();
+	//getBlackCorner();
 
 	moveToPosition({0, 0});
 
