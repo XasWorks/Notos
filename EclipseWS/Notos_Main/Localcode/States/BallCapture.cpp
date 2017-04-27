@@ -32,14 +32,18 @@ Coords getCornerPosition(uint8_t c) {
 
 void rotateTowards(float direction) {
 	Motor.setRotationSpeed(90);
-	direction = direction;
 
-	float posTravel = (direction - Motor.movedRotation)%360;
+	float posTravel = fmod((direction - Motor.movedRotation), 360);
+	if(posTravel < 0)
+		posTravel += 360;
+
 	if(posTravel < 180) {
 		Motor.rotateF(posTravel);
 	}
 	else
 		Motor.rotateF(posTravel-360);
+
+	Motor.movedRotation = direction;
 }
 
 
@@ -57,6 +61,7 @@ void alignWithWall(uint8_t n) {
 	Motor.setSpeeds(100, 90);
 
 	rotateTowards(n*90);
+	Laser.setArmMode(RETRACTED);
 
 	Motor.continuousMode(100, 0);
 
@@ -64,9 +69,9 @@ void alignWithWall(uint8_t n) {
 	Motor.cancel();
 
 	Motor.setSpeeds(100, 90);
-	Motor.moveF(20);
+	Motor.moveF(50);
 
-	switch(n) {
+	switch(n%4) {
 	case 0:
 		assumedPosition.y = COURSE_SIZE_Y/2;
 	break;
@@ -86,22 +91,39 @@ void alignWithWall(uint8_t n) {
 	}
 }
 
-
-bool checkBlackCorner(uint8_t n) {
-	// Initial wall-contact
+void alignAndReturn(uint8_t n) {
 	alignWithWall(n);
 
-	// 90° rotation, then attempt to drive into the edge
-	Motor.setSpeeds(150, 90);
-	Motor.moveF(-150);
-	Motor.rotateF(90);
+	switch(n%2) {
+	case 0:
+		Motor.moveF(-COURSE_SIZE_Y/2);
+		assumedPosition.y = 0;
+	break;
 
-	Motor.continuousMode(40, 0);
+	case 1:
+		Motor.moveF(-COURSE_SIZE_X/2);
+		assumedPosition.x = 0;
+	break;
+	}
+
+	Motor.movedDistance = 0;
+}
+
+bool checkBlackCorner(uint8_t n) {
+	moveToPosition(getCornerPosition(n));
+	rotateTowards(45 + 90*n);
+
+	Motor.moveBy(100);
 	while(1) {
-		if(getBumper())
-			return false;
-		if(getBallBoop())
+		if(getBumper()) {
+			Motor.flush();
+			Motor.moveF(-CORNER_BUMP_LENGTH);
 			return true;
+		}
+		if(Motor.isReady()) {
+			Motor.moveF(-50);
+			return false;
+		}
 	}
 }
 
@@ -163,6 +185,8 @@ bool snatchBall() {
 }
 
 float lastRotation = 0;
+uint8_t checkWall = 0;
+uint8_t lastBallWall = 0;
 bool searchForBalls() {
 	Motor.setSpeeds(0, 80);
 	rotateTowards(lastRotation);
@@ -176,23 +200,41 @@ bool searchForBalls() {
 			hasBall = snatchBall();
 			Motor.continuousMode(0, 5);
 		}
+
+		if(Motor.movedRotation > (checkWall * 90 + 10)) {
+			if(checkWall >= lastBallWall + 4)
+				return false;
+			alignAndReturn(checkWall++);
+			Motor.continuousMode(0, 5);
+		}
 	}
 
+	lastBallWall = checkWall;
 	lastRotation = Motor.movedRotation - 10;
 	return true;
 }
 
 void depositBall() {
 	moveToPosition(getCornerPosition(cornerNum));
-
+	float formerMovement = Motor.movedDistance;
 	float formerRotation = Motor.movedRotation;
+
 	rotateTowards(45 + 90*cornerNum);
+	Motor.continuousMode(100, 0);
+
+	while(!getBumper()) {}
+
+	Motor.cancel();
 
 	Laser.setArmMode(RAISED_OPEN);
 	_delay_ms(300);
 
+	Motor.moveF(-CORNER_BUMP_LENGTH);
+
 	rotateTowards(formerRotation);
-	Motor.moveF(-Motor.movedDistance);
+	Motor.moveF(-formerMovement);
+
+	Motor.movedDistance = 0;
 	assumedPosition = {0, 0};
 }
 
@@ -204,12 +246,17 @@ void ballSearch() {
 
 	assumedPosition = {START_X, START_Y};
 
-	//getBlackCorner();
-
 	moveToPosition({0, 0});
 
+	getBlackCorner();
+
+	moveToPosition({0, 0});
+	rotateTowards(0);
+	Motor.movedDistance = 0;
+
 	while(1) {
-		searchForBalls();
+		if(!searchForBalls())
+			break;
 		depositBall();
 	}
 
