@@ -46,6 +46,8 @@ public:
 
 	BallLaser(uint8_t const greyscalePin, uint8_t const laserPin, uint8_t volatile * const laserPort);
 
+	bool nextLaserOff();
+
 	void ADCUpdate();
 	void update();
 

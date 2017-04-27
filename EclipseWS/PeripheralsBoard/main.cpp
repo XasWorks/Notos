@@ -25,9 +25,25 @@ ISR(TWI_vect) {
 	TWI::updateTWI();
 }
 
+uint8_t timer0_presc_A = 0;
 ISR(TIMER0_COMPA_vect) {
+	switch(timer0_presc_A++) {
+	default: break;
+
+	case 0:
 	ballLaser.update();
 	servos.update();
+	break;
+
+	case 1:
+	if(ballLaser.nextLaserOff())
+		ballLaser.update();
+	break;
+
+	case 4:
+	timer0_presc_A = 0;
+	break;
+	}
 }
 
 ISR(ADC_vect) {
@@ -40,8 +56,8 @@ int main() {
 	DDRD |= (0b11 << PD6);
 
 	Timer0::set_mode(TIMER0_MODE_CTC);
-	Timer0::set_OCR0A(156 -1);					// With 1024 prescaler, roughly 100Hz
-	Timer0::set_prescaler(TIMER0_PRESC_1024);
+	Timer0::set_OCR0A(250 -1);					// With 256 prescaler, exactly 250Hz
+	Timer0::set_prescaler(TIMER0_PRESC_256);
 
 	TWI::init();
 	TWI::setAddr(0x10);
