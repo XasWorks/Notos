@@ -145,6 +145,24 @@ void getBlackCorner() {
 
 bool snatchBall() {
 	Motor.cancel();
+	Motor.setSpeeds(100, 90);
+
+	Motor.rotateF(-3);
+	_delay_ms(200);
+	Motor.setRotationSpeed(2);
+	Motor.rotateBy(6);
+	while(1) {
+		Laser.pingAndWait();
+		if(Laser.hitData.hitStatus < 0) {
+			break;
+		}
+		if(Motor.isReady()) {
+			Motor.setRotationSpeed(90);
+			Motor.rotateF(-3);
+			return false;
+		}
+	}
+
 	Laser.setArmMode(RAISED_OPEN);
 
 	Motor.movedDistance = 0;
@@ -168,12 +186,15 @@ bool snatchBall() {
 		return false;
 	}
 	else {
+		Motor.moveF(-3);
+
 		Motor.rotateF(-35);
 
 		Motor.moveBy(-20);
 		Laser.setArmMode(LOWERED_OPEN);
 		_delay_ms(400);
 		Motor.moveBy(20);
+		_delay_ms(100);
 		Laser.setArmMode(RAISED_CLOSED);
 		_delay_ms(400);
 
@@ -201,7 +222,7 @@ bool searchForBalls() {
 			Motor.continuousMode(0, 5);
 		}
 
-		if(Motor.movedRotation > (checkWall * 90 + 10)) {
+		if(Motor.movedRotation > (checkWall * 90 + 45)) {
 			if(checkWall >= lastBallWall + 4)
 				return false;
 			alignAndReturn(checkWall++);
