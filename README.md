@@ -10,10 +10,6 @@ Public repository of the Notos robot project of the [Kolleg St. Thomas][kst] rob
 
 ----------
 
-### Autodesk Model
-
-<iframe src="https://myhub.autodesk360.com/ue2b823e7/shares/public/SH7f1edQT22b515c761ee7b6417c4a95884c?mode=embed" width="800" height="600" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  frameborder="0"></iframe>
-
 # Features
 Notos was built mainly with DIY-capability in mind. All components can be printed out with a home 3D printer of normal size, and can be easily bought or soldered at home. The total costs lay beneath 100€
 
