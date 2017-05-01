@@ -58,8 +58,6 @@ void moveToPosition(Coords position) {
 
 
 void alignWithWall(uint8_t n) {
-	Motor.setSpeeds(100, 90);
-
 	rotateTowards(n*90);
 	Laser.setArmMode(RETRACTED);
 
@@ -68,8 +66,11 @@ void alignWithWall(uint8_t n) {
 	while(!getBumper()) {}
 	Motor.cancel();
 
+
 	Motor.setSpeeds(100, 90);
-	Motor.moveF(50);
+	Motor.rotateF(-45);
+	Motor.rotateF(45);
+	Motor.moveF(70);
 
 	switch(n%4) {
 	case 0:
@@ -113,7 +114,7 @@ bool checkBlackCorner(uint8_t n) {
 	moveToPosition(getCornerPosition(n));
 	rotateTowards(45 + 90*n);
 
-	Motor.moveBy(100);
+	Motor.moveBy(200);
 	while(1) {
 		if(getBumper()) {
 			Motor.flush();
@@ -121,7 +122,7 @@ bool checkBlackCorner(uint8_t n) {
 			return true;
 		}
 		if(Motor.isReady()) {
-			Motor.moveF(-50);
+			Motor.moveF(-200);
 			return false;
 		}
 	}
@@ -212,7 +213,7 @@ bool searchForBalls() {
 	Motor.setSpeeds(0, 80);
 	rotateTowards(lastRotation);
 
-	Motor.continuousMode(0, 5);
+	Motor.continuousMode(0, 3);
 
 	bool hasBall = false;
 	while(!hasBall) {
@@ -246,6 +247,7 @@ void depositBall() {
 	while(!getBumper()) {}
 
 	Motor.cancel();
+	Motor.moveF(50);
 
 	Laser.setArmMode(RAISED_OPEN);
 	_delay_ms(300);
@@ -268,6 +270,8 @@ void ballSearch() {
 	assumedPosition = {START_X, START_Y};
 
 	moveToPosition({0, 0});
+	alignAndReturn(0);
+	alignAndReturn(1);
 
 	getBlackCorner();
 
