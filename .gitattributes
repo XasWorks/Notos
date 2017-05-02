@@ -1,0 +1,3 @@
+*.fcstd -diff
+.project -diff
+.cproject -diff
