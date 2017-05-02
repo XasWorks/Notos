@@ -11,11 +11,17 @@
 #include "../../main.h"
 #include <math.h>
 
-#define COURSE_SIZE_X (1200 - 20)
-#define COURSE_SIZE_Y (900  - 20)
+#define FRONT_TO_CENTER 100
+
+#define CORNER_INSET				200	//Distance of the corner position from the course walls
+#define CORNER_BUMP_LENGTH 	30		//The distance you have to move backwards to be roughly at the corner position, after bumping against the corner itself
+#define CORNER_CHECK_LENGTH	150 	// How much should the robot drive forwards before "calling it off"
+
+#define COURSE_SIZE_X 	(1200 - 2*FRONT_TO_CENTER)
+#define COURSE_SIZE_Y 	(900  - 2*FRONT_TO_CENTER)
 
 #define START_X	-150
-#define START_Y -450
+#define START_Y	-450
 
 namespace State {
 namespace Ball {

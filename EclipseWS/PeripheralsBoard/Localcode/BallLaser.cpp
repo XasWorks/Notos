@@ -83,6 +83,10 @@ void BallLaser::update() {
 		ADC_Lib::start_measurement(greyscalePin);
 }
 
+bool BallLaser::nextLaserOff() {
+	return (laserTimeout & 0b1);
+}
+
 void BallLaser::setPulldown(uint8_t value) {
 	DDRB &= ~(0b111 << PB3);
 	DDRB |= ((value & 0b111) << PB3);
