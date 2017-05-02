@@ -47,8 +47,8 @@ int main() {
 
 	case startButton:
 		setMotors(true);
-		//stateFunction = &State::LineFollow::simpleLF;
-		stateFunction = &State::Ball::ballSearch;
+		stateFunction = &State::LineFollow::simpleLF;
+		//stateFunction = &State::Ball::ballSearch;
 	break;
 	}
 
