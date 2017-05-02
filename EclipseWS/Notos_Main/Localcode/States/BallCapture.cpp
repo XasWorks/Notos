@@ -69,6 +69,7 @@ void alignWithWall(uint8_t n) {
 
 	Motor.setSpeeds(100, 90);
 	Motor.rotateF(-45);
+	_delay_ms(2000);
 	Motor.rotateF(45);
 	Motor.moveF(70);
 
@@ -167,8 +168,10 @@ bool snatchBall() {
 
 	Laser.setArmMode(RAISED_OPEN);
 
+	Motor.cancel();
 	Motor.movedDistance = 0;
 	Motor.setSpeeds(35, 0);
+
 	Motor.moveBy(400);
 	bool hasBall = false;
 	while(1) {
@@ -179,6 +182,7 @@ bool snatchBall() {
 		if(Motor.isReady())
 			break;
 	}
+
 	Motor.cancel();
 	Motor.setSpeeds(150, 90);
 
