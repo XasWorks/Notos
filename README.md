@@ -10,7 +10,7 @@ Public repository of the Notos robot project of the [Kolleg St. Thomas][kst] rob
 
 [![Autodesk Render][a360render]](http://a360.co/2o4hNXv)
 
-[a360render]:https://raas-render-prod.s3.amazonaws.com/4X94RSB8UWMK/032a44cb-500d-4c63-8523-b9808dced95d/gallery.0.jpg?AWSAccessKeyId=AKIAITZA7W7GF2PHDUIA&Expires=1493482261&response-cache-control=public%2C%20max-age%3D86400&response-expires=Sat%2C%2029%20Apr%202017%2016%3A11%3A01%20GMT&Signature=a5WDxJ9cIiIUDjMGTwVzO8Sr1yc%3D
+[a360render]:Render.jpg
 
 ----------
 
