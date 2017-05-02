@@ -114,15 +114,16 @@ bool checkBlackCorner(uint8_t n) {
 	moveToPosition(getCornerPosition(n));
 	rotateTowards(45 + 90*n);
 
-	Motor.moveBy(200);
+	Motor.moveBy(CORNER_CHECK_LENGTH);
+
 	while(1) {
 		if(getBumper()) {
-			Motor.flush();
-			Motor.moveF(-CORNER_BUMP_LENGTH);
+			Motor.cancel();
+			Motor.moveF(-CORNER_BUMP_LENGTH + 70);
 			return true;
 		}
 		if(Motor.isReady()) {
-			Motor.moveF(-200);
+			Motor.moveF(-CORNER_CHECK_LENGTH);
 			return false;
 		}
 	}
@@ -247,10 +248,8 @@ void depositBall() {
 	while(!getBumper()) {}
 
 	Motor.cancel();
-	Motor.moveF(50);
-
 	Laser.setArmMode(RAISED_OPEN);
-	_delay_ms(300);
+	Motor.moveF(50);
 
 	Motor.moveF(-CORNER_BUMP_LENGTH);
 
@@ -276,7 +275,8 @@ void ballSearch() {
 	getBlackCorner();
 
 	moveToPosition({0, 0});
-	rotateTowards(0);
+	alignAndReturn(1);
+	alignAndReturn(0);
 	Motor.movedDistance = 0;
 
 	while(1) {
