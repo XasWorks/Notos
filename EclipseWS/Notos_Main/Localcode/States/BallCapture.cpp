@@ -68,10 +68,11 @@ void alignWithWall(uint8_t n) {
 
 
 	Motor.setSpeeds(100, 90);
-	Motor.rotateF(-45);
+	Motor.moveF(-20);
+	Motor.rotateF(-70);
 	_delay_ms(2000);
-	Motor.rotateF(45);
-	Motor.moveF(70);
+	Motor.rotateF(70);
+	Motor.moveF(WALL_ALIGNMENT_DISTANCE + 20);
 
 	switch(n%4) {
 	case 0:
@@ -95,6 +96,9 @@ void alignWithWall(uint8_t n) {
 
 void alignAndReturn(uint8_t n) {
 	alignWithWall(n);
+
+	if(n%4 == 2)
+		return;
 
 	switch(n%2) {
 	case 0:
@@ -120,7 +124,8 @@ bool checkBlackCorner(uint8_t n) {
 	while(1) {
 		if(getBumper()) {
 			Motor.cancel();
-			Motor.moveF(-CORNER_BUMP_LENGTH + 70);
+			Motor.moveF(70);
+			Motor.moveF(-CORNER_BUMP_LENGTH);
 			return true;
 		}
 		if(Motor.isReady()) {
@@ -134,11 +139,13 @@ uint8_t cornerNum = 0;
 void getBlackCorner() {
 	Laser.setArmMode(RETRACTED);
 
-	while(cornerNum != 4) {
+	while(cornerNum != 2) {
 		if(checkBlackCorner(cornerNum))
 			break;
 		cornerNum++;
 	}
+	if(cornerNum == 2)
+		cornerNum = 3;
 
 	Motor.cancel();
 	Motor.setSpeeds(100, 90);
@@ -157,6 +164,8 @@ bool snatchBall() {
 	while(1) {
 		Laser.pingAndWait();
 		if(Laser.hitData.hitStatus < 0) {
+			Motor.setRotationSpeed(90);
+			Motor.rotateF(-0.1);
 			break;
 		}
 		if(Motor.isReady()) {
@@ -215,24 +224,23 @@ float lastRotation = 0;
 uint8_t checkWall = 0;
 uint8_t lastBallWall = 0;
 bool searchForBalls() {
-	Motor.setSpeeds(0, 80);
 	rotateTowards(lastRotation);
 
-	Motor.continuousMode(0, 3);
+	Motor.continuousMode(0, BALL_SEARCH_SPEED);
 
 	bool hasBall = false;
 	while(!hasBall) {
 		Laser.pingAndWait();
 		if(Laser.hitData.hitStatus < 0) {
 			hasBall = snatchBall();
-			Motor.continuousMode(0, 5);
+			Motor.continuousMode(0, BALL_SEARCH_SPEED);
 		}
 
 		if(Motor.movedRotation > (checkWall * 90 + 45)) {
 			if(checkWall >= lastBallWall + 4)
 				return false;
 			alignAndReturn(checkWall++);
-			Motor.continuousMode(0, 5);
+			Motor.continuousMode(0, BALL_SEARCH_SPEED);
 		}
 	}
 
@@ -253,7 +261,7 @@ void depositBall() {
 
 	Motor.cancel();
 	Laser.setArmMode(RAISED_OPEN);
-	Motor.moveF(50);
+	Motor.moveF(WALL_ALIGNMENT_DISTANCE);
 
 	Motor.moveF(-CORNER_BUMP_LENGTH);
 
