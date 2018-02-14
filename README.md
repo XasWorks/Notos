@@ -8,6 +8,10 @@ Public repository of the Notos robot project of the [Kolleg St. Thomas][kst] rob
 
 [kst]:http://www.kolleg-st-thomas.de
 
+[![Autodesk Render][a360render]](http://a360.co/2o4hNXv)
+
+[a360render]:Render.jpg
+
 ----------
 
 # Features
@@ -32,7 +36,9 @@ To overcome the problems that the old robot Zephyr had, a lot of the elements ha
 
 As of now the development still continues, as only over time differet features, flaws, and ideas come apparent.
 
-## Prerequisites
+---
+
+# Prerequisites
 - Using the OpenSCAD models here requires having the [XasCode Library][XasCode] next to this (the Notos) repository, as the Tagging.scad function is used.
 	Later on the AVR libraries of that repository will also be used, so it is recommended to clone it completely!
 - To properly work with the AVR Code, it is recommended to install the [AVR-Plugin for eclipse][avrplug] (for C and C++ eclipse versions)
