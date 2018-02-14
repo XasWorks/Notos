@@ -8,6 +8,7 @@
 #include "LineFollow.h"
 #include "Utility.h"
 #include "Intersection.h"
+#include "BallCapture.h"
 
 
 namespace State {
@@ -23,6 +24,11 @@ void simpleLF() {
 		waitForSensors();
 
 		Utility::pack();
+
+		if(getGroundConductive()) {
+			stateFunction = &Ball::ballSearch;
+			return;
+		}
 
 		// Normales Line-Following
 		if(LSensor.lineStatus == LF::Status::OK) {

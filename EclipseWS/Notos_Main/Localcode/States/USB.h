@@ -14,7 +14,6 @@ namespace State {
 namespace USB {
 
 void simpleDebug();
-void testBallSearch();
 
 }
 }

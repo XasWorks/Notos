@@ -8,6 +8,7 @@
 #include "main.h"
 #include "Localcode/States/USB.h"
 #include "Localcode/States/LineFollow.h"
+#include "Localcode/States/BallCapture.h"
 
 using namespace Robot;
 using Communication::Pattern;
@@ -34,8 +35,8 @@ int main() {
 
 	switch(init()) {
 	case powerupButton:
-	case startButton:
 	case noVoltage:
+	case noButton:
 		stateFunction = &State::USB::simpleDebug;
 	break;
 
@@ -44,10 +45,10 @@ int main() {
 		while(true) {}
 	break;
 
-	case noButton:
+	case startButton:
 		setMotors(true);
-		//stateFunction = &State::LineFollow::simpleLF;
-		stateFunction = &State::USB::testBallSearch;
+		stateFunction = &State::LineFollow::simpleLF;
+		//stateFunction = &State::Ball::ballSearch;
 	break;
 	}
 

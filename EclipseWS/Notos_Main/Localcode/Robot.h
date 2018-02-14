@@ -63,6 +63,8 @@ InitStatus init();
 
 bool getBumper();
 bool getButton();
+bool getGroundConductive();
+bool getBallBoop();
 
 }
 

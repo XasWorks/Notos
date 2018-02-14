@@ -80,11 +80,18 @@ void setMotors(bool state) {
 
 
 bool getBumper() {
-	return (PINx_BUMPER & (1<< PIN_BUMPER)) == 0;
+	return (PINx_DINPUTS & (1<< PIN_BUMPER)) == 0;
 }
 bool getButton() {
 	return (PINx_BUTTON & (1<< PIN_BUTTON)) == 0;
 }
+bool getGroundConductive() {
+	return (PINx_DINPUTS & (1<< PIN_CONDUCTOR)) == 0;
+}
+bool getBallBoop() {
+	return (PINx_DINPUTS & (1<< PIN_BALLBOOP)) == 0;
+}
+
 
 InitStatus init() {
 	// Initialisierung der Hardware-Pins (ähnlich des "pinMode" des Arduino)
@@ -92,7 +99,8 @@ InitStatus init() {
 	PORTx_BUTTON |= (1<< PIN_BUTTON);
 	PORTx_STEPPERS |= (1<< PIN_STEPPER_E);
 	DDRx_STEPPERS |= (1<< PIN_STEPPER_E);
-	PORTx_BUMPER |= (1<< PIN_BUMPER);
+
+	PORTx_DINPUTS |= (1<< PIN_BUMPER | 1<< PIN_BALLBOOP | 1<< PIN_CONDUCTOR);
 
 	// Initialisierung des ADC
 	ADC_Lib::init(ADC_PRSC_128, ADC_REF_AREF);
@@ -111,7 +119,7 @@ InitStatus init() {
 
 	if(Battery.getVoltage() > SAFE_VOLTAGE) {
 		Led.setModes(0b100100100100, 0b010010010010, 0b001001001001);
-		for(uint8_t i = 4; i != 0; i--) {
+		for(uint8_t i = 10; i != 0; i--) {
 			_delay_ms(450);
 			if(getButton()) {
 				return InitStatus::startButton;
